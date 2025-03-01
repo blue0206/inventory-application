@@ -22,7 +22,14 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node dist/index.js",
+    "dev-watch": "nodemon dist/index.js",
+    "tsc": "tsc",
+    "clean": "rimraf ./dist",
+    "clean-ts": "rimraf ./dist/types ./dist/interfaces",
+    "copy-assets": "node tools/copyAssets.js",
+    "build": "npm-run-all clean tsc copy-assets clean-ts",
+    "start": "npm-run-all build dev"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
