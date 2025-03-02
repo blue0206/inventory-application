@@ -1,0 +1,15 @@
+{
+  "name": "inventory-application",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev:s": "npm run dev-watch -w backend",
+    "dev:c": "npm run dev -w frontend",
+    "build:s": "npm run build -w backend",
+    "build:c": "npm run build -w frontend"
+  }
+}
