@@ -1,8 +1,5 @@
 {
   "files": [],
-  "compilerOptions": {
-    "experimentalDecorators": true
-  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
