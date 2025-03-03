@@ -7,3 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Trainer {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  pokemon Pokemon[]
+}
+
+model Pokemon {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  trainers Trainer[]
+  types    Type[]
+}
+
+model Type {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  pokemon Pokemon[]
+}
