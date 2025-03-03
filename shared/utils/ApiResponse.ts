@@ -10,5 +10,3 @@ export class ApiResponse<DataType> {
         this.success = success;
     }
 }
-
-// export { ApiResponse };
