@@ -3,6 +3,8 @@ import 'dotenv/config';
 import { trainerRouter, pokemonRouter, typeRouter } from './routes';
 
 const app = express();
+// Middlewares
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/v1/trainers', trainerRouter);
