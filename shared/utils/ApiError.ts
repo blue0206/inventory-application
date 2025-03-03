@@ -48,13 +48,41 @@ export class NotFoundError extends CustomError {
     ) {
         super(message);
         this.message = message;
+        this.success = success || false;
+        
         if (errors) this.errors = errors;
         if (stack) {
             this.stack = stack;
         } else {
             Error.captureStackTrace(this, this.constructor);
         }
+    }
+
+    serializeErrors(): ApiErrorList {
+        return this.errors;
+    }
+}
+
+export class ValidationError extends CustomError {
+    statusCode: number = 422;
+    errors: ApiErrorList;
+    success: boolean;
+
+    constructor(
+        message: string = "Validation Error",
+        errors: ApiErrorList = [{ message: "Invalid Data" }],
+        stack?: string,
+        success?: boolean
+    ) {
+        super(message);
         this.success = success || false;
+
+        if (errors) this.errors = errors;
+        if (stack) {
+            this.stack = stack;
+        } else {
+            Error.captureStackTrace(this, this.constructor);
+        }
     }
 
     serializeErrors(): ApiErrorList {
