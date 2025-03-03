@@ -14,5 +14,6 @@
   "module": "module",
   "lib": [
     "es2022"
-  ]
+  ],
+  "strict": true
 }
