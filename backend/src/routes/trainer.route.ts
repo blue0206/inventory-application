@@ -1,16 +1,23 @@
 import { Router } from 'express';
+import { 
+    createTrainer, 
+    getTrainers, 
+    getTrainerById, 
+    updateTrainer, 
+    deleteTrainer 
+} from '../controllers/trainer.controller';
 
 const trainerRouter = Router();
 
 // Get all trainers.
-trainerRouter.get('/');
+trainerRouter.get('/', getTrainers);
 // Create new trainer.
-trainerRouter.post('/');
+trainerRouter.post('/', createTrainer);
 // Get trainer by id.
-trainerRouter.get('/:trainerId');
+trainerRouter.get('/:trainerId', getTrainerById);
 // Update trainer by id.
-trainerRouter.put('/:trainerId');
+trainerRouter.put('/:trainerId', updateTrainer);
 // Delete trainer by id.
-trainerRouter.delete('/:trainerId');
+trainerRouter.delete('/:trainerId', deleteTrainer);
 
 export default trainerRouter;
