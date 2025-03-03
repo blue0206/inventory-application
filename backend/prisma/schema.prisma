@@ -8,16 +8,18 @@ datasource db {
 }
 
 model Trainer {
-  id      Int       @id @default(autoincrement())
-  name    String    @unique
-  pokemon Pokemon[]
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  imageLink String
+  pokemon   Pokemon[]
 }
 
 model Pokemon {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  trainers Trainer[]
-  types    Type[]
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  imageLink String
+  trainers  Trainer[]
+  types     Type[]
 }
 
 model Type {
