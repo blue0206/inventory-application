@@ -1,6 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
-import { indexRouter, trainerRouter, pokemonRouter, typeRouter } from './routes';
+import { trainerRouter, pokemonRouter, typeRouter } from './routes';
 
 const app = express();
 
