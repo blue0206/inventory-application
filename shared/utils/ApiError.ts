@@ -35,6 +35,33 @@ export class ApiError extends CustomError {
     }
 }
 
+export class NotFoundError extends CustomError {
+    statusCode: number = 404;
+    errors: ApiErrorList = [{ message: "Not Found" }];
+    success: boolean;
+
+    constructor(
+        message: string = "Not Found",
+        errors?: ApiErrorList,
+        stack?: string,
+        success?: boolean
+    ) {
+        super(message);
+        this.message = message;
+        if (errors) this.errors = errors;
+        if (stack) {
+            this.stack = stack;
+        } else {
+            Error.captureStackTrace(this, this.constructor);
+        }
+        this.success = success || false;
+    }
+
+    serializeErrors(): ApiErrorList {
+        return this.errors;
+    }
+}
+
 type ApiErrorList = Array<{
     message: string;
     field?: string;
