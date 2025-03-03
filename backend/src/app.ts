@@ -5,10 +5,9 @@ import { indexRouter, trainerRouter, pokemonRouter, typeRouter } from './routes'
 const app = express();
 
 // Routes
-app.use('/', indexRouter);
-app.use('/trainers', trainerRouter);
-app.use('/pokemon', pokemonRouter);
-app.use('/types', typeRouter);
+app.use('/api/v1/trainers', trainerRouter);
+app.use('/api/v1/pokemon', pokemonRouter);
+app.use('/api/v1/types', typeRouter);
 
 // Server
 const PORT = process.env.port || 8000;
