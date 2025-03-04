@@ -90,6 +90,34 @@ export class ValidationError extends CustomError {
     }
 }
 
+export class BadRequestError extends CustomError {
+    statusCode: number = 400;
+    errors: ApiErrorList = [{ message: "Bad Request" }];
+    success: boolean;
+
+    constructor(
+        message: string = "Bad Request",
+        errors?: ApiErrorList,
+        stack?: string,
+        success?: boolean
+    ) {
+        super(message);
+        this.message = message;
+        this.success = success || false;
+
+        if (errors) this.errors = errors;
+        if (stack) {
+            this.stack = stack;
+        } else {
+            Error.captureStackTrace(this, this.constructor);
+        }
+    }
+
+    serializeErrors(): ApiErrorList {
+        return this.errors;
+    }
+}
+
 type ApiErrorList = Array<{
     message: string;
     field?: string;
