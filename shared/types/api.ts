@@ -2,13 +2,16 @@ import { Trainer as TrainerType, Pokemon as PokemonType, Type as TypeInModel } f
 import { prisma } from '../prisma-client/prisma';
 
 // Prisma Client Type
+// Prisma Client Type
 type Prisma = typeof prisma;
 
+// Model Types
 // Model Types
 export type Trainer = TrainerType;
 export type Pokemon = PokemonType;
 export type Type = TypeInModel;
 
+// Query Types
 // Query Types
 export type Trainers = Awaited<ReturnType<Prisma['trainer']['findMany']>>;
 
