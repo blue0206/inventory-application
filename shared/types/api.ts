@@ -1,5 +1,5 @@
 import { Trainer as TrainerType, Pokemon as PokemonType, Type as TypeInModel, PokeType as Types } from '@prisma/client';
-import { prisma } from '../prisma-client/prisma';
+import { prisma, Prisma as PrismaNamespace } from '../prisma-client/prisma';
 
 // Prisma Client Type
 type Prisma = typeof prisma;
@@ -12,6 +12,15 @@ export type PokeType = Types;
 
 // Query Types
 export type Trainers = Awaited<ReturnType<Prisma['trainer']['findMany']>>;
+export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
+    select: {
+        pokemon: {
+            select: {
+                id: true;
+            }
+        }
+    }
+}>;
 
 // Request Body Types
 export interface TrainerRequestBody {
