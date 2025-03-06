@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { 
     prisma, 
-    Trainer,
-    Trainers, 
+    Trainer, 
     TrainerPokemon, 
     TrainerRequestBody, 
     ApiResponse, 
@@ -50,7 +49,7 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
 }) 
 
 const getTrainers = asyncHandler(async (req: Request, res: Response) => {
-    const trainers: Trainers = await prisma.trainer.findMany();
+    const trainers: Trainer[] = await prisma.trainer.findMany();
 
     // Check if array is empty. If so, return a not found error.
     if (trainers.length === 0) {
@@ -58,7 +57,7 @@ const getTrainers = asyncHandler(async (req: Request, res: Response) => {
     }
     // Return the list of trainers.
     res.status(200).json(
-        new ApiResponse<Trainers>(
+        new ApiResponse<Trainer[]>(
             200, 
             trainers, 
             "Successfully retrieved all trainers.",
