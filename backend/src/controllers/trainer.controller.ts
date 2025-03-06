@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import { 
     prisma, 
     Trainer, 
+    TrainerWithRelation, 
     TrainerPokemon, 
     TrainerRequestBody, 
     ApiResponse, 
@@ -78,9 +79,12 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
         throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
     }
     // Get trainer with trainerId from database.
-    const trainer: Trainer | null = await prisma.trainer.findUnique({
+    const trainer: TrainerWithRelation | null = await prisma.trainer.findUnique({
         where: {
             id: Number(trainerId)
+        },
+        include: {
+            pokemon: true,
         }
     });
     // Check if trainer was found.
@@ -89,7 +93,7 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
     }
     // Return trainer.
     res.status(200).json(
-        new ApiResponse<Trainer>(
+        new ApiResponse<TrainerWithRelation>(
             200,
             trainer,
             `Successfully retrieved trainer ${trainer.name}.`,
