@@ -171,7 +171,35 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const deleteTrainer = asyncHandler(async (req: Request, res: Response) => {}) 
+const deleteTrainer = asyncHandler(async (req: Request, res: Response) => {
+    // Get trainer id from request params.
+    const { trainerId } = req.params;
+
+    // Check if trainerId exists.
+    if (!trainerId.trim()) {
+        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: trainerId" }]);
+    }
+    // Check if trainerId is a number.
+    if (isNaN(Number(trainerId))) {
+        throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
+    }
+
+    // Delete trainer.
+    const trainer: Trainer = await prisma.trainer.delete({
+        where: {
+            id: Number(trainerId)
+        }
+    });
+
+    res.status(204).json(
+        new ApiResponse<null>(
+            204,
+            null,
+            `Successfully deleted trainer ${trainer.name}`,
+            true
+        )
+    );
+});
 
 export {
     createTrainer,
