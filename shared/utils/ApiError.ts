@@ -118,7 +118,7 @@ export class BadRequestError extends CustomError {
     }
 }
 
-type ApiErrorList = Array<{
+export type ApiErrorList = Array<{
     message: string;
     field?: string;
 }>
