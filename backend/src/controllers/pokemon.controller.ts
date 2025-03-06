@@ -113,7 +113,68 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const updatePokemon = asyncHandler(async (req: Request, res: Response) => {}) 
+const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
+    // Get pokemon id from request params and details from request body.
+    const { pokemonId } = req.params;
+    const { pokemonName, pokemonTypes, pokemonImage }: PokemonRequestBody = req.body;
+
+    // Check if pokemon id exists.
+    if (!pokemonId.trim()) {
+        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+    }
+    // Check if pokemon id is a number.
+    if (isNaN(Number(pokemonId))) {
+        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+    }
+
+    // Initialize error message fields.
+    const errors: ApiErrorList = [];
+    // Validate pokemon name.
+    if (!pokemonName.trim()) {
+        errors.push({
+            message: "Pokemon name is required.",
+            field: "pokemonName"
+        });
+    }
+    // Validate the pokemon type array.
+    if (pokemonTypes.length < 1) {
+        errors.push({
+            message: "At least one type is required.",
+            field: "pokemonTypes"
+        });
+    } else if (pokemonTypes.length > 2) {
+        errors.push({
+            message: "Maximum two types allowed.",
+            field: "pokemonTypes"
+        });
+    }
+    // Throw an error if there are validation errors.
+    if (errors.length > 0) {
+        throw new ValidationError("Validation Error", errors);
+    }
+
+    // Update pokemon in database.
+    const pokemon: Pokemon = await prisma.pokemon.update({
+        where: {
+            id: Number(pokemonId),
+        },
+        data: {
+            name: pokemonName,
+            types: pokemonTypes,
+            imageLink: pokemonImage ? pokemonImage : null,
+        },
+    });
+
+    // Return pokemon id for redirection purpose.
+    res.status(200).json(
+        new ApiResponse<number>(
+            200,
+            pokemon.id,
+            `Successfully updated pokemon with id ${pokemonId}`,
+            true
+        )
+    );
+});
 
 const deletePokemon = asyncHandler(async (req: Request, res: Response) => {}) 
 
