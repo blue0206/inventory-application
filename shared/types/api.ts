@@ -10,6 +10,11 @@ export type Pokemon = PokemonType;
 export type PokeType = Types;
 
 // Query Types
+export type TrainerWithRelation = PrismaNamespace.TrainerGetPayload<{
+    include: {
+        pokemon: true;
+    }
+}>;
 export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
     select: {
         pokemon: {
