@@ -4,11 +4,12 @@ import {
     prisma, 
     Trainer,
     Trainers, 
+    TrainerPokemon, 
     TrainerRequestBody, 
     ApiResponse, 
     NotFoundError, 
     BadRequestError, 
-    ValidationError
+    ValidationError, 
 } from 'shared';
 
 const createTrainer = asyncHandler(async (req: Request, res: Response) => {
@@ -42,7 +43,7 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<number>(
             201, 
             trainer.id, 
-            `Successfully created trainer ${trainerName}`, 
+            `Successfully created trainer ${trainer.name}`, 
             true
         )
     );
@@ -98,7 +99,77 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const updateTrainer = asyncHandler(async (req: Request, res: Response) => {}) 
+const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
+    // Get trainer details from request body and params.
+    const { trainerId } = req.params;
+    const { trainerName, trainerImage, pokemonList }: TrainerRequestBody = req.body;
+
+    // Check if trainerId exists.
+    if (!trainerId.trim()) {
+        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: trainerId" }]);
+    }
+    // Check if trainerId is a number.
+    if (isNaN(Number(trainerId))) {
+        throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
+    }
+
+    // Check if trainer name is provided.
+    if (!trainerName.trim()) {
+        throw new ValidationError("Validation Error", [
+            { message: "Missing required trainer details.", field: "trainerName" }
+        ]);
+    }
+
+    // Disconnect all pokemon in trainer model.
+    const connectedPokemonIds: TrainerPokemon = await prisma.trainer.findUnique({
+        where: {
+            id: Number(trainerId),
+        },
+        select: {
+            pokemon: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    });
+    // Disconnect all trainer's pokemon relation.
+    await prisma.trainer.update({
+        where: {
+            id: Number(trainerId),
+        },
+        data: {
+            pokemon: {
+                disconnect: connectedPokemonIds.pokemon.map(poke => ({ id: poke.id }))
+            }
+        }
+    });
+    // Update trainer and connect to new pokemon.
+    const trainer: Trainer = await prisma.trainer.update({
+        where: {
+            id: Number(trainerId)
+        },
+        data: {
+            name: trainerName,
+            imageLink: trainerImage ? trainerImage : null,
+            pokemon: {
+                connect: pokemonList.map((pokemon: string) => ({
+                    name: pokemon
+                }))
+            },
+        },
+    });
+    
+    // Return trainer id for redirection purpose in frontend.
+    res.status(200).json(
+        new ApiResponse<number>(
+            200,
+            trainer.id,
+            `Successfully updated trainer ${trainer.name}`,
+            true
+        )
+    );
+});
 
 const deleteTrainer = asyncHandler(async (req: Request, res: Response) => {}) 
 
