@@ -4,13 +4,48 @@ import {
     prisma, 
     Trainer,
     Trainers, 
+    TrainerRequestBody, 
     ApiResponse, 
     NotFoundError, 
-    BadRequestError 
+    BadRequestError, 
+    ValidationError
 } from 'shared';
 
 const createTrainer = asyncHandler(async (req: Request, res: Response) => {
+    // Get trainer details from request body.
+    const { trainerName, trainerImage, pokemonList }: TrainerRequestBody = req.body;
 
+    // Check if trainer name is provided.
+    if (!trainerName.trim()) {
+        throw new ValidationError("Validation Error", [
+            { message: "Missing required trainer details.", field: "trainerName" }
+        ]);
+    }
+
+    // Create trainer in database.
+    const trainer: Trainer = await prisma.trainer.create({
+        data: {
+            name: trainerName,
+            imageLink: trainerImage ? trainerImage : null,
+            pokemon: {
+                connect: pokemonList.map((pokeName: string) => (
+                    {
+                        name: pokeName 
+                    }
+                ))
+            }
+        }
+    });
+    
+    // Return trainer id for redirection purpose in frontend.
+    res.status(201).json(
+        new ApiResponse<number>(
+            201, 
+            trainer.id, 
+            `Successfully created trainer ${trainerName}`, 
+            true
+        )
+    );
 }) 
 
 const getTrainers = asyncHandler(async (req: Request, res: Response) => {
