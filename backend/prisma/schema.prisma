@@ -17,15 +17,9 @@ model Trainer {
 model Pokemon {
   id        Int       @id @default(autoincrement())
   name      String    @unique
+  types     PokeType[] 
   imageLink String?
   trainers  Trainer[]
-  types     Type[]
-}
-
-model Type {
-  id      Int       @id @default(autoincrement())
-  name    PokeType    @unique
-  pokemon Pokemon[]
 }
 
 enum PokeType {
