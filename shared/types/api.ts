@@ -30,5 +30,5 @@ export interface TrainerRequestBody {
 export interface PokemonRequestBody {
     pokemonName: string;
     pokemonImage?: string;
-    pokemonTypes: PokeType | PokeType[2];
+    pokemonTypes: [PokeType, PokeType?];
 }
