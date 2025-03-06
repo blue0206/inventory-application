@@ -10,7 +10,6 @@ export type Pokemon = PokemonType;
 export type PokeType = Types;
 
 // Query Types
-export type Trainers = Awaited<ReturnType<Prisma['trainer']['findMany']>>;
 export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
     select: {
         pokemon: {
