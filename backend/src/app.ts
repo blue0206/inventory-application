@@ -1,6 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import 'dotenv/config';
-import { trainerRouter, pokemonRouter, typeRouter } from './routes';
+import { trainerRouter, pokemonRouter } from './routes';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { BadRequestError } from 'shared';
 
 const app = express();
 // Middlewares
@@ -9,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/v1/trainers', trainerRouter);
 app.use('/api/v1/pokemon', pokemonRouter);
-app.use('/api/v1/types', typeRouter);
 // TODO: Give an error with code 404 if the route doesn't exist
 app.route('/api/v1/*');
 
