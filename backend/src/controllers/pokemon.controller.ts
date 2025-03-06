@@ -176,7 +176,35 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const deletePokemon = asyncHandler(async (req: Request, res: Response) => {}) 
+const deletePokemon = asyncHandler(async (req: Request, res: Response) => {
+    // Get pokemon id from request params.
+    const { pokemonId } = req.params;
+
+    // Check if pokemon id exists.
+    if (!pokemonId.trim()) {
+        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+    }
+    // Check if pokemon id is a number.
+    if (isNaN(Number(pokemonId))) {
+        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+    }
+
+    // Delete pokemon.
+    const pokemon: Pokemon = await prisma.pokemon.delete({
+        where: {
+            id: Number(pokemonId)
+        }
+    });
+
+    res.status(204).json(
+        new ApiResponse<number>(
+            204,
+            pokemon.id,
+            `Successfully deleted pokemon with id ${pokemonId}`,
+            true
+        )
+    );
+});
 
 export {
     createPokemon,
