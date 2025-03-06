@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
-import { ApiErrorList, ApiResponse, NotFoundError, Pokemon, ValidationError } from "shared";
+import { ApiErrorList, ApiResponse, BadRequestError, NotFoundError, Pokemon, ValidationError } from "shared";
 import {
     prisma, 
     PokemonRequestBody
@@ -76,7 +76,42 @@ const getPokemon = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const getPokemonById = asyncHandler(async (req: Request, res: Response) => {}) 
+const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
+    // Get pokemon id from request params.
+    const { pokemonId } = req.params;
+
+    // Check if pokemon id exists.
+    if (!pokemonId.trim()) {
+        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+    }
+
+    // Check if pokemon id is a number.
+    if (isNaN(Number(pokemonId))) {
+        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+    }
+
+    // Get pokemon from database.
+    const pokemon: Pokemon | null = await prisma.pokemon.findUnique({
+        where: {
+            id: Number(pokemonId)
+        }
+    });
+
+    // Check if pokemon was found.
+    if (!pokemon) {
+        throw new NotFoundError("Not Found", [{ message: "Pokemon not found." }]);
+    }
+
+    // Return pokemon.
+    res.status(200).json(
+        new ApiResponse<Pokemon>(
+            200,
+            pokemon,
+            `Successfully retrieved pokemon with id ${pokemonId}.`,
+            true
+        )
+    );
+});
 
 const updatePokemon = asyncHandler(async (req: Request, res: Response) => {}) 
 
