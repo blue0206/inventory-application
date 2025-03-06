@@ -1,4 +1,4 @@
-import { Trainer as TrainerType, Pokemon as PokemonType, Type as TypeInModel, PokeType as Types } from '@prisma/client';
+import { Trainer as TrainerType, Pokemon as PokemonType, PokeType as Types } from '@prisma/client';
 import { prisma, Prisma as PrismaNamespace } from '../prisma-client/prisma';
 
 // Prisma Client Type
@@ -7,7 +7,6 @@ type Prisma = typeof prisma;
 // Model Types
 export type Trainer = TrainerType;
 export type Pokemon = PokemonType;
-export type Type = TypeInModel;
 export type PokeType = Types;
 
 // Query Types
@@ -31,8 +30,5 @@ export interface TrainerRequestBody {
 export interface PokemonRequestBody {
     pokemonName: string;
     pokemonImage?: string;
-    pokemonTypes: PokeType[];
-}
-export interface TypeRequestBody {
-    typeName: PokeType;
+    pokemonTypes: PokeType | PokeType[2];
 }
