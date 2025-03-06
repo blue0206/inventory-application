@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
-import { ApiErrorList, ApiResponse, Pokemon, ValidationError } from "shared";
+import { ApiErrorList, ApiResponse, NotFoundError, Pokemon, ValidationError } from "shared";
 import {
     prisma, 
     PokemonRequestBody
@@ -56,7 +56,25 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     );
 }); 
 
-const getPokemon = asyncHandler(async (req: Request, res: Response) => {}) 
+const getPokemon = asyncHandler(async (req: Request, res: Response) => {
+    // Get all pokemon from db.
+    const pokemon: Pokemon[] = await prisma.pokemon.findMany();
+
+    // Check if the array is empty. If so, return a not found error.
+    if (pokemon.length === 0) {
+        throw new NotFoundError("Not Found", [{ message: "No pokemon found." }]);
+    }
+
+    // Return the list of pokemon.
+    res.status(200).json(
+        new ApiResponse<Pokemon[]>(
+            200,
+            pokemon,
+            `Successfully retrieved all pokemon.`,
+            true
+        )
+    );
+});
 
 const getPokemonById = asyncHandler(async (req: Request, res: Response) => {}) 
 
