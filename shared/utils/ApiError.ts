@@ -122,3 +122,19 @@ export type ApiErrorList = Array<{
     message: string;
     field?: string;
 }>;
+
+type ApiErrorTypes = 
+    | ApiError 
+    | ValidationError
+    | NotFoundError
+    | BadRequestError
+
+// Type Guard for custom error types
+export function isCustomError(err: any): err is ApiErrorTypes {
+    return (
+        err instanceof ApiError ||
+        err instanceof ValidationError ||
+        err instanceof NotFoundError ||
+        err instanceof BadRequestError
+    )
+}
