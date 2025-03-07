@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'dotenv/config';
 import { trainerRouter, pokemonRouter } from './routes/index.js';
-import { PrismaClientKnownRequestError, PrismaClientValidationError } from '@prisma/client/runtime/library';
-import { ApiErrorList, ApiResponse, isCustomError, NotFoundError } from 'shared';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { ApiErrorList, ApiErrorResponse, isCustomError, NotFoundError } from 'shared';
 
 const app = express();
 // Middlewares
@@ -21,7 +21,7 @@ app.use("/*", (req: Request, res: Response) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (isCustomError(err)) {
         res.status(err.statusCode).json(
-            new ApiResponse<ApiErrorList>(
+            new ApiErrorResponse<ApiErrorList>(
                 err.statusCode,
                 err.serializeErrors(),
                 err.message,
@@ -31,7 +31,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     } else if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === "P2000") {
             res.status(422).json(
-                new ApiResponse<Record<string, unknown>>(
+                new ApiErrorResponse<Record<string, unknown>>(
                     422,
                     err.meta,
                     "The provided data is too long for the data type.",
@@ -40,7 +40,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             );
         } else if (err.code === "P2002") {
             res.status(409).json(
-                new ApiResponse<Record<string, unknown>>(
+                new ApiErrorResponse<Record<string, unknown>>(
                     409,
                     err.meta,
                     "The data already exists.",
@@ -49,7 +49,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             );
         } else {
             res.status(500).json(
-                new ApiResponse<Record<string, unknown>>(
+                new ApiErrorResponse<Record<string, unknown>>(
                     500,
                     err.meta,
                     err.message,
@@ -59,7 +59,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
         }
     } else {
         res.status(500).json(
-            new ApiResponse<null>(
+            new ApiErrorResponse<null>(
                 500,
                 null,
                 "Internal server error",
