@@ -190,20 +190,14 @@ const deleteTrainer = asyncHandler(async (req: Request, res: Response) => {
     }
 
     // Delete trainer.
-    const trainer: Trainer = await prisma.trainer.delete({
+    await prisma.trainer.delete({
         where: {
             id: Number(trainerId)
         }
     });
 
-    res.status(204).json(
-        new ApiResponse<null>(
-            204,
-            null,
-            `Successfully deleted trainer ${trainer.name}`,
-            true
-        )
-    );
+    // Return no content status code.
+    res.status(204).end();
 });
 
 export {
