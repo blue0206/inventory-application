@@ -10,3 +10,16 @@ export class ApiResponse<DataType> {
         this.success = success;
     }
 }
+
+export class ApiErrorResponse<DataType> {
+    statusCode: number;
+    error: DataType;
+    message: string;
+    success: boolean;
+    constructor(statusCode: number, error: DataType, message: string, success: boolean) {
+        this.statusCode = statusCode;
+        this.error = error;
+        this.message = message;
+        this.success = success;
+    }
+}
