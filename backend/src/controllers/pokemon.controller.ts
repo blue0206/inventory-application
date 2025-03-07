@@ -38,7 +38,7 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
         data: {
             name: pokemonName,
             types: pokemonTypes,
-            imageLink: pokemonImage ? pokemonImage : null,
+            imageLink: pokemonImage ? pokemonImage.trim() : null,
         }
     });
 
@@ -187,20 +187,14 @@ const deletePokemon = asyncHandler(async (req: Request, res: Response) => {
     }
 
     // Delete pokemon.
-    const pokemon: Pokemon = await prisma.pokemon.delete({
+    await prisma.pokemon.delete({
         where: {
             id: Number(pokemonId)
         }
     });
 
-    res.status(204).json(
-        new ApiResponse<number>(
-            204,
-            pokemon.id,
-            `Successfully deleted pokemon with id ${pokemonId}`,
-            true
-        )
-    );
+    // Return no content status code.
+    res.status(204);
 });
 
 export {
