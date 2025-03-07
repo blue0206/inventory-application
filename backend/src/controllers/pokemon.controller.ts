@@ -194,7 +194,7 @@ const deletePokemon = asyncHandler(async (req: Request, res: Response) => {
     });
 
     // Return no content status code.
-    res.status(204);
+    res.status(204).end();
 });
 
 export {
