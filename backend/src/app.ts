@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import 'dotenv/config';
 import { trainerRouter, pokemonRouter } from './routes/index.js';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { ApiErrorList, ApiResponse, isCustomError, NotFoundError } from 'shared';
 
 const app = express();
@@ -28,14 +28,30 @@ app.use((err: Error, req: Request, res: Response) => {
             )
         );
     } else if (err instanceof PrismaClientKnownRequestError) {
-        res.status(400).json(
+        if (err.code === "P2000") {
+            new ApiResponse<Record<string, unknown>>(
+                422,
+                err.meta,
+                "The provided data is too long for the data type.",
+                false
+            );
+        } else if (err.code === "P2002") {
             new ApiResponse<Record<string, unknown>>(
                 409,
                 err.meta,
                 "The data already exists.",
                 false
-            )
-        );
+            );
+        } else {
+            res.status(500).json(
+                new ApiResponse<Record<string, unknown>>(
+                    500,
+                    err.meta,
+                    err.message,
+                    false
+                )
+            );
+        }
     } else {
         res.status(500).json(
             new ApiResponse<null>(
