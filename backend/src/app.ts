@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import 'dotenv/config';
-import { trainerRouter, pokemonRouter } from './routes';
+import { trainerRouter, pokemonRouter } from './routes/index.js';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { BadRequestError, NotFoundError } from 'shared';
 

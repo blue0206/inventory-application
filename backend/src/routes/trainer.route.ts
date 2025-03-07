@@ -5,7 +5,7 @@ import {
     getTrainerById, 
     updateTrainer, 
     deleteTrainer 
-} from '../controllers/trainer.controller';
+} from '../controllers/trainer.controller.js';
 
 const trainerRouter = Router();
 

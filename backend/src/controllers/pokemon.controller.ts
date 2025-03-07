@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
-import { ApiErrorList, ApiResponse, BadRequestError, NotFoundError, Pokemon, ValidationError } from "shared";
-import {
-    prisma, 
-    PokemonRequestBody
-} from 'shared';
+import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
+import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError } from "shared";
 
 const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     // Get pokemon details from request body.

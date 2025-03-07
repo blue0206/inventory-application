@@ -5,7 +5,7 @@ import {
     getPokemonById,
     updatePokemon,
     deletePokemon
-} from '../controllers/pokemon.controller';
+} from '../controllers/pokemon.controller.js';
 
 const pokemonRouter = Router();
 

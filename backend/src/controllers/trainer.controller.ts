@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import { 
-    prisma, 
+import {
+    prisma,
+    ApiResponse,
+    NotFoundError,
+    BadRequestError,
+    ValidationError
+} from 'shared';
+import type {
     Trainer, 
     TrainerWithRelation, 
     TrainerPokemon, 
-    TrainerRequestBody, 
-    ApiResponse, 
-    NotFoundError, 
-    BadRequestError, 
-    ValidationError, 
+    TrainerRequestBody
 } from 'shared';
 
 const createTrainer = asyncHandler(async (req: Request, res: Response) => {

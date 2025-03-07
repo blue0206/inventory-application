@@ -1,5 +1,5 @@
-import trainerRouter from "./trainer.route";
-import pokemonRouter from "./pokemon.route";
+import trainerRouter from "./trainer.route.js";
+import pokemonRouter from "./pokemon.route.js";
 
 export {
     trainerRouter,
