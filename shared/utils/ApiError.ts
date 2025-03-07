@@ -37,12 +37,12 @@ export class ApiError extends CustomError {
 
 export class NotFoundError extends CustomError {
     statusCode: number = 404;
-    errors: ApiErrorList = [{ message: "Not Found" }];
+    errors: ApiErrorList;
     success: boolean;
 
     constructor(
         message: string = "Not Found",
-        errors?: ApiErrorList,
+        errors: ApiErrorList = [{ message: "Not Found" }],
         stack?: string,
         success?: boolean
     ) {
@@ -50,7 +50,7 @@ export class NotFoundError extends CustomError {
         this.message = message;
         this.success = success || false;
         
-        if (errors) this.errors = errors;
+        this.errors = errors;
         if (stack) {
             this.stack = stack;
         } else {
@@ -77,7 +77,7 @@ export class ValidationError extends CustomError {
         super(message);
         this.success = success || false;
 
-        if (errors) this.errors = errors;
+        this.errors = errors;
         if (stack) {
             this.stack = stack;
         } else {
@@ -91,34 +91,34 @@ export class ValidationError extends CustomError {
 }
 
 export class BadRequestError extends CustomError {
-    statusCode: number = 400;
-    errors: ApiErrorList = [{ message: "Bad Request" }];
-    success: boolean;
+  statusCode: number = 400;
+  errors: ApiErrorList;
+  success: boolean;
 
-    constructor(
-        message: string = "Bad Request",
-        errors?: ApiErrorList,
-        stack?: string,
-        success?: boolean
-    ) {
-        super(message);
-        this.message = message;
-        this.success = success || false;
+  constructor(
+    message: string = "Bad Request",
+    errors: ApiErrorList = [{ message: "Bad Request" }],
+    stack?: string,
+    success?: boolean
+  ) {
+    super(message);
+    this.message = message;
+    this.success = success || false;
 
-        if (errors) this.errors = errors;
-        if (stack) {
-            this.stack = stack;
-        } else {
-            Error.captureStackTrace(this, this.constructor);
-        }
+    this.errors = errors;
+    if (stack) {
+      this.stack = stack;
+    } else {
+      Error.captureStackTrace(this, this.constructor);
     }
+  }
 
-    serializeErrors(): ApiErrorList {
-        return this.errors;
-    }
+  serializeErrors(): ApiErrorList {
+    return this.errors;
+  }
 }
 
 export type ApiErrorList = Array<{
     message: string;
     field?: string;
-}>
+}>;
