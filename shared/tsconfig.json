@@ -2,7 +2,8 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext"
   },
   "include": [
     "**/*.ts"
@@ -11,7 +12,6 @@
     "node_modules"
   ],
   "target": "es2022",
-  "module": "module",
   "lib": [
     "es2022"
   ],
