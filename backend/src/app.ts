@@ -14,7 +14,7 @@ app.use('/api/v1/trainers', trainerRouter);
 app.use('/api/v1/pokemon', pokemonRouter);
 // Give an error with code 404 if the route doesn't exist.
 app.use("/*", (req: Request, res: Response) => {
-  throw new NotFoundError("Not Found");
+  throw new NotFoundError("Not Found", [{ message: "This route does not exist." }]);
 });
 
 // Error Middleware
