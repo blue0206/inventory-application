@@ -3,7 +3,8 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "module": "Node16"
   },
   "include": ["src/**/*"],
   "strict": true
