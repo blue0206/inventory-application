@@ -1,4 +1,5 @@
-export * from "./types/api";
-export * from "./prisma-client/prisma";
-export * from "./utils/ApiResponse";
-export * from "./utils/ApiError";
+export type { Trainer, Pokemon, PokeType, TrainerWithRelation, TrainerPokemon, TrainerRequestBody, PokemonRequestBody } from "./types/api.ts";
+export { prisma, Prisma } from "./prisma-client/prisma.js";
+export { ApiResponse } from "./utils/ApiResponse.js";
+export { ApiError, BadRequestError, NotFoundError, ValidationError } from "./utils/ApiError.js";
+export type { ApiErrorList } from "./utils/ApiError.ts"
