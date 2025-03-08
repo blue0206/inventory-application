@@ -15,13 +15,13 @@ export class ApiError extends CustomError {
         statusCode: number, 
         message: string="Something went wrong.", 
         errors: ApiErrorList=[], 
-        stack?: string, 
-        success?: boolean
+        success: boolean = false,
+        stack?: string
     ) {
         super(message);
         this.statusCode = statusCode;
         this.errors = errors;
-        this.success = success || false;
+        this.success = success;
 
         if (stack) {
             this.stack = stack;
@@ -43,12 +43,12 @@ export class NotFoundError extends CustomError {
     constructor(
         message: string = "Not Found",
         errors: ApiErrorList = [{ message: "Not Found" }],
-        stack?: string,
-        success?: boolean
+        success: boolean = false,
+        stack?: string
     ) {
         super(message);
         this.message = message;
-        this.success = success || false;
+        this.success = success;
         
         this.errors = errors;
         if (stack) {
@@ -71,11 +71,11 @@ export class ValidationError extends CustomError {
     constructor(
         message: string = "Validation Error",
         errors: ApiErrorList = [{ message: "Invalid Data" }],
-        stack?: string,
-        success?: boolean
+        success: boolean = false,
+        stack?: string
     ) {
         super(message);
-        this.success = success || false;
+        this.success = success;
 
         this.errors = errors;
         if (stack) {
@@ -98,12 +98,12 @@ export class BadRequestError extends CustomError {
   constructor(
     message: string = "Bad Request",
     errors: ApiErrorList = [{ message: "Bad Request" }],
-    stack?: string,
-    success?: boolean
+    success: boolean = false,
+    stack?: string
   ) {
     super(message);
     this.message = message;
-    this.success = success || false;
+    this.success = success;
 
     this.errors = errors;
     if (stack) {
@@ -116,6 +116,33 @@ export class BadRequestError extends CustomError {
   serializeErrors(): ApiErrorList {
     return this.errors;
   }
+}
+
+export class UnauthorizedError extends CustomError {
+    statusCode: number = 401;
+    errors: ApiErrorList;
+    success: boolean;
+
+    constructor(
+        message: string = "Unauthorized Request", 
+        errors: ApiErrorList = [{ message:"Unauthorized Request" }],
+        success: boolean = false,
+        stack?: string
+    ) {
+        super(message);
+        this.success = success;
+
+        this.errors = errors;
+        if (stack) {
+            this.stack = stack;
+        } else {
+            Error.captureStackTrace(this, this.constructor);
+        }
+    }
+
+    serializeErrors(): ApiErrorList {
+        return this.errors;
+    }
 }
 
 export type ApiErrorList = Array<{
