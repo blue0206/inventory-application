@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
 import App from './App';
-import { TrainersList, Trainer, PokemonList, Pokemon, NotFound } from './components';
+import { TrainersList, Trainer, TrainerForm, PokemonList, Pokemon, PokemonForm, NotFound } from './components';
 
 export default function AppRoutes() {
     return (
@@ -14,6 +14,8 @@ export default function AppRoutes() {
                 <Route index element={<PokemonList />} />
                 <Route path='/:pokemonId' element={<Pokemon />} />
             </Route>
+            <Route path='/trainer-form' element={<TrainerForm />} />
+            <Route path='/pokemon-form' element={<PokemonForm />} />
             <Route path='/*' element={<NotFound />} />
         </Routes>
     )
