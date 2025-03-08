@@ -6,7 +6,7 @@ import {
     updatePokemon,
     deletePokemon
 } from '../controllers/pokemon.controller.js';
-import verifyPassword from '../middlewares/auth.middleware.js';
+import verifySecretKey from '../middlewares/auth.middleware.js';
 
 const pokemonRouter = Router();
 
@@ -19,6 +19,6 @@ pokemonRouter.get('/:pokemonId', getPokemonById);
 // Update pokemon by id.
 pokemonRouter.put('/:pokemonId', updatePokemon);
 // Delete pokemon by id if secret key is valid.
-pokemonRouter.delete('/:pokemonId', verifyPassword, deletePokemon);
+pokemonRouter.delete('/:pokemonId', verifySecretKey, deletePokemon);
 
 export default pokemonRouter;

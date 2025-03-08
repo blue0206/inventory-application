@@ -6,7 +6,7 @@ import {
     updateTrainer, 
     deleteTrainer 
 } from '../controllers/trainer.controller.js';
-import verifyPassword from '../middlewares/auth.middleware.js';
+import verifySecretKey from '../middlewares/auth.middleware.js';
 
 const trainerRouter = Router();
 
@@ -19,6 +19,6 @@ trainerRouter.get('/:trainerId', getTrainerById);
 // Update trainer by id.
 trainerRouter.put('/:trainerId', updateTrainer);
 // Delete trainer by id if secret key is valid.
-trainerRouter.delete('/:trainerId', verifyPassword, deleteTrainer);
+trainerRouter.delete('/:trainerId', verifySecretKey, deleteTrainer);
 
 export default trainerRouter;
