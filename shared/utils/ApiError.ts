@@ -47,7 +47,6 @@ export class NotFoundError extends CustomError {
         stack?: string
     ) {
         super(message);
-        this.message = message;
         this.success = success;
         
         this.errors = errors;
@@ -102,7 +101,6 @@ export class BadRequestError extends CustomError {
     stack?: string
   ) {
     super(message);
-    this.message = message;
     this.success = success;
 
     this.errors = errors;
