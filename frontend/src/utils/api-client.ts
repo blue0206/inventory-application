@@ -9,6 +9,7 @@ import {
     ApiErrorResponse,
     ApiResponse
 } from "shared";
+import { CustomError } from "./custom-error";
 
 class ApiClient {
     private async fetch<DataType>(
@@ -27,19 +28,15 @@ class ApiClient {
         });
 
         if (!response.ok) {
-            throw new Error(response.statusText);
+            throw new CustomError(response.status, response.statusText);
         }
 
         const data: 
             | ApiResponse<DataType> 
-            | ApiErrorResponse<ApiErrorList | Record<string, unknown> | void> = await response.json();
+            | ApiErrorResponse<ApiErrorList | Record<string, unknown> | null> = await response.json();
 
         if ('error' in data) {
-            if (data.statusCode === 500) {
-                throw new Error("Internal Server Error");
-            } else {
-                throw new Error(data.message);
-            }
+            throw new CustomError(data.statusCode, data.message, data.error, data.success);
         }
 
         return data.data;
