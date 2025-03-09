@@ -153,6 +153,7 @@ type ApiErrorTypes =
     | ValidationError
     | NotFoundError
     | BadRequestError
+    | UnauthorizedError;
 
 // Type Guard for custom error types
 export function isCustomError(err: any): err is ApiErrorTypes {
@@ -160,6 +161,7 @@ export function isCustomError(err: any): err is ApiErrorTypes {
         err instanceof ApiError ||
         err instanceof ValidationError ||
         err instanceof NotFoundError ||
-        err instanceof BadRequestError
+        err instanceof BadRequestError ||
+        err instanceof UnauthorizedError
     )
 }
