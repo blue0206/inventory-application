@@ -49,6 +49,12 @@ class ApiClient {
             method: "GET"
         });
     }
+
+    async getTrainerById(id: number | string): Promise<Trainer> {
+        return this.fetch<Trainer>(`trainers/${id}/`, {
+            method: "GET"
+        });
+    }
 }
 
 type FetchOptions = {
