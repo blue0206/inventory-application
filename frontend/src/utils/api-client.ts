@@ -1,7 +1,8 @@
 import type { 
     TrainerRequestBody, 
     PokemonRequestBody,
-    ApiErrorList 
+    ApiErrorList, 
+    Trainer
 } from "shared";
 import {
     ApiErrorResponse,
@@ -41,6 +42,12 @@ class ApiClient {
         }
 
         return data.data;
+    }
+
+    async getTrainersList(): Promise<Trainer[]> {
+        return this.fetch<Trainer[]>('trainers/', {
+            method: "GET"
+        });
     }
 }
 
