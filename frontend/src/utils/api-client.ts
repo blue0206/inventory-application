@@ -69,6 +69,12 @@ class ApiClient {
             body: trainerData
         });
     }
+
+    async deleteTrainer(id: number | string, secretKey: string): Promise<void> {
+        this.fetch<void>(`trainers/${id}?secretKey=${secretKey}`, {
+            method: "DELETE",
+        });
+    }
 }
 
 type FetchOptions = {
