@@ -1,15 +1,15 @@
-import type { ApiErrorTypes } from 'shared';
+import type { ApiErrorList } from 'shared';
 
 export class CustomError extends Error {
     statusCode: number;
-    error: ApiErrorTypes | Record<string, unknown> | null;
+    error: ApiErrorList | Record<string, unknown> | null;
     message: string;
     success: boolean;
 
     constructor(
         statusCode: number,
         message: string,
-        error: ApiErrorTypes | Record<string, unknown> | null = null,
+        error: ApiErrorList | Record<string, unknown> | null = null,
         success: boolean = false
     ) {
         super(message);
