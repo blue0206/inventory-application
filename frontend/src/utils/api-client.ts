@@ -82,6 +82,12 @@ class ApiClient {
             method: "GET"
         });
     }
+
+    async getPokemonById(id: number | string): Promise<Pokemon> {
+        return this.fetch<Pokemon>(`pokemon/${id}/`, {
+            method: "GET"
+        });
+    }
 }
 
 type FetchOptions = {
