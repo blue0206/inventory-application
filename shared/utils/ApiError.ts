@@ -148,7 +148,7 @@ export type ApiErrorList = Array<{
     field?: string;
 }>;
 
-type ApiErrorTypes = 
+export type ApiErrorTypes = 
     | ApiError 
     | ValidationError
     | NotFoundError
