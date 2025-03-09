@@ -2,7 +2,8 @@ import type {
     TrainerRequestBody, 
     PokemonRequestBody,
     ApiErrorList, 
-    Trainer
+    Trainer,
+    Pokemon
 } from "shared";
 import {
     ApiErrorResponse,
@@ -73,6 +74,12 @@ class ApiClient {
     async deleteTrainer(id: number | string, secretKey: string): Promise<void> {
         this.fetch<void>(`trainers/${id}?secretKey=${secretKey}`, {
             method: "DELETE",
+        });
+    }
+
+    async getPokemonList(): Promise<Pokemon[]> {
+        return this.fetch<Pokemon[]>("pokemon/", {
+            method: "GET"
         });
     }
 }
