@@ -4,6 +4,7 @@ import TrainerForm from "./Trainers/TrainerForm";
 import PokemonList from "./Pokemon/PokemonList";
 import Pokemon from "./Pokemon/Pokemon";
 import PokemonForm from "./Pokemon/PokemonForm";
+import ErrorComponent from "./ErrorComponent";
 import NotFound from "./NotFound";
 
 export {
@@ -13,5 +14,6 @@ export {
     PokemonList,
     Pokemon,
     PokemonForm,
+    ErrorComponent,
     NotFound
 }
