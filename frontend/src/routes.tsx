@@ -1,6 +1,15 @@
 import { Routes, Route } from 'react-router';
 import App from './App';
-import { TrainersList, Trainer, TrainerForm, PokemonList, Pokemon, PokemonForm, NotFound } from './components';
+import { 
+    TrainersList, 
+    Trainer, 
+    TrainerForm, 
+    PokemonList, 
+    Pokemon, 
+    PokemonForm, 
+    NotFound, 
+    ErrorComponent 
+} from './components';
 
 export default function AppRoutes() {
     return (
@@ -16,7 +25,8 @@ export default function AppRoutes() {
             </Route>
             <Route path='/trainer-form' element={<TrainerForm />} />
             <Route path='/pokemon-form' element={<PokemonForm />} />
+            <Route path='/error' element={<ErrorComponent />} />
             <Route path='/*' element={<NotFound />} />
         </Routes>
-    )
+    );
 }
