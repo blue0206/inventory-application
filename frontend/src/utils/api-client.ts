@@ -65,7 +65,7 @@ class ApiClient {
 
     async updateTrainer(trainerData: TrainerRequestBody, id: number | string): Promise<number> {
         return this.fetch<number>(`trainers/${id}`, {
-            method: "POST",
+            method: "PUT",
             body: trainerData
         });
     }
