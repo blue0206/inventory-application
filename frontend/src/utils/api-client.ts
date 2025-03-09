@@ -95,6 +95,13 @@ class ApiClient {
             body: pokemonData
         });
     }
+
+    async updatePokemon(pokemonData: PokemonRequestBody, id: number | string): Promise<number> {
+        return this.fetch<number>(`pokemon/${id}/`, {
+            method: "PUT",
+            body: pokemonData
+        });
+    }
 }
 
 type FetchOptions = {
