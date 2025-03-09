@@ -72,7 +72,7 @@ class ApiClient {
     }
 
     async deleteTrainer(id: number | string, secretKey: string): Promise<void> {
-        this.fetch<void>(`trainers/${id}?secretKey=${secretKey}`, {
+        this.fetch<void>(`trainers/${id}?secretKey=${secretKey}/`, {
             method: "DELETE",
         });
     }
@@ -100,6 +100,12 @@ class ApiClient {
         return this.fetch<number>(`pokemon/${id}/`, {
             method: "PUT",
             body: pokemonData
+        });
+    }
+
+    async deletePokemon(id: number | string, secretKey: string): Promise<void> {
+        this.fetch<void>(`pokemon/${id}?secretKey=${secretKey}/`, {
+            method: "DELETE",
         });
     }
 }
