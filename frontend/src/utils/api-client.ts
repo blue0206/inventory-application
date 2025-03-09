@@ -88,6 +88,13 @@ class ApiClient {
             method: "GET"
         });
     }
+
+    async createPokemon(pokemonData: PokemonRequestBody): Promise<number> {
+        return this.fetch<number>("pokemon/", {
+            method: "POST",
+            body: pokemonData
+        });
+    }
 }
 
 type FetchOptions = {
