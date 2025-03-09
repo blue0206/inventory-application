@@ -45,7 +45,7 @@ class ApiClient {
     }
 
     async getTrainersList(): Promise<Trainer[]> {
-        return this.fetch<Trainer[]>('trainers/', {
+        return this.fetch<Trainer[]>("trainers/", {
             method: "GET"
         });
     }
@@ -53,6 +53,13 @@ class ApiClient {
     async getTrainerById(id: number | string): Promise<Trainer> {
         return this.fetch<Trainer>(`trainers/${id}/`, {
             method: "GET"
+        });
+    }
+
+    async createTrainer(trainerData: TrainerRequestBody): Promise<number> {
+        return this.fetch<number>("trainers/", {
+            method: "POST",
+            body: trainerData
         });
     }
 }
