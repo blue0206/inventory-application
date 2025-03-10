@@ -9,7 +9,7 @@ export const fetchPokemonList = createAppAsyncThunk('pokemon/fetchPokemonList', 
         return response;
         
     } catch (error) {
-        rejectWithValue(error);
+        return rejectWithValue(error);
     }
 });
 
