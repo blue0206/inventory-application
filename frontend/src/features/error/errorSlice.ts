@@ -26,11 +26,19 @@ const errorSlice = createSlice({
             state.error = action.payload.error;
             state.code = action.payload.statusCode;
             return state;
+        },
+        clearError: (state) => {
+            state.hasError = false;
+            state.error = null;
+            state.message = '';
+            state.code = 200;
+            return state;
         }
     }
 });
 
 export default errorSlice.reducer;
 export const {
-    setError
+    setError,
+    clearError
 } = errorSlice.actions;
