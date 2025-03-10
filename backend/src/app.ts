@@ -34,7 +34,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
                 new ApiErrorResponse<Record<string, unknown>>(
                     422,
                     err.meta,
-                    "The provided data is too long for the data type.",
+                    "The provided data exceeds the maximum allowed length.",
                     false
                 )
             );
