@@ -38,8 +38,13 @@ const pokemonSlice = createSlice({
         .addCase(fetchPokemonList.rejected, (state, action) => {
             state.status = 'failed';
         })
+    },
+    selectors: {
+        getPokemonList: (state: PokemonState) => state.pokemonList
     }
 });
 
 export default pokemonSlice.reducer;
-const {} = pokemonSlice.actions;
+export const {
+    getPokemonList
+} = pokemonSlice.selectors;
