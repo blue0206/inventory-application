@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Trainer } from 'shared';
 
-const initialState: Array<Trainer> = [];
+type TrainerState = {
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    trainersList: Array<Trainer>
+}
+
+const initialState: TrainerState = {
+    status: 'idle',
+    trainersList: []
+};
 
 const trainerSlice = createSlice({
     name: 'trainer',
