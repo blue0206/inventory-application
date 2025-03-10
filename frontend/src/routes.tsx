@@ -17,11 +17,11 @@ export default function AppRoutes() {
             <Route path='/' element={<App />} />
             <Route path='/trainers'>
                 <Route index element={<TrainersList />} />
-                <Route path='/:trainerId' element={<Trainer />} />
+                <Route path='/trainers/:trainerId' element={<Trainer />} />
             </Route>
             <Route path='/pokemon'>
                 <Route index element={<PokemonList />} />
-                <Route path='/:pokemonId' element={<Pokemon />} />
+                <Route path='/pokemon/:pokemonId' element={<Pokemon />} />
             </Route>
             <Route path='/trainer-form' element={<TrainerForm />} />
             <Route path='/pokemon-form' element={<PokemonForm />} />
