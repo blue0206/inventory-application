@@ -34,6 +34,9 @@ const errorSlice = createSlice({
             state.code = 200;
             return state;
         }
+    },
+    selectors: {
+        getError: (state: ErrorState) => state
     }
 });
 
@@ -42,3 +45,6 @@ export const {
     setError,
     clearError
 } = errorSlice.actions;
+export const {
+    getError
+} = errorSlice.selectors;
