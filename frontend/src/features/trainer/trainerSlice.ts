@@ -38,8 +38,13 @@ const trainerSlice = createSlice({
         .addCase(fetchTrainersList.rejected, (state, action) => {
             state.status = "failed";
         })
+    },
+    selectors: {
+        getTrainersList: (state: TrainerState) => state.trainersList
     }
 });
 
 export default trainerSlice.reducer;
-export const {} = trainerSlice.actions;
+export const {
+    getTrainersList
+} = trainerSlice.selectors;
