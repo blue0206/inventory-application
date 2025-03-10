@@ -3,7 +3,8 @@ import type {
     PokemonRequestBody,
     ApiErrorList, 
     Trainer,
-    Pokemon
+    Pokemon,
+    TrainerWithRelation
 } from "shared";
 import {
     ApiErrorResponse,
@@ -48,8 +49,8 @@ class ApiClient {
         });
     }
 
-    async getTrainerById(id: number | string): Promise<Trainer> {
-        return this.fetch<Trainer>(`trainers/${id}/`, {
+    async getTrainerById(id: number | string): Promise<TrainerWithRelation> {
+        return this.fetch<TrainerWithRelation>(`trainers/${id}/`, {
             method: "GET"
         });
     }
