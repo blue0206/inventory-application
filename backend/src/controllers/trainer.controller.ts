@@ -21,7 +21,7 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
     // Check if trainer name is provided.
     if (!trainerName.trim()) {
         throw new ValidationError("Validation Error", [
-            { message: "Missing required trainer details.", field: "trainerName" }
+            { message: "Trainer name is required.", field: "trainerName" }
         ]);
     }
 
@@ -91,7 +91,7 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
     });
     // Check if trainer was found.
     if (!trainer) {
-        throw new NotFoundError("Not Found", [{ message: "No trainers found." }]);
+        throw new NotFoundError("Not Found", [{ message: "Trainer not found." }]);
     }
     // Return trainer.
     res.status(200).json(
@@ -121,7 +121,7 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
     // Check if trainer name is provided.
     if (!trainerName.trim()) {
         throw new ValidationError("Validation Error", [
-            { message: "Missing required trainer details.", field: "trainerName" }
+            { message: "Trainer name is required.", field: "trainerName" }
         ]);
     }
 
