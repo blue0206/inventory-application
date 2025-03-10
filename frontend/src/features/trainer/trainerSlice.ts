@@ -23,9 +23,22 @@ const initialState: TrainerState = {
 };
 
 const trainerSlice = createSlice({
-    name: 'trainer',
+    name: 'trainers',
     initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+        .addCase(fetchTrainersList.pending, (state, action) => {
+            state.status = "loading";
+        })
+        .addCase(fetchTrainersList.fulfilled, (state, action) => {
+            state.status = "succeeded";
+
+        })
+        .addCase(fetchTrainersList.rejected, (state, action) => {
+            state.status = "failed";
+        })
+    }
 });
 
 export default trainerSlice.reducer;
