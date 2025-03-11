@@ -11,21 +11,32 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import RedAvatar from "../../assets/red-avatar.png";
 
-export default function TrainerCard(): ReactElement {
+type TrainerCardProps = {
+    id: string | number;
+    name: string;
+    image?: string;
+}
+
+export default function TrainerCard({
+    id,
+    name,
+    image
+}: TrainerCardProps): ReactElement {
+
     return (
         <Card>
             <CardHeader>
                 <AspectRatio ratio={16/9} className='rounded-lg'>
                     <Avatar className='w-full h-full'>
-                        <AvatarImage src={RedAvatar} />
+                        <AvatarImage src={image} />
                         <AvatarFallback>
-                            <img src={""} alt="Trainer Image" />
+                            <img src={RedAvatar} alt="Trainer Image" />
                         </AvatarFallback>
                     </Avatar>
                 </AspectRatio>
             </CardHeader>
             <CardContent>
-                <CardTitle>Name</CardTitle>
+                <CardTitle>{name}</CardTitle>
             </CardContent>
             <CardFooter>
                 <Button variant={"ghost"} className='cursor-pointer'>Update</Button>
