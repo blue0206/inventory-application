@@ -10,7 +10,7 @@ function App(): ReactElement {
     <>
       <div className='h-screen w-full'>
         <Header />
-        <div className='flex flex-col items-center justify-center h-full px-4 gap-16'>
+        <div className='flex flex-col items-center justify-center h-full px-4 gap-11 sm:gap-16'>
           <h1 className='text-7xl max-w-full sm:text-8xl'>This is Poké-Inventory.</h1>
           <div>
             <h4 className="text-md font-medium leading-none text-center">Explore</h4>
@@ -25,7 +25,7 @@ function App(): ReactElement {
               </Button>
             </div>
           </div>
-          <blockquote className='mt-6 border-l-2 pl-6 italic w-max max-w-full'>
+          <blockquote className='mt-6 border-l-2 pl-6 italic w-max max-w-full text-xl font-extralight text-foreground'>
             <div>
               There's nothing we could ever do that's a waste of time.
             </div>
