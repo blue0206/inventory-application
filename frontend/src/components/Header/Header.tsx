@@ -5,41 +5,56 @@ import {
     NavigationMenuList,
     NavigationMenuItem,
     NavigationMenuLink,
-    navigationMenuTriggerStyle 
+    navigationMenuTriggerStyle, 
 } from '../ui/navigation-menu';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "../ui/dropdown-menu";
 
 export default function Header(): ReactElement {
     return (
         <>
-            <header className="w-full flex justify-between content-center items-center bg-white p-3.5 py-5 sticky">
+            <header className="w-full flex justify-between content-center items-center bg-white p-4 py-5 sticky text-md">
                 <div>
                     <nav>
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
                                     <NavLink to={"/"}>
-                                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Home</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <NavLink to={"/trainers"}>
-                                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>Trainers</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Trainers</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <NavLink to={"/pokemon"}>
-                                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>Pokemon</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Pokemon</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
                     </nav>
                 </div>
-                <div>
-                    
-                </div>
-                <div>
-
+                <div className="pr-3.5">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="cursor-pointer">Create</DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem>
+                                <NavLink to={"/trainer-form"}>Trainer</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <NavLink to={"/pokemon-form"}>Pokemon</NavLink>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </header>
         </>
