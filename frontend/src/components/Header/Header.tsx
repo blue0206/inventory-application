@@ -18,24 +18,24 @@ import {
 export default function Header(): ReactElement {
     return (
         <>
-            <header className="w-full flex justify-between content-center items-center bg-white p-4 py-5 sticky text-md">
+            <header className="w-full flex justify-between content-center items-center border-accent border-b-2 p-4 py-5 sticky text-md">
                 <div>
                     <nav>
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
                                     <NavLink to={"/"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Home</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Home</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <NavLink to={"/trainers"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Trainers</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Trainers</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <NavLink to={"/pokemon"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md`}>Pokemon</NavigationMenuLink>
+                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Pokemon</NavigationMenuLink>
                                     </NavLink>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
