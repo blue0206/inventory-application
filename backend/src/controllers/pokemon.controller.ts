@@ -4,8 +4,10 @@ import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
 import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError } from "shared";
 
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    return await response.json();
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
+    const data = await response.json();
+    
+    return data.sprites?.front_default;
 }
 
 const createPokemon = asyncHandler(async (req: Request, res: Response) => {
