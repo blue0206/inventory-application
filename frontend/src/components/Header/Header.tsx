@@ -14,8 +14,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "../ui/dropdown-menu";
+import { navigationService } from "../../utils/navigation";
 
 export default function Header(): ReactElement {
+    const handleNavigation = (path: string) => {
+        navigationService.navigate(path);
+    }
+
     return (
         <>
             <header className="w-full flex justify-between content-center items-center border-accent border-b-2 p-4 py-5 sticky text-md">
@@ -23,20 +28,14 @@ export default function Header(): ReactElement {
                     <nav>
                         <NavigationMenu>
                             <NavigationMenuList>
-                                <NavigationMenuItem>
-                                    <NavLink to={"/"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Home</NavigationMenuLink>
-                                    </NavLink>
+                                <NavigationMenuItem>                            
+                                    <NavigationMenuLink onClick={() => handleNavigation("/")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Home</NavigationMenuLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <NavLink to={"/trainers"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Trainers</NavigationMenuLink>
-                                    </NavLink>
+                                    <NavigationMenuLink onClick={() => handleNavigation("/trainers")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Trainers</NavigationMenuLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <NavLink to={"/pokemon"}>
-                                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Pokemon</NavigationMenuLink>
-                                    </NavLink>
+                                    <NavigationMenuLink onClick={() => handleNavigation("/pokemon")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Pokemon</NavigationMenuLink>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
