@@ -3,6 +3,11 @@ import asyncHandler from 'express-async-handler';
 import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
 import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError } from "shared";
 
+const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    return await response.json();
+}
+
 const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     // Get pokemon details from request body.
     const { pokemonName, pokemonImage, pokemonTypes }: PokemonRequestBody = req.body;
@@ -33,12 +38,18 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
         throw new ValidationError("Validation Error", errors);
     }
 
+    // If pokemon image link not provided, get from api.
+    let fetchedImage = pokemonImage;
+    if (!pokemonImage) {
+        fetchedImage = await fetchPokemonImage(pokemonName);
+    }
+
     // Create a new pokemon in the database.
     const pokemon: Pokemon = await prisma.pokemon.create({
         data: {
             name: pokemonName,
             types: pokemonTypes,
-            imageLink: pokemonImage ? pokemonImage.trim() : null,
+            imageLink: fetchedImage ? fetchedImage.trim() : fetchedImage,
         }
     });
 
@@ -150,6 +161,12 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
         throw new ValidationError("Validation Error", errors);
     }
 
+    // If pokemon image link not provided, get from api.
+    let fetchedImage = pokemonImage;
+    if (!pokemonImage) {
+        fetchedImage = await fetchPokemonImage(pokemonName);
+    }
+
     // Update pokemon in database.
     const pokemon: Pokemon = await prisma.pokemon.update({
         where: {
@@ -158,7 +175,7 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
         data: {
             name: pokemonName,
             types: pokemonTypes,
-            imageLink: pokemonImage ? pokemonImage : null,
+            imageLink: fetchedImage ? fetchedImage.trim() : null,
         },
     });
 
