@@ -6,12 +6,12 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     navigationMenuTriggerStyle 
-} from './ui/navigation-menu';
+} from '../ui/navigation-menu';
 
 export default function Header(): ReactElement {
     return (
         <>
-            <header className="w-full flex justify-between bg-white h-40">
+            <header className="w-full flex justify-between content-center items-center bg-white p-3.5 py-5 sticky">
                 <div>
                     <nav>
                         <NavigationMenu>
@@ -34,6 +34,9 @@ export default function Header(): ReactElement {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </nav>
+                </div>
+                <div>
+                    
                 </div>
                 <div>
 

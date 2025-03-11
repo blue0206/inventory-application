@@ -1,3 +1,4 @@
+import Header from "./Header/Header";
 import TrainersList from "./Trainers/TrainersList";
 import Trainer from "./Trainers/Trainer";
 import TrainerForm from "./Trainers/TrainerForm";
@@ -8,6 +9,7 @@ import ErrorComponent from "./ErrorComponent";
 import NotFound from "./NotFound";
 
 export {
+    Header,
     TrainersList,
     Trainer,
     TrainerForm,
