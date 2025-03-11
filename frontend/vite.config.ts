@@ -11,4 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    exclude: ['lucide-react.js', 'radix-ui_react-navigation-menu.js']
+  }
 });
