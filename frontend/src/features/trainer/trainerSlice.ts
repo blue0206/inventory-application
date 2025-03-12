@@ -17,7 +17,12 @@ const initialState: TrainerState = {
 const trainerSlice = createSlice({
     name: 'trainer',
     initialState,
-    reducers: {},
+    reducers: {
+        resetStatus: (state) => {
+            state.status = "idle";
+            return state;
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(fetchTrainersList.pending, (state) => {
@@ -51,6 +56,7 @@ createAppAsyncThunk<Array<Trainer>>('trainer/fetchTrainers', async (_, { rejectW
 });
 
 export default trainerSlice.reducer;
+export const { resetStatus } = trainerSlice.actions;
 export const {
     getTrainersList
 } = trainerSlice.selectors;
