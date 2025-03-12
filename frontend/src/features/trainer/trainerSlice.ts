@@ -1,6 +1,6 @@
 import { apiClient } from "../../utils/api-client";
 import { createAppAsyncThunk } from "../../app/hooks";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Trainer } from 'shared';
 import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 
@@ -20,14 +20,14 @@ const trainerSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchTrainersList.pending, (state, action) => {
+        .addCase(fetchTrainersList.pending, (state) => {
             state.status = "loading";
         })
-        .addCase(fetchTrainersList.fulfilled, (state, action) => {
+        .addCase(fetchTrainersList.fulfilled, (state, action: PayloadAction<Array<Trainer>>) => {
             state.status = "succeeded";
-
+            state.trainersList = action.payload;
         })
-        .addCase(fetchTrainersList.rejected, (state, action) => {
+        .addCase(fetchTrainersList.rejected, (state) => {
             state.status = "failed";
         })
     },
