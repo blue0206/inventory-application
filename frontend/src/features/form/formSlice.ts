@@ -23,9 +23,11 @@ const initialState: FormState = {
  * middlewares and to trigger that, a request made via async thunk
  * is imperative.
  */
-export const formSlice = createSlice({
+const formSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {},
     extraReducers: (builder) => {}
 });
+
+export default formSlice.reducer;
