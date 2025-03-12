@@ -12,11 +12,18 @@ import {
 } from "shared";
 import { CustomError, FetchError } from "./custom-error";
 
+type FetchOptions = {
+    method: "GET" | "POST" | "PUT" | "DELETE";
+    body?:  TrainerRequestBody | PokemonRequestBody;
+    headers?: Record<string, string>;
+}
+
 class ApiClient {
     private async fetch<DataType>(
         endpoint: string,
         options: FetchOptions
     ): Promise<DataType> {
+        // Destructure options into individual variables and default init method.
         const { method = "GET", body, headers }: FetchOptions = options;
 
         // Wrap in try-catch to handle any unforeseen errors.
@@ -58,18 +65,21 @@ class ApiClient {
         }
     }
 
+    // Method to fetch list of trainers.
     async getTrainersList(): Promise<Trainer[]> {
         return this.fetch<Trainer[]>("trainers/", {
             method: "GET"
         });
     }
 
+    // Method to fetch a single trainer by ID.
     async getTrainerById(id: number | string): Promise<TrainerWithRelation> {
         return this.fetch<TrainerWithRelation>(`trainers/${id}/`, {
             method: "GET"
         });
     }
 
+    // Method to create a new trainer via a POST request.
     async createTrainer(trainerData: TrainerRequestBody): Promise<number> {
         return this.fetch<number>("trainers/", {
             method: "POST",
@@ -77,6 +87,7 @@ class ApiClient {
         });
     }
 
+    // Method to update an existing trainer via a PUT request.
     async updateTrainer(trainerData: TrainerRequestBody, id: number | string): Promise<number> {
         return this.fetch<number>(`trainers/${id}`, {
             method: "PUT",
@@ -84,24 +95,28 @@ class ApiClient {
         });
     }
 
+    // Method to delete an existing trainer via a DELETE request.
     async deleteTrainer(id: number | string, secretKey: string): Promise<void> {
         this.fetch<void>(`trainers/${id}?secretKey=${secretKey}/`, {
             method: "DELETE",
         });
     }
 
+    // Methods to fetch a list of pokemon.
     async getPokemonList(): Promise<Pokemon[]> {
         return this.fetch<Pokemon[]>("pokemon/", {
             method: "GET"
         });
     }
 
+    // Method to fetch a single pokemon by ID.
     async getPokemonById(id: number | string): Promise<Pokemon> {
         return this.fetch<Pokemon>(`pokemon/${id}/`, {
             method: "GET"
         });
     }
 
+    // Method to create a new pokemon via a POST request.
     async createPokemon(pokemonData: PokemonRequestBody): Promise<number> {
         return this.fetch<number>("pokemon/", {
             method: "POST",
@@ -109,6 +124,7 @@ class ApiClient {
         });
     }
 
+    // Method to update an existing pokemon via a PUT request.
     async updatePokemon(pokemonData: PokemonRequestBody, id: number | string): Promise<number> {
         return this.fetch<number>(`pokemon/${id}/`, {
             method: "PUT",
@@ -116,6 +132,7 @@ class ApiClient {
         });
     }
 
+    // Method to delete an existing pokemon via a DELETE request.
     async deletePokemon(id: number | string, secretKey: string): Promise<void> {
         this.fetch<void>(`pokemon/${id}?secretKey=${secretKey}/`, {
             method: "DELETE",
@@ -123,10 +140,5 @@ class ApiClient {
     }
 }
 
-type FetchOptions = {
-    method: "GET" | "POST" | "PUT" | "DELETE";
-    body?:  TrainerRequestBody | PokemonRequestBody;
-    headers?: Record<string, string>;
-}
-
+// Export singleton of API Client.
 export const apiClient = new ApiClient();
