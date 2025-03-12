@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { navigationService } from '../../utils/navigation';
 import {
     Card,
     CardHeader,
@@ -22,10 +23,13 @@ export default function TrainerCard({
     name,
     image
 }: TrainerCardProps): ReactElement {
+    const handleCardClick = () => {
+        navigationService.navigate(`/trainers/${id}/`);
+    }
 
     return (
-        <Card>
-            <CardHeader>
+        <Card className=' shadow-md hover:scale-105'>
+            <CardHeader className='cursor-pointer' onClick={handleCardClick}>
                 <AspectRatio ratio={1.25/1}>
                     <Avatar className='w-full h-full'>
                         <AvatarImage className='h-full w-full object-scale-down' src={image ? image : ""} />
@@ -37,10 +41,10 @@ export default function TrainerCard({
                     </Avatar>
                 </AspectRatio>
             </CardHeader>
-            <CardContent>
-                <CardTitle>{name}</CardTitle>
+            <CardContent className='cursor-pointer' onClick={handleCardClick}>
+                <CardTitle className='text-center text-lg'>{name}</CardTitle>
             </CardContent>
-            <CardFooter>
+            <CardFooter className='flex flex-row gap-5 justify-center items-center'>
                 <Button variant={"ghost"} className='cursor-pointer'>Update</Button>
                 <Button variant={"destructive"} className='cursor-pointer'>Delete</Button>
             </CardFooter>
