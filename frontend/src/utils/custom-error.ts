@@ -34,7 +34,7 @@ export class FetchError extends Error {
     }
 }
 
-type CustomDefinedErrorType = CustomError | FetchError;
+export type CustomDefinedErrorType = CustomError | FetchError;
 
 // Type Guard to check if an error is a custom error.
 // Required in async thunk.
