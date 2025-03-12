@@ -19,3 +19,17 @@ export class CustomError extends Error {
         this.success = success;
     }
 }
+
+export class FetchError extends Error {
+    message: string;
+    statusCode: undefined; // No status code for Fetch Error
+
+    constructor(
+        message: string,
+        statusCode: undefined = undefined
+    ) {
+        super(message);
+        this.message = message;
+        this.statusCode = statusCode;
+    }
+}
