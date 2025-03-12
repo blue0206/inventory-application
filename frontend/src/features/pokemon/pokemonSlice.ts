@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "../../app/hooks";
 import type { Pokemon } from 'shared';
 import { apiClient } from "../../utils/api-client";
@@ -23,8 +23,9 @@ const pokemonSlice = createSlice({
         .addCase(fetchPokemonList.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(fetchPokemonList.fulfilled, (state) => {
+        .addCase(fetchPokemonList.fulfilled, (state, action: PayloadAction<Array<Pokemon>>) => {
             state.status = 'succeeded';
+            state.pokemonList = action.payload;
         })
         .addCase(fetchPokemonList.rejected, (state) => {
             state.status = 'failed';
