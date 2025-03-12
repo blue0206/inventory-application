@@ -1,11 +1,15 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'dotenv/config';
+import cors from 'cors';
 import { trainerRouter, pokemonRouter } from './routes/index.js';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { ApiErrorList, ApiErrorResponse, isCustomError, NotFoundError } from 'shared';
 
 const app = express();
 // Middlewares
+app.use(cors({
+    origin: "http://localhost:5173"
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
