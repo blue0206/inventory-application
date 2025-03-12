@@ -2,15 +2,7 @@ import { apiClient } from "../../utils/api-client";
 import { createAppAsyncThunk } from "../../app/hooks";
 import { createSlice } from "@reduxjs/toolkit";
 import type { Trainer } from 'shared';
-
-export const fetchTrainersList = createAppAsyncThunk('trainer/fetchTrainers', async (_, { rejectWithValue }) => {
-    try {
-        const response = await apiClient.getTrainersList();
-        return response;
-    } catch (error) {
-        return rejectWithValue(error);
-    }
-});
+import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 
 type TrainerState = {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -23,7 +15,7 @@ const initialState: TrainerState = {
 };
 
 const trainerSlice = createSlice({
-    name: 'trainers',
+    name: 'trainer',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -41,6 +33,20 @@ const trainerSlice = createSlice({
     },
     selectors: {
         getTrainersList: (state: TrainerState) => state.trainersList
+    }
+});
+
+export const fetchTrainersList = 
+createAppAsyncThunk<Array<Trainer>>('trainer/fetchTrainers', async (_, { rejectWithValue }) => {
+    try {
+        const response: Array<Trainer> = await apiClient.getTrainersList();
+        return response;
+    } catch (error) {
+        // Actions shouldn't take class instances, hence destructure errors to object.
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong!")});
     }
 });
 
