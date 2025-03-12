@@ -28,7 +28,7 @@ export default function TrainersList(): ReactElement {
     return (
         <div className="flex flex-col gap-5 h-full w-full">
             <Header />
-            <div>
+            <div className="grid grid-cols-1 px-5 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {
                     trainers.length > 0 ? (
                         trainers.map(trainer => {
