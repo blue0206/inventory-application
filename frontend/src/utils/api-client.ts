@@ -53,7 +53,6 @@ class ApiClient {
                   data.error,
                   data.success
                 );
-                throw new CustomError(response.status, response.statusText);
             }
             // If everything went well, parse and return the response.
             const data: ApiResponse<DataType> = await response.json();
