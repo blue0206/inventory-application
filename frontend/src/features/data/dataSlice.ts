@@ -40,10 +40,10 @@ export type deleteParamsType = {
 }
 
 export const deleteTrainer = 
-createAppAsyncThunk('data/deleteTrainer', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<boolean, deleteParamsType>('data/deleteTrainer', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
     try {
-        const response: void = await apiClient.deleteTrainer(id, secretKey);
-        return response;
+        await apiClient.deleteTrainer(id, secretKey);
+        return true;
     } catch (error) {
         if (isCustomDefinedError(error)) {
             return rejectWithValue({...error});
@@ -53,7 +53,7 @@ createAppAsyncThunk('data/deleteTrainer', async ({ id, secretKey }: deleteParams
 });
 
 export const deletePokemon = 
-createAppAsyncThunk('data/deletePokemon', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<void, deleteParamsType>('data/deletePokemon', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
     try {
         const response: void = await apiClient.deletePokemon(id, secretKey);
         return response;
