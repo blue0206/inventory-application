@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "@/app/hooks";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
 import { apiClient } from "../../utils/api-client";
-import { TrainerWithRelation } from "shared";
+import { Pokemon, TrainerWithRelation } from "shared";
 
 type Status = "idle" | "loading" | "succeeded" | "failed";
 type DataState = {
@@ -61,6 +61,22 @@ createAppAsyncThunk<boolean, deleteParamsType>('data/deleteTrainer', async ({ id
     try {
         await apiClient.deleteTrainer(id, secretKey);
         return true;
+    } catch (error) {
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong.")});
+    }
+});
+
+export const fetchPokemon = 
+createAppAsyncThunk<
+    Pokemon, 
+    (number | string)
+>('data/fetchPokemon', async (id: number | string, { rejectWithValue }) => {
+    try {
+        const response: Pokemon = await apiClient.getPokemonById(id);
+        return response;
     } catch (error) {
         if (isCustomDefinedError(error)) {
             return rejectWithValue({...error});
