@@ -2,12 +2,12 @@ import { ReactElement, useEffect } from "react";
 import { Header } from "..";
 import TrainerCard from "./TrainerCard";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import { fetchTrainersList, getTrainersList, resetStatus } from "@/features/trainer/trainerSlice";
+import { fetchTrainersList, getTrainersList, getStatus, resetStatus } from "@/features/trainer/trainerSlice";
 
 export default function TrainersList(): ReactElement {
     const dispatch = useAppDispatch();
-    const trainers = useAppSelector(state => getTrainersList({ trainer: state.trainer }));
-    const status = useAppSelector(state => state.trainer.status);
+    const trainers = useAppSelector(getTrainersList);
+    const status = useAppSelector(getStatus);
     
     // TODO: Reset status to 'idle' when create/update route is
     // implemented to re-fetch new and updated data.
