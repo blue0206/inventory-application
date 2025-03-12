@@ -37,7 +37,8 @@ const trainerSlice = createSlice({
         })
     },
     selectors: {
-        getTrainersList: (state: TrainerState) => state.trainersList
+        getTrainersList: (state) => state.trainersList,
+        getStatus: (state) => state.status
     }
 });
 
@@ -58,5 +59,6 @@ createAppAsyncThunk<Array<Trainer>>('trainer/fetchTrainers', async (_, { rejectW
 export default trainerSlice.reducer;
 export const { resetStatus } = trainerSlice.actions;
 export const {
-    getTrainersList
+    getTrainersList,
+    getStatus
 } = trainerSlice.selectors;
