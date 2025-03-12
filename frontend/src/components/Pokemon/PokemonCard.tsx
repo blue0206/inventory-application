@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { navigationService } from '../../utils/navigation';
 import {
     Card,
@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import MissingnoAvatar from "../../assets/missingno-avatar.png";
+import { useAppDispatch } from '@/app/hooks';
+import { deletePokemon } from '@/features/data/dataSlice';
 
 type PokemonCardProps = {
     id: string | number;
@@ -33,6 +35,12 @@ export default function PokemonCard({
     name,
     image
 }: PokemonCardProps): ReactElement {
+    const dispatch = useAppDispatch();
+    const [secretKey, setSecretKey] = useState<string>("");
+
+    const handleDelete = async () => {
+        await dispatch(deletePokemon({ id, secretKey }));
+    }
     
     const handleOpen = () => {
         navigationService.navigate(`/pokemon/${id}/`);
@@ -43,7 +51,7 @@ export default function PokemonCard({
             <CardHeader>
                 <AspectRatio ratio={1.25/1}>
                     <Avatar className='w-full h-full'>
-                        <AvatarImage className='h-full w-full object-scale-down' src={image ? image : ""} />
+                        <AvatarImage className='h-full w-full object-contain' src={image ? image : ""} />
                         <AvatarFallback>
                             <Avatar className='w-full h-full'>
                                 <AvatarImage src={MissingnoAvatar} className='h-full w-full object-contain bg-background'></AvatarImage>
@@ -71,11 +79,11 @@ export default function PokemonCard({
                         </DialogHeader>
                         <div className='flex flex-col gap-0.5 mb-1'>
                             <p className='text-sm font-medium mb-1.5'>Enter secret key to proceed:</p>
-                            <Input type={'password'} />
+                            <Input type={'password'} value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
                             <div className='text-xs'>(Hint: Kazuma's sword)</div>
                         </div>
                         <DialogFooter>
-                            <Button variant={'destructive'} className='cursor-pointer'>Delete</Button>
+                            <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
