@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type Status = "idle" | "loading" | "succeeded" | "failed";
 type FormState = {
-    trainerFormStatus: 'idle' | 'loading' | 'fulfilled' | 'rejected';
-    pokemonFormStatus: 'idle' | 'loading' | 'fulfilled' | 'rejected';
+    trainerFormStatus: Status;
+    pokemonFormStatus: Status;
 }
 
 const initialState: FormState = {
@@ -28,4 +29,3 @@ export const formSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {}
 });
-
