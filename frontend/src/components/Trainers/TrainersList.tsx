@@ -1,9 +1,12 @@
 import { ReactElement, useEffect } from "react";
+import { Header } from "..";
+import TrainerCard from "./TrainerCard";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import { fetchTrainersList, resetStatus } from "@/features/trainer/trainerSlice";
+import { fetchTrainersList, getTrainersList, resetStatus } from "@/features/trainer/trainerSlice";
 
 export default function TrainersList(): ReactElement {
     const dispatch = useAppDispatch();
+    const trainers = useAppSelector(state => getTrainersList({ trainer: state.trainer }));
     const status = useAppSelector(state => state.trainer.status);
     
     // TODO: Reset status to 'idle' when create/update route is
@@ -23,6 +26,24 @@ export default function TrainersList(): ReactElement {
     }, [dispatch, status]);
 
     return (
-        <></>
+        <div className="flex flex-col gap-5 h-full w-full">
+            <Header />
+            <div>
+                {
+                    trainers.length > 0 ? (
+                        trainers.map(trainer => {
+                            return (
+                                <TrainerCard 
+                                    key={trainer.id} 
+                                    id={trainer.id} 
+                                    name={trainer.name} 
+                                    image={trainer.imageLink}
+                                />
+                            )
+                        })
+                    ) : (null)
+                }
+            </div>
+        </div>
     );
 }
