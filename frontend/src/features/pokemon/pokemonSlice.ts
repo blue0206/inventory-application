@@ -17,7 +17,12 @@ const initialState: PokemonState = {
 const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState,
-    reducers: {},
+    reducers: {
+        resetStatus: (state) => {
+            state.status = "idle";
+            return state;
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(fetchPokemonList.pending, (state) => {
@@ -52,6 +57,8 @@ createAppAsyncThunk<Array<Pokemon>>('pokemon/fetchPokemonList', async (_, { reje
 });
 
 export default pokemonSlice.reducer;
+export const { resetStatus } = pokemonSlice.actions;
 export const {
-    getPokemonList
+    getPokemonList,
+    getStatus
 } = pokemonSlice.selectors;
