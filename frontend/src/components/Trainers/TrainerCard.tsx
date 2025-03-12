@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { navigationService } from '../../utils/navigation';
 import {
     Card,
@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import RedAvatar from "../../assets/red-avatar.png";
+import { deleteTrainer } from '../../features/data/dataSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 type TrainerCardProps = {
     id: string | number;
@@ -33,7 +35,13 @@ export default function TrainerCard({
     name,
     image
 }: TrainerCardProps): ReactElement {
+    const dispatch = useAppDispatch();
+    const [secretKey, setSecretKey] = useState<string>("");
 
+    const handleDelete = async () => {
+        await dispatch(deleteTrainer({id, secretKey}));
+    }
+    
     const handleOpen = () => {
         navigationService.navigate(`/trainers/${id}/`);
     }
@@ -71,11 +79,11 @@ export default function TrainerCard({
                         </DialogHeader>
                         <div className='flex flex-col gap-0.5 mb-1'>
                             <p className='text-sm font-medium mb-1.5'>Enter secret key to proceed:</p>
-                            <Input type={'password'} />
+                            <Input type={'password'} value={secretKey} onChange={(e) => setSecretKey(e.target.value)}/>
                             <div className='text-xs'>(Hint: Kazuma's sword)</div>
                         </div>
                         <DialogFooter>
-                            <Button variant={'destructive'} className='cursor-pointer'>Delete</Button>
+                            <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
