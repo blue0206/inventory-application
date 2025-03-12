@@ -14,7 +14,7 @@ import RedAvatar from "../../assets/red-avatar.png";
 type TrainerCardProps = {
     id: string | number;
     name: string;
-    image?: string;
+    image: string | null;
 }
 
 export default function TrainerCard({
@@ -26,11 +26,13 @@ export default function TrainerCard({
     return (
         <Card>
             <CardHeader>
-                <AspectRatio ratio={16/9} className='rounded-lg'>
+                <AspectRatio ratio={1.25/1}>
                     <Avatar className='w-full h-full'>
-                        <AvatarImage src={image} />
+                        <AvatarImage className='h-full w-full object-scale-down' src={image ? image : ""} />
                         <AvatarFallback>
-                            <img src={RedAvatar} alt="Trainer Image" />
+                            <Avatar className='w-full h-full'>
+                                <AvatarImage src={RedAvatar} className='h-full w-full object-contain bg-background'></AvatarImage>
+                            </Avatar>
                         </AvatarFallback>
                     </Avatar>
                 </AspectRatio>
