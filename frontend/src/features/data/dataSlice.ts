@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "@/app/hooks";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
 import { apiClient } from "../../utils/api-client";
+import { TrainerWithRelation } from "shared";
 
 type Status = "idle" | "loading" | "succeeded" | "failed";
 type DataState = {
@@ -34,10 +35,26 @@ const dataSlice = createSlice({
     extraReducers: (builder) => {}
 });
 
-export type deleteParamsType = {
+type deleteParamsType = {
     id: number | string;
     secretKey: string;
 }
+
+export const fetchTrainer = 
+createAppAsyncThunk<
+    TrainerWithRelation, 
+    (number | string)
+>('data/fetchTrainer', async (id: number | string, { rejectWithValue }) => {
+    try {
+        const response: TrainerWithRelation = await apiClient.getTrainerById(id);
+        return response;
+    } catch (error) {
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong.")})
+    }
+});
 
 export const deleteTrainer = 
 createAppAsyncThunk<boolean, deleteParamsType>('data/deleteTrainer', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
