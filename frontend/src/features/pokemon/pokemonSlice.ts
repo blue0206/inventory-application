@@ -32,7 +32,8 @@ const pokemonSlice = createSlice({
         })
     },
     selectors: {
-        getPokemonList: (state: PokemonState) => state.pokemonList
+        getPokemonList: (state: PokemonState) => state.pokemonList,
+        getStatus: (state: PokemonState) => state.status
     }
 });
 
