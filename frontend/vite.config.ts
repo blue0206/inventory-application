@@ -12,6 +12,10 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['lucide-react.js', 'radix-ui_react-navigation-menu.js']
-  }
+    exclude: [
+      "lucide-react.js",
+      "radix-ui_react-navigation-menu.js",
+      "@radix-ui_react-dialog.js",
+    ],
+  },
 });
