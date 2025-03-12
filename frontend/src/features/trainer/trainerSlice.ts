@@ -37,8 +37,8 @@ const trainerSlice = createSlice({
         })
     },
     selectors: {
-        getTrainersList: (state) => state.trainersList,
-        getStatus: (state) => state.status
+        getTrainersList: (state: TrainerState) => state.trainersList,
+        getStatus: (state: TrainerState) => state.status
     }
 });
 
