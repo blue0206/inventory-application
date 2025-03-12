@@ -52,4 +52,17 @@ createAppAsyncThunk('data/deleteTrainer', async ({ id, secretKey }: deleteParams
     }
 });
 
+export const deletePokemon = 
+createAppAsyncThunk('data/deletePokemon', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
+    try {
+        const response: void = await apiClient.deletePokemon(id, secretKey);
+        return response;
+    } catch (error) {
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong.")});
+    }
+});
+
 export default dataSlice.reducer;
