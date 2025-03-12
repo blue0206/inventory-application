@@ -33,3 +33,14 @@ export class FetchError extends Error {
         this.statusCode = statusCode;
     }
 }
+
+type CustomDefinedErrorType = CustomError | FetchError;
+
+// Type Guard to check if an error is a custom error.
+// Required in async thunk.
+export function isCustomDefinedError(error: unknown): error is CustomDefinedErrorType {
+    return (
+        error instanceof CustomError ||
+        error instanceof FetchError
+    )
+}
