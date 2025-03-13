@@ -36,15 +36,15 @@ const dataSlice = createSlice({
 });
 
 type deleteParamsType = {
-    id: number | string;
+    id: number;
     secretKey: string;
 }
 
 export const fetchTrainer = 
 createAppAsyncThunk<
     TrainerWithRelation, 
-    (number | string)
->('data/fetchTrainer', async (id: number | string, { rejectWithValue }) => {
+    number
+>('data/fetchTrainer', async (id: number, { rejectWithValue }) => {
     try {
         const response: TrainerWithRelation = await apiClient.getTrainerById(id);
         return response;
@@ -72,8 +72,8 @@ createAppAsyncThunk<boolean, deleteParamsType>('data/deleteTrainer', async ({ id
 export const fetchPokemon = 
 createAppAsyncThunk<
     Pokemon, 
-    (number | string)
->('data/fetchPokemon', async (id: number | string, { rejectWithValue }) => {
+    number
+>('data/fetchPokemon', async (id: number, { rejectWithValue }) => {
     try {
         const response: Pokemon = await apiClient.getPokemonById(id);
         return response;
