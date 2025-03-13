@@ -8,6 +8,23 @@ import {
     BreadcrumbItem,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+    Drawer,
+    DrawerTrigger,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle
+} from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import MissingnoAvatar from "../../assets/missingno-avatar.png";
@@ -16,6 +33,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { fetchPokemon } from "@/features/data/dataSlice";
 import { Pokemon as PokemonType } from "shared";
 import { useParams } from "react-router";
+import { useMediaQuery } from "@custom-react-hooks/use-media-query";
 
 export default function Pokemon(): ReactElement {
     const dispatch = useAppDispatch();
@@ -26,6 +44,15 @@ export default function Pokemon(): ReactElement {
         imageLink: null,
         types: []
     });
+    // Secret key for delete.
+    const [secretKey, setSecretKey] = useState<string>("");
+    // Check if screen is desktop. This will be used to render
+    // dialog for delete modal on desktop and drawer on mobile.
+    const isDesktop = useMediaQuery("(min-width: 768px)");
+
+    const handleDelete = () => {
+
+    }
 
     /**
      * Fetches pokemon data when component mounts and whenever the pokemon ID changes.
@@ -87,7 +114,59 @@ export default function Pokemon(): ReactElement {
                 </div>
                 <div className="flex justify-center gap-5 mb-4">
                     <Button variant={'link'} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
-                    <Button variant={'destructive'} className="cursor-pointer">Delete</Button>
+                    {
+                        isDesktop ? (
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant={"destructive"} className='cursor-pointer'>Delete</Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px] gap-0 px-4 py-4">
+                                    <DialogHeader>
+                                        <DialogTitle className='text-lg'>Are you absolutely sure?</DialogTitle>
+                                        <DialogDescription className='mb-3.5'>
+                                            This action cannot be undone. This will permanently delete the pokemon 
+                                            and remove the data from the server as well as from the trainers who own 
+                                            this pokemon.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className='flex flex-col gap-0.5 mb-1'>
+                                        <p className='text-sm font-medium mb-1.5'>Enter secret key to proceed:</p>
+                                        <Input type={'password'} value={secretKey} onChange={(e) => setSecretKey(e.target.value)}/>
+                                        <div className='text-xs'>(Hint: Kazuma's sword)</div>
+                                    </div>
+                                    <DialogFooter>
+                                        <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                        ) : (
+                            <Drawer>
+                                <DrawerTrigger asChild>
+                                    <Button variant={"destructive"} className='cursor-pointer'>Delete</Button>
+                                </DrawerTrigger>
+                                <DrawerContent className='px-3.5 py-4'>
+                                    <div className='mx-auto w-full max-w-sm'>
+                                        <DrawerHeader>
+                                            <DrawerTitle className='text-lg'>Are you absolutely sure?</DrawerTitle>
+                                            <DialogDescription className='mb-3.5'>
+                                                This action cannot be undone. This will permanently delete the pokemon 
+                                                and remove the it from the server as well as from the trainers who own 
+                                                this pokemon.
+                                            </DialogDescription>
+                                        </DrawerHeader>
+                                        <div className='flex flex-col gap-0.5 mb-1'>
+                                            <p className='text-sm font-medium mb-1.5'>Enter secret key to proceed:</p>
+                                            <Input type={'password'} value={secretKey} onChange={(e) => setSecretKey(e.target.value)} />
+                                            <div className='text-xs'>(Hint: Kazuma's sword)</div>
+                                        </div>
+                                        <DialogFooter>
+                                            <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
+                                        </DialogFooter>
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+                        )
+                    }
                 </div>
                 <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
                     <img src={data.imageLink ? data.imageLink : MissingnoAvatar} className="mx-auto" />
