@@ -11,11 +11,9 @@ import {
 import { navigationService } from "../../utils/navigation";
 import { Pokemon } from "shared";
 
-type PokemonFormProps = {
-    update: false
-} | {
-    update: true
-} & Pokemon;
+// If pokemon is to be created, no need for other props.
+// Else, other props are required for making api call and to populate form.
+type PokemonFormProps = { update: false } | ({ update: true } & Pokemon);
 
 export default function PokemonForm({
     update = false,
