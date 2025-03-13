@@ -85,11 +85,9 @@ export default function Pokemon(): ReactElement {
                         }
                     </h2>
                 </div>
-                <div className="flex justify-center py-4 px-5 mb-4">
-                    <AspectRatio ratio={1.8/1} className="flex justify-center h-full w-full">
-                        <img src={data.imageLink ? data.imageLink : MissingnoAvatar} className="mx-auto" />
-                    </AspectRatio>
-                </div>
+                <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
+                    <img src={data.imageLink ? data.imageLink : MissingnoAvatar} className="mx-auto" />
+                </AspectRatio>
             </div>
         </div>
     );
