@@ -8,6 +8,7 @@ import {
     BreadcrumbItem,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import RedAvatar from "../../assets/red-avatar.png";
 import { navigationService } from "../../utils/navigation";
@@ -73,6 +74,10 @@ export default function Trainer(): ReactElement {
                     <img src={data.imageLink ? data.imageLink : RedAvatar} className="mx-auto" />
                 </AspectRatio>
                 <h1 className="scroll-m-20 text-4xl text-center mb-8 font-extrabold tracking-tight lg:text-5xl">{data.name}</h1>
+                <div className="flex justify-center gap-5 mb-4">
+                    <Button variant={'link'} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
+                    <Button variant={'destructive'} className="cursor-pointer">Delete</Button>
+                </div>
                 <h2 className="scroll-m-20 w-32 self-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 text-center mb-4">Pokémon</h2>
                 <div className="grid grid-cols-1 px-5 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {
