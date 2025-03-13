@@ -46,11 +46,11 @@ export default function Header(): ReactElement {
                         <DropdownMenuTrigger className="cursor-pointer">Create</DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <DropdownMenuItem>
-                                <NavLink to={"/trainer-form"}>Trainer</NavLink>
+                                <NavLink to={"/trainer-form"} className="w-full">Trainer</NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <NavLink to={"/pokemon-form"}>Pokemon</NavLink>
+                                <NavLink to={"/pokemon-form"} className="w-full">Pokemon</NavLink>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
