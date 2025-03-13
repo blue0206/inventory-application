@@ -16,10 +16,6 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
         switch (action.type) {
             // Action fetching all trainers.
             case "trainer/fetchTrainers/fulfilled":
-                // Display a success notification.
-                toast.success("Fetched all trainers successfully!", {
-                    duration: 2500
-                });
                 // Display info notification to create new trainer.
                 toast.info("You can add trainers from 'Create' tab!", {
                     duration: 16000,
@@ -31,6 +27,10 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
                         label: "Dismiss",
                         onClick: () => {}
                     }
+                });
+                // Display a success notification.
+                toast.success("Fetched all trainers successfully!", {
+                    duration: 2500
                 });
                 break;
             // Action fetching all pokemon.
