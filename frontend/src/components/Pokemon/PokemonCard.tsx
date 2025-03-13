@@ -25,7 +25,7 @@ import { useAppDispatch } from '@/app/hooks';
 import { deletePokemon } from '@/features/data/dataSlice';
 
 type PokemonCardProps = {
-    id: string | number;
+    id: number;
     name: string;
     image: string | null;
 }

@@ -25,7 +25,7 @@ import { deleteTrainer } from '../../features/data/dataSlice';
 import { useAppDispatch } from '../../app/hooks';
 
 type TrainerCardProps = {
-    id: string | number;
+    id: number;
     name: string;
     image: string | null;
 }
@@ -39,7 +39,7 @@ export default function TrainerCard({
     const [secretKey, setSecretKey] = useState<string>("");
 
     const handleDelete = async () => {
-        await dispatch(deleteTrainer({id, secretKey}));
+        await dispatch(deleteTrainer({ id, secretKey}));
     }
     
     const handleOpen = () => {
