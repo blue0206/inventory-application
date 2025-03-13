@@ -8,6 +8,15 @@ import {
     BreadcrumbItem,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import {
+    Card,
+    CardHeader,
+    CardContent,
+    CardTitle
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
 import { TrainerWithRelation } from "shared";
 
@@ -51,8 +60,44 @@ export default function TrainerForm({
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div>
-
+            <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+                <div className="flex w-full max-w-sm flex-col gap-6">
+                    <div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-center">{update ? ('Update Trainer') : ('Create Trainer')}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <form>
+                                    <div className="grid gap-8">
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="trainerName">Trainer Name</Label>
+                                            <Input 
+                                                type={"text"}
+                                                id={"trainerName"} 
+                                                value={formData.name} 
+                                                onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                                                placeholder="Ash Ketchum"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="imageLink">Image Link</Label>
+                                            <Input 
+                                                type={'url'} 
+                                                id={"imageLink"} 
+                                                value={formData.imageLink || ""} 
+                                                onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
+                                                placeholder="URL" 
+                                            />
+                                        </div>
+                                        <Button type={"submit"}>Submit</Button>
+                                    </div>
+                                </form>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
             </div>
         </div>
     );
