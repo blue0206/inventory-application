@@ -11,11 +11,9 @@ import {
 import { navigationService } from "../../utils/navigation";
 import { TrainerWithRelation } from "shared";
 
-type TrainerFormProps = {
-    update: false;
-} | {
-    update: true;
-} & TrainerWithRelation;
+// If trainer is to be created, no need for other props.
+// Else, other props are required for making api call and to populate form.
+type TrainerFormProps = { update: false } | ({ update: true } & TrainerWithRelation);
 
 export default function TrainerForm({
     update = false,
