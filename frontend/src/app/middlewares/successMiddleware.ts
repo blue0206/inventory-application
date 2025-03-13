@@ -1,5 +1,6 @@
 import { isFulfilled, Middleware } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { navigationService } from "../../utils/navigation";
 
 // Middleware for showing customized notifications when an action is successful
 // and to handle any other side effects.
@@ -17,7 +18,19 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
             case "trainer/fetchTrainers/fulfilled":
                 // Display a success notification.
                 toast.success("Fetched all trainers successfully!", {
-                    duration: 3500
+                    duration: 2500
+                });
+                // Display info notification to create new trainer.
+                toast.info("You can add trainers from 'Create' tab!", {
+                    duration: 16000,
+                    action: {
+                        label: "Take Me!",
+                        onClick: () => navigationService.navigate("/trainer-form")
+                    },
+                    cancel: {
+                        label: "Dismiss",
+                        onClick: () => {}
+                    }
                 });
                 break;
             default:
