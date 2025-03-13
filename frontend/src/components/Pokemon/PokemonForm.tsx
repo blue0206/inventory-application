@@ -9,8 +9,18 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { navigationService } from "../../utils/navigation";
+import { Pokemon } from "shared";
 
-export default function PokemonForm(): ReactElement {
+type PokemonFormProps = {
+    update: false
+} | {
+    update: true
+} & Pokemon;
+
+export default function PokemonForm({
+    update = false,
+    ...pokemon
+}: PokemonFormProps): ReactElement {
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
             <Header />
@@ -26,7 +36,7 @@ export default function PokemonForm(): ReactElement {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Create Pokémon</BreadcrumbPage>
+                            <BreadcrumbPage>{update ? ('Update Pokémon') : ('Create Pokémon')}</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
