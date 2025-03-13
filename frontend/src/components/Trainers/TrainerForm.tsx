@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { Header } from "..";
 import {
     Breadcrumb,
@@ -13,10 +13,14 @@ import { TrainerWithRelation } from "shared";
 
 // If trainer is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
-type TrainerFormProps = { update: false } | ({ update: true } & TrainerWithRelation);
+type TrainerFormProps = {
+    update: false;
+} & Partial<TrainerWithRelation> | {
+    update: true;
+} & Required<TrainerWithRelation>;
 
 export default function TrainerForm({
-    update = false,
+    update = true,
     ...trainer
 }: TrainerFormProps): ReactElement {
 
