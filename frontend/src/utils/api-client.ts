@@ -72,7 +72,7 @@ class ApiClient {
     }
 
     // Method to fetch a single trainer by ID.
-    async getTrainerById(id: number | string): Promise<TrainerWithRelation> {
+    async getTrainerById(id: number): Promise<TrainerWithRelation> {
         return this.fetch<TrainerWithRelation>(`trainers/${id}/`, {
             method: "GET"
         });
@@ -87,7 +87,7 @@ class ApiClient {
     }
 
     // Method to update an existing trainer via a PUT request.
-    async updateTrainer(trainerData: TrainerRequestBody, id: number | string): Promise<number> {
+    async updateTrainer(trainerData: TrainerRequestBody, id: number): Promise<number> {
         return this.fetch<number>(`trainers/${id}`, {
             method: "PUT",
             body: trainerData
@@ -95,7 +95,7 @@ class ApiClient {
     }
 
     // Method to delete an existing trainer via a DELETE request.
-    async deleteTrainer(id: number | string, secretKey: string): Promise<void> {
+    async deleteTrainer(id: number, secretKey: string): Promise<void> {
         this.fetch<void>(`trainers/${id}?secretKey=${secretKey}/`, {
             method: "DELETE",
         });
@@ -109,7 +109,7 @@ class ApiClient {
     }
 
     // Method to fetch a single pokemon by ID.
-    async getPokemonById(id: number | string): Promise<Pokemon> {
+    async getPokemonById(id: number): Promise<Pokemon> {
         return this.fetch<Pokemon>(`pokemon/${id}/`, {
             method: "GET"
         });
@@ -124,7 +124,7 @@ class ApiClient {
     }
 
     // Method to update an existing pokemon via a PUT request.
-    async updatePokemon(pokemonData: PokemonRequestBody, id: number | string): Promise<number> {
+    async updatePokemon(pokemonData: PokemonRequestBody, id: number): Promise<number> {
         return this.fetch<number>(`pokemon/${id}/`, {
             method: "PUT",
             body: pokemonData
@@ -132,7 +132,7 @@ class ApiClient {
     }
 
     // Method to delete an existing pokemon via a DELETE request.
-    async deletePokemon(id: number | string, secretKey: string): Promise<void> {
+    async deletePokemon(id: number, secretKey: string): Promise<void> {
         this.fetch<void>(`pokemon/${id}?secretKey=${secretKey}/`, {
             method: "DELETE",
         });
