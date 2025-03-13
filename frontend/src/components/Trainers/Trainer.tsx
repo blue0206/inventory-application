@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Header } from "..";
+import { Header, PokemonCard } from "..";
 import {
     Breadcrumb,
     BreadcrumbList,
@@ -8,6 +8,8 @@ import {
     BreadcrumbItem,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import RedAvatar from "../../assets/red-avatar.png";
 import { navigationService } from "../../utils/navigation";
 import { useAppDispatch } from "../../app/hooks";
 import { fetchTrainer } from "@/features/data/dataSlice";
@@ -66,8 +68,28 @@ export default function Trainer(): ReactElement {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div>
-
+            <div className="grow flex flex-col">
+                <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
+                    <img src={data.imageLink ? data.imageLink : RedAvatar} className="mx-auto" />
+                </AspectRatio>
+                <h1 className="scroll-m-20 text-4xl text-center mb-8 font-extrabold tracking-tight lg:text-5xl">{data.name}</h1>
+                <h2 className="scroll-m-20 w-32 self-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 text-center mb-4">Pokémon</h2>
+                <div className="grid grid-cols-1 px-5 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                    {
+                        data.pokemon.length > 0 ? data.pokemon.map((pokemon) => {
+                            return (
+                                <PokemonCard 
+                                    key={pokemon.id} 
+                                    id={pokemon.id} 
+                                    name={pokemon.name} 
+                                    image={pokemon.imageLink}
+                                />
+                            )
+                        }) : (
+                            <div className="text-lg italic">This trainer doesn't own any Pokémon.</div>
+                        )
+                    }
+                </div>
             </div>
         </div>
     );
