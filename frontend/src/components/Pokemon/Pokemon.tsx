@@ -79,11 +79,15 @@ export default function Pokemon(): ReactElement {
                                 </>
                             ) : (
                                 <>
-                                    <Button variant={"outline"}>{data.types[0]}</Button>
+                                    <Button variant={"secondary"}>{data.types[0]}</Button>
                                 </>
                             )
                         }
                     </h2>
+                </div>
+                <div className="flex justify-center gap-5 mb-4">
+                    <Button variant={'link'} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
+                    <Button variant={'destructive'} className="cursor-pointer">Delete</Button>
                 </div>
                 <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
                     <img src={data.imageLink ? data.imageLink : MissingnoAvatar} className="mx-auto" />
