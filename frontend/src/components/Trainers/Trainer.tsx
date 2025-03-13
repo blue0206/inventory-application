@@ -24,12 +24,23 @@ export default function Trainer(): ReactElement {
         pokemon: []
     });
 
+    /**
+     * Fetches trainer data when component mounts and whenever the trainer ID changes.
+     * The data is stored in local component state instead of Redux state since it
+     * is not required in any other components and the amount of data is small enough
+     * to ignore memoization. 
+     * 
+     * The data is fetched via thunks in order to utilize centralized error and 
+     * notification management via redux middlewares.
+     * This prevents the logic from being duplicated across multiple components.
+     * 
+     * 
+     */
     useEffect(() => {
+        // IIFE triggered upon mount or ID change.
         ;(async function fetchData() {
-            console.log("ID", trainerId);
             const action = await dispatch(fetchTrainer(Number(trainerId)));
             if (fetchTrainer.fulfilled.match(action)) {
-                console.log("Fetched trainer data:", action.payload);
                 setData(action.payload);
             }
         }());
