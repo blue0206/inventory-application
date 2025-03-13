@@ -30,7 +30,7 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
                 });
                 // Display a success notification.
                 toast.success("Fetched all trainers successfully!", {
-                    duration: 2500
+                    duration: 3500
                 });
                 break;
             // Action fetching all pokemon.
@@ -49,7 +49,7 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
                 });
                 // Display a success notification.
                 toast.success("Fetched all Pokémon successfully!", {
-                    duration: 2500
+                    duration: 3500
                 });
                 break;
             default:
