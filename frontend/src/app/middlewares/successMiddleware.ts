@@ -33,6 +33,25 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
                     }
                 });
                 break;
+            // Action fetching all pokemon.
+            case "pokemon/fetchPokemonList/fulfilled":
+                // Display info notification to create new pokemon.
+                toast.info("You can add Pokémon from 'Create' tab!", {
+                    duration: 16000,
+                    action: {
+                        label: "Take Me!",
+                        onClick: () => navigationService.navigate("/pokemon-form")
+                    },
+                    cancel: {
+                        label: "Dismiss",
+                        onClick: () => {}
+                    }
+                });
+                // Display a success notification.
+                toast.success("Fetched all Pokémon successfully!", {
+                    duration: 2500
+                });
+                break;
             default:
                 
         }
