@@ -6,6 +6,7 @@ import formSlice from "../features/form/formSlice";
 import errorSlice from "../features/error/errorSlice";
 import { errorHandlingMiddleware } from "./middlewares/errorMiddleware";
 import { successMiddleware } from "./middlewares/successMiddleware";
+import { pendingMiddleware } from "./middlewares/pendingMiddleware";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         error: errorSlice
     },
     middleware: (getDefaultMiddleware) =>  getDefaultMiddleware().concat(
+                pendingMiddleware,
                 errorHandlingMiddleware,
                 successMiddleware
             )
