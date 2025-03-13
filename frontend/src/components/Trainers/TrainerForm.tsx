@@ -20,9 +20,16 @@ type TrainerFormProps = {
 } & Required<TrainerWithRelation>;
 
 export default function TrainerForm({
-    update = true,
+    update = false,
     ...trainer
 }: TrainerFormProps): ReactElement {
+    // Create form data state to keep track of form data.
+    // The type is supposed to be the same as provided by api, except the id.
+    const [formData, setFormData] = useState<Omit<TrainerWithRelation, "id">>({
+        name: trainer.name || "",
+        imageLink: trainer.imageLink || null,
+        pokemon: trainer.pokemon || []
+    });
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
