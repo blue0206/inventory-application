@@ -9,8 +9,19 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { navigationService } from "../../utils/navigation";
+import { TrainerWithRelation } from "shared";
 
-export default function TrainerForm(): ReactElement {
+type TrainerFormProps = {
+    update: false;
+} | {
+    update: true;
+} & TrainerWithRelation;
+
+export default function TrainerForm({
+    update = false,
+    ...trainer
+}: TrainerFormProps): ReactElement {
+
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
             <Header />
@@ -26,13 +37,13 @@ export default function TrainerForm(): ReactElement {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>Create Trainer</BreadcrumbPage>
+                            <BreadcrumbPage>{update ? ('Update Trainer') : ('Create Trainer')}</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
             <div>
-                
+
             </div>
         </div>
     );
