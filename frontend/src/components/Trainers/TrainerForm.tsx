@@ -97,7 +97,7 @@ export default function TrainerForm({
                     <div>
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-center">{update ? ('Update Trainer') : ('Create Trainer')}</CardTitle>
+                                <CardTitle className="text-center text-xl font-bold">{update ? ('Update Trainer') : ('Create Trainer')}</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <form>
@@ -109,22 +109,12 @@ export default function TrainerForm({
                                                 id={"trainerName"} 
                                                 value={formData.name} 
                                                 onChange={(e) => setFormData({...formData, name: e.target.value})} 
-                                                placeholder="Ash Ketchum"
+                                                placeholder="Red"
                                                 required
                                             />
                                         </div>
                                         <div className="grid gap-2">
-                                            <Label htmlFor="imageLink">Image Link</Label>
-                                            <Input 
-                                                type={'url'} 
-                                                id={"imageLink"} 
-                                                value={formData.imageLink || ""} 
-                                                onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
-                                                placeholder="URL" 
-                                            />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="pokemon">Pokémon</Label>
+                                            <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Pokémon</Label>
                                             <MultiSelect 
                                                 id="pokemon" 
                                                 options={pokemon.map(poke => ({
@@ -141,8 +131,22 @@ export default function TrainerForm({
                                                 }))}
                                                 onChange={handleMultiSelectChange}
                                             />
+                                            <span className="text-xs text-muted-foreground">Select all Pokémon that are owned by trainer.</span>
                                         </div>
-                                        <Button type={"submit"}>Submit</Button>
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="imageLink">
+                                                <span>Image Link</span>
+                                                <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
+                                            </Label>
+                                            <Input 
+                                                type={'url'} 
+                                                id={"imageLink"} 
+                                                value={formData.imageLink || ""} 
+                                                onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
+                                                placeholder="URL" 
+                                            />
+                                        </div>
+                                        <Button type={"submit"} className="cursor-pointer">{update ? ("Update") : ("Create")}</Button>
                                     </div>
                                 </form>
                             </CardContent>
