@@ -17,6 +17,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import MultiSelect, { MultiSelectProps } from "../MultiSelect";
 import { navigationService } from "../../utils/navigation";
 import { TrainerWithRelation } from "shared";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
@@ -60,6 +61,16 @@ export default function TrainerForm({
             }
         }
     }, [dispatch, status]);
+
+    // onChange handler for multi select component.
+    const handleMultiSelectChange: MultiSelectProps['onChange'] = (value: MultiSelectProps['value']) => {
+        const selectedPokemon = pokemon.filter(poke => {
+            if (value.find(item => item.value === poke.name)) {
+                return poke;
+            }
+        });
+        setFormData(prevData => ({...prevData, pokemon: selectedPokemon}));
+    }
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
@@ -110,6 +121,25 @@ export default function TrainerForm({
                                                 value={formData.imageLink || ""} 
                                                 onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
                                                 placeholder="URL" 
+                                            />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="pokemon">Pokémon</Label>
+                                            <MultiSelect 
+                                                id="pokemon" 
+                                                options={pokemon.map(poke => ({
+                                                        value: poke.name,
+                                                        label: poke.name
+                                                }))} 
+                                                defaultValue={formData.pokemon.map(poke => ({
+                                                    value: poke.name,
+                                                    label: poke.name
+                                                }))} 
+                                                value={formData.pokemon.map(poke => ({
+                                                    value: poke.name,
+                                                    label: poke.name
+                                                }))}
+                                                onChange={handleMultiSelectChange}
                                             />
                                         </div>
                                         <Button type={"submit"}>Submit</Button>
