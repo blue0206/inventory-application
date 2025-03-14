@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Status = "idle" | "loading" | "succeeded" | "failed";
 type FormState = {
-    trainerFormStatus: Status;
-    pokemonFormStatus: Status;
+    trainerFormLoading: boolean;
+    pokemonFormLoading: boolean;
 }
 
 const initialState: FormState = {
-    trainerFormStatus: 'idle',
-    pokemonFormStatus: 'idle'
+    trainerFormLoading: false,
+    pokemonFormLoading: false
 }
 
 /**
