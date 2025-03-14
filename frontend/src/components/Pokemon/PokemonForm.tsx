@@ -60,6 +60,15 @@ export default function PokemonForm({
         }
         setFormData(newData);
     }
+    // Type 2 Select Handler.
+    const typeTwoSelectHandler = (value: PokeType) => {
+        const newData: Omit<Pokemon, "id"> = {
+            name: formData.name,
+            imageLink: formData.imageLink,
+            types: [...formData.types, value]
+        }
+        setFormData(newData);
+    }
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
@@ -129,7 +138,7 @@ export default function PokemonForm({
                                                 <span>Type 2</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
-                                            <Select>
+                                            <Select onValueChange={typeTwoSelectHandler}>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
