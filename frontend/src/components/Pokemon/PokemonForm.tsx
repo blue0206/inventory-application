@@ -13,7 +13,11 @@ import { Pokemon } from "shared";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
-type PokemonFormProps = { update: false } | ({ update: true } & Pokemon);
+type PokemonFormProps = { 
+    update: false;
+} & Partial<Pokemon> | { 
+    update: true 
+} & Required<Pokemon>;
 
 export default function PokemonForm({
     update = false,
