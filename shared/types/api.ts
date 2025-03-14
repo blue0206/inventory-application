@@ -36,3 +36,6 @@ export type PokemonRequestBody = {
     pokemonImage?: string;
     pokemonTypes: [PokeType, PokeType?];
 }
+
+// Export Pokemon Type Enum
+export const PokemonTypeEnum = Types;
