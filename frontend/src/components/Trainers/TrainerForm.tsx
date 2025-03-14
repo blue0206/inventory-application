@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Header } from "..";
 import {
     Breadcrumb,
@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
 import { TrainerWithRelation } from "shared";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
 
 // If trainer is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -32,6 +34,7 @@ export default function TrainerForm({
     update = false,
     ...trainer
 }: TrainerFormProps): ReactElement {
+
     // Create form data state to keep track of form data.
     // The type is supposed to be the same as provided by api, except the id.
     const [formData, setFormData] = useState<Omit<TrainerWithRelation, "id">>({
@@ -39,6 +42,24 @@ export default function TrainerForm({
         imageLink: trainer.imageLink || null,
         pokemon: trainer.pokemon || []
     });
+
+    // Fetch pokemon list from redux state.
+    const pokemon = useAppSelector(getPokemonList);
+    const status = useAppSelector(getStatus);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        // If pokemon list has not been fetched yet, fetch it.
+        if (status === 'idle') {
+            dispatch(fetchPokemonList());
+        }
+
+        return () => {
+            if (status === 'failed') {
+                dispatch(resetStatus());
+            }
+        }
+    }, [dispatch, status]);
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
