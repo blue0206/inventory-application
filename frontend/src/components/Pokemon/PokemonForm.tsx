@@ -45,7 +45,7 @@ export default function PokemonForm({
     const [formData, setFormData] = useState<Omit<Pokemon, "id">>({
         name: pokemon.name || "",
         imageLink: pokemon.imageLink || null,
-        types: pokemon.types || []
+        types: pokemon.types || ["NORMAL"]
     });
 
     // Types available for selection.
@@ -113,21 +113,21 @@ export default function PokemonForm({
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
-                                            <Select defaultValue={pokemon.types ? pokemon.types[0] : "NORMAL"} onValueChange={typeOneSelectHandler}>
+                                            <Select defaultValue={formData.types[0]} onValueChange={typeOneSelectHandler}>
                                                 <SelectTrigger className="w-full" id="pokemon">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {
                                                         typeOptions.map(option => (
-                                                            <>
+                                                            option != formData.types[1] && (
                                                                 <SelectItem
                                                                     key={option} 
                                                                     value={option} 
                                                                 >
                                                                     {option}
                                                                 </SelectItem>
-                                                            </>
+                                                            )
                                                         ))
                                                     }
                                                 </SelectContent>
@@ -138,21 +138,21 @@ export default function PokemonForm({
                                                 <span>Type 2</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
-                                            <Select onValueChange={typeTwoSelectHandler}>
+                                            <Select defaultValue={formData.types[1]} onValueChange={typeTwoSelectHandler}>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {
                                                         typeOptions.map(option => (
-                                                            <>
+                                                            option != formData.types[0] && (
                                                                 <SelectItem 
                                                                     key={option} 
                                                                     value={option} 
                                                                 >
                                                                     {option}
                                                                 </SelectItem>
-                                                            </>
+                                                            )
                                                         ))
                                                     }
                                                 </SelectContent>
