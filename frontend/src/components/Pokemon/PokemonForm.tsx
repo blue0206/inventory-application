@@ -14,11 +14,18 @@ import {
     CardContent, 
     CardTitle
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
-import { Pokemon } from "shared";
+import { Pokemon, PokemonTypeEnum } from "shared";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -40,6 +47,9 @@ export default function PokemonForm({
         imageLink: pokemon.imageLink || null,
         types: pokemon.types || []
     });
+
+    // Types available for selection.
+    const typeOptions = Object.keys(PokemonTypeEnum);
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
@@ -81,6 +91,28 @@ export default function PokemonForm({
                                                 placeholder="Pikachu"
                                                 required
                                             />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
+                                            <Select defaultValue={pokemon.types ? pokemon.types[0] : "NORMAL"}>
+                                                <SelectTrigger className="w-full" id="pokemon">
+                                                    <SelectValue placeholder="Select Type..." />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {
+                                                        typeOptions.map(option => (
+                                                            <>
+                                                                <SelectItem
+                                                                    key={option} 
+                                                                    value={option} 
+                                                                >
+                                                                    {option}
+                                                                </SelectItem>
+                                                            </>
+                                                        ))
+                                                    }
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="imageLink">
