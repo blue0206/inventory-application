@@ -56,7 +56,7 @@ export default function PokemonForm({
         const newData: Omit<Pokemon, "id"> = {
             name: formData.name,
             imageLink: formData.imageLink,
-            types: [value, ...formData.types]
+            types: [value, formData.types[1]]
         }
         setFormData(newData);
     }
@@ -65,7 +65,7 @@ export default function PokemonForm({
         const newData: Omit<Pokemon, "id"> = {
             name: formData.name,
             imageLink: formData.imageLink,
-            types: [...formData.types, value]
+            types: [formData.types[0], value]
         }
         setFormData(newData);
     }
