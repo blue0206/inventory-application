@@ -39,3 +39,12 @@ export type PokemonRequestBody = {
 
 // Export Pokemon Type Enum
 export const PokemonTypeEnum = Types;
+
+// Export Pokemon type duplication check utility function.
+export function checkTypeDuplicate(firstType: PokeType | undefined, secondType: PokeType | undefined): boolean {
+    if (firstType == undefined && secondType == undefined) {
+        return false; // No pokemon types provided, return false.
+    }
+    // Check for duplicate types.
+    return firstType === secondType;
+}
