@@ -115,6 +115,31 @@ export default function PokemonForm({
                                             </Select>
                                         </div>
                                         <div className="grid gap-2">
+                                            <Label htmlFor="pokemon" className="flex items-center gap-2 relative">
+                                                <span>Type 2</span>
+                                                <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
+                                            </Label>
+                                            <Select>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Select Type..." />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {
+                                                        typeOptions.map(option => (
+                                                            <>
+                                                                <SelectItem 
+                                                                    key={option} 
+                                                                    value={option} 
+                                                                >
+                                                                    {option}
+                                                                </SelectItem>
+                                                            </>
+                                                        ))
+                                                    }
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid gap-2">
                                             <Label htmlFor="imageLink">
                                                 <span>Image Link</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
