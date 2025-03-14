@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { Header } from "..";
 import {
     Breadcrumb,
@@ -23,6 +23,15 @@ export default function PokemonForm({
     update = false,
     ...pokemon
 }: PokemonFormProps): ReactElement {
+
+    // Create form data state to keep track of form data.
+    // The type is supposed to be the same as provided by api, except the id.
+    const [formData, setFormData] = useState<Omit<Pokemon, "id">>({
+        name: pokemon.name || "",
+        imageLink: pokemon.imageLink || null,
+        types: pokemon.types || []
+    });
+
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
             <Header />
