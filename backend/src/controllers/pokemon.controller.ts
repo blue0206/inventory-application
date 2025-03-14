@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
 import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
-import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError } from "shared";
+import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError, checkTypeDuplicate } from "shared";
 
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
@@ -32,6 +32,11 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     } else if (pokemonTypes.length > 2) {
         errors.push({
             message: "Maximum two types allowed.",
+            field: "pokemonTypes"
+        });
+    } else if (checkTypeDuplicate(pokemonTypes[0], pokemonTypes[1])) {
+        errors.push({
+            message: "Two types cannot be same.",
             field: "pokemonTypes"
         });
     }
@@ -148,15 +153,20 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
     }
     // Validate the pokemon type array.
     if (pokemonTypes.length < 1) {
-        errors.push({
-            message: "At least one type is required.",
-            field: "pokemonTypes"
-        });
+      errors.push({
+        message: "At least one type is required.",
+        field: "pokemonTypes",
+      });
     } else if (pokemonTypes.length > 2) {
-        errors.push({
-            message: "Maximum two types allowed.",
-            field: "pokemonTypes"
-        });
+      errors.push({
+        message: "Maximum two types allowed.",
+        field: "pokemonTypes",
+      });
+    } else if (checkTypeDuplicate(pokemonTypes[0], pokemonTypes[1])) {
+      errors.push({
+        message: "Two types cannot be same.",
+        field: "pokemonTypes",
+      });
     }
     // Throw an error if there are validation errors.
     if (errors.length > 0) {
