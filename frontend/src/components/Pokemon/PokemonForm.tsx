@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
-import { Pokemon, PokemonTypeEnum } from "shared";
+import { Pokemon, PokemonTypeEnum, PokeType } from "shared";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -50,6 +50,16 @@ export default function PokemonForm({
 
     // Types available for selection.
     const typeOptions = Object.keys(PokemonTypeEnum);
+
+    // Type 1 Select Handler.
+    const typeOneSelectHandler = (value: PokeType) => {
+        const newData: Omit<Pokemon, "id"> = {
+            name: formData.name,
+            imageLink: formData.imageLink,
+            types: [value, ...formData.types]
+        }
+        setFormData(newData);
+    }
 
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
@@ -94,7 +104,7 @@ export default function PokemonForm({
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
-                                            <Select defaultValue={pokemon.types ? pokemon.types[0] : "NORMAL"}>
+                                            <Select defaultValue={pokemon.types ? pokemon.types[0] : "NORMAL"} onValueChange={typeOneSelectHandler}>
                                                 <SelectTrigger className="w-full" id="pokemon">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
