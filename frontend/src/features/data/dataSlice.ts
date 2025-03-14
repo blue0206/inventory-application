@@ -3,6 +3,7 @@ import { createAppAsyncThunk } from "@/app/hooks";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
 import { apiClient } from "../../utils/api-client";
 import { Pokemon, TrainerWithRelation } from "shared";
+import { DeleteParamsType } from "../../types/requestTypes";
 
 type Status = "idle" | "loading" | "succeeded" | "failed";
 type DataState = {
@@ -35,11 +36,6 @@ const dataSlice = createSlice({
     extraReducers: (builder) => {}
 });
 
-type deleteParamsType = {
-    id: number;
-    secretKey: string;
-}
-
 export const fetchTrainer = 
 createAppAsyncThunk<
     TrainerWithRelation, 
@@ -57,7 +53,7 @@ createAppAsyncThunk<
 });
 
 export const deleteTrainer = 
-createAppAsyncThunk<boolean, deleteParamsType>('data/deleteTrainer', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<boolean, DeleteParamsType>('data/deleteTrainer', async ({ id, secretKey }: DeleteParamsType, { rejectWithValue }) => {
     try {
         await apiClient.deleteTrainer(id, secretKey);
         return true;
@@ -86,7 +82,7 @@ createAppAsyncThunk<
 });
 
 export const deletePokemon = 
-createAppAsyncThunk<void, deleteParamsType>('data/deletePokemon', async ({ id, secretKey }: deleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<void, DeleteParamsType>('data/deletePokemon', async ({ id, secretKey }: DeleteParamsType, { rejectWithValue }) => {
     try {
         const response: void = await apiClient.deletePokemon(id, secretKey);
         return response;
