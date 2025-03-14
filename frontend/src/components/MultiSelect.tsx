@@ -1,27 +1,43 @@
 import { ReactElement } from 'react';
-import Select from 'react-select';
+import Select, { MultiValue, OnChangeValue } from 'react-select';
 
-type MultiSelectProps = {
-    name: string;
-    options: Array<string>;
+// Base Option Type.
+type Option = {
+    value: string;
+    label: string;
+};
+
+// Type for multiple selected options.
+type MultiSelectOptions = MultiValue<Option>
+
+// Component props with their attribute types.
+// This is exported for inferring types for 
+// MultiSelect fields/methods in components 
+// that use MultiSelect component.
+export type MultiSelectProps = {
+    id: string;
+    options: MultiSelectOptions;
+    value: MultiSelectOptions;
+    onChange: (value: MultiSelectOptions) => void;
     className?: string;
-    defaultValues?: Array<string>;
+    defaultValue?: OnChangeValue<Option, true>;
 }
 
 export default function MultiSelect({
-    name,
-    options = [],
-    className,
-    defaultValues
+    id,
+    options,
+    defaultValue,
+    onChange
 }: MultiSelectProps): ReactElement {
     return (
         <>
             <Select 
-                defaultValue={defaultValues} 
+                id={id}
                 isMulti 
-                name={name} 
                 options={options} 
-                className={className} 
+                defaultValue={defaultValue} 
+                onChange={onChange} 
+                required
             />
         </>
     );
