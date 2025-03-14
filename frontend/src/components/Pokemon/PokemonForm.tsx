@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
-import { Pokemon, PokemonTypeEnum, PokeType } from "shared";
+import { checkTypeDuplicate, Pokemon, PokemonTypeEnum, PokeType } from "shared";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -58,7 +58,9 @@ export default function PokemonForm({
             imageLink: formData.imageLink,
             types: [value, formData.types[1]]
         }
-        setFormData(newData);
+        if (!checkTypeDuplicate(newData.types[0], newData.types[1])) {
+            setFormData(newData);
+        }
     }
     // Type 2 Select Handler.
     const typeTwoSelectHandler = (value: PokeType) => {
@@ -67,7 +69,9 @@ export default function PokemonForm({
             imageLink: formData.imageLink,
             types: [formData.types[0], value]
         }
-        setFormData(newData);
+        if (!checkTypeDuplicate(newData.types[0], newData.types[1])) {
+            setFormData(newData);
+        }
     }
 
     return (
@@ -113,7 +117,7 @@ export default function PokemonForm({
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
-                                            <Select defaultValue={formData.types[0]} onValueChange={typeOneSelectHandler}>
+                                            <Select value={formData.types[0]} onValueChange={typeOneSelectHandler}>
                                                 <SelectTrigger className="w-full" id="pokemon">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
@@ -138,7 +142,7 @@ export default function PokemonForm({
                                                 <span>Type 2</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
-                                            <Select defaultValue={formData.types[1]} onValueChange={typeTwoSelectHandler}>
+                                            <Select value={formData.types[1]} onValueChange={typeTwoSelectHandler}>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
