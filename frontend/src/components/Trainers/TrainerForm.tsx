@@ -72,6 +72,11 @@ export default function TrainerForm({
         setFormData(prevData => ({...prevData, pokemon: selectedPokemon}));
     }
 
+    // Submit handler for form.
+    const submitHandler = () => {
+        
+    }
+
     return (
         <div className="flex flex-col gap-2.5 h-full w-full">
             <Header />
@@ -100,7 +105,7 @@ export default function TrainerForm({
                                 <CardTitle className="text-center text-xl font-bold">{update ? ('Update Trainer') : ('Create Trainer')}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <form>
+                                <form onSubmit={submitHandler}>
                                     <div className="grid gap-8">
                                         <div className="grid gap-2">
                                             <Label htmlFor="trainerName">Trainer Name</Label>
