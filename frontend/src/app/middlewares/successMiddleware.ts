@@ -1,5 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { 
+    isCreateOrUpdatePokemonAsyncThunkF,
     isCreateOrUpdateTrainerAsyncThunkF,
     isNotDeleteAsyncThunkF, 
     isPokemonDeleteAsyncThunkF, 
@@ -53,8 +54,13 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
     }
     if (isCreateOrUpdateTrainerAsyncThunkF(action)) {
         // Since a trainer has been created or updated, we need to 
-        // redirect user that trainer's detail page.
+        // redirect user to that trainer's detail page.
         navigationService.navigate(`/trainers/${action.payload.data}`);
+    }
+    if (isCreateOrUpdatePokemonAsyncThunkF(action)) {
+        // Since a pokemon has been created or updated, we need to 
+        // redirect user to that pokemon's detail page.
+        navigationService.navigate(`/pokemon/${action.payload.data}`);
     }
     
     return next(action);
