@@ -112,14 +112,14 @@ export default function TrainerForm({
                                         <div className="grid gap-2">
                                             <Label htmlFor="trainerName">Trainer Name</Label>
                                             <Input 
-                                                type={"text"}
-                                                id={"trainerName"} 
+                                                type={"text"} 
                                                 name="trainerName" 
                                                 value={formData.trainerName} 
                                                 onChange={(e) => setFormData({...formData, trainerName: e.target.value})} 
                                                 placeholder="Red" 
                                                 required
                                             />
+                                            <span className="text-xs text-destructive hidden" id="trainerName"></span>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Pokémon</Label>
@@ -148,7 +148,6 @@ export default function TrainerForm({
                                             </Label>
                                             <Input 
                                                 type={'url'} 
-                                                id={"trainerImage"} 
                                                 name="trainerImage"  
                                                 value={formData.trainerImage || ""} 
                                                 onChange={(e) => setFormData({...formData, trainerImage: e.target.value})} 
