@@ -68,6 +68,11 @@ export const isCreateOrUpdateTrainerAsyncThunkR = isAnyOf(
     createTrainer.rejected,
     updateTrainer.rejected
 );
+// PENDING
+export const isCreateOrUpdateTrainerAsyncThunkP = isAnyOf(
+    createTrainer.pending,
+    updateTrainer.pending
+)
 
 // Type Guard to identify if an action is a FULFILLED async thunk action
 // that makes pokemon create or update request.
