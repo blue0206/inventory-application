@@ -139,7 +139,7 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<Pokemon>(
             200,
             pokemon,
-            `Successfully retrieved pokemon with id ${pokemonId}.`,
+            `${pokemon.name} details retrieved successfully.`,
             true
         )
     );
@@ -222,7 +222,7 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<number>(
             200,
             pokemon.id,
-            `Successfully updated pokemon with id ${pokemonId}`,
+            `The pokémon details have been updated successfully!`,
             true
         )
     );
