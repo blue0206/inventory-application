@@ -111,7 +111,7 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<TrainerWithRelation>(
             200,
             trainer,
-            `${trainer.name} details retrieved successfully.`,
+            `${trainer.name.endsWith("s") ? trainer.name + "'" : trainer.name + "'s"} profile loaded successfully! Check out their Pokémon team.`,
             true
         )
     );

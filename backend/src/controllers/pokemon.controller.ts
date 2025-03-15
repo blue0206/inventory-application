@@ -139,7 +139,7 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<Pokemon>(
             200,
             pokemon,
-            `${pokemon.name} details retrieved successfully.`,
+            `You are now viewing ${pokemon.name.endsWith('s') ? pokemon.name + "'" : pokemon.name + "'s"} details!`,
             true
         )
     );
