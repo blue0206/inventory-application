@@ -2,7 +2,7 @@ import { apiClient } from "@/utils/api-client";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiResponse, PokemonRequestBody, TrainerRequestBody } from "shared";
-import { UpdateTrainerRequestType } from "../../types/requestTypes";
+import { UpdatePokemonRequestType, UpdateTrainerRequestType } from "../../types/requestTypes";
 
 type FormState = {
     trainerFormLoading: boolean;
@@ -33,6 +33,7 @@ const formSlice = createSlice({
     extraReducers: (builder) => {}
 });
 
+// Thunk for creating new trainer.
 export const createTrainer = 
 createAsyncThunk<
     ApiResponse<number>, 
@@ -50,6 +51,7 @@ createAsyncThunk<
     }
 });
 
+// Thunk for updating existing trainer.
 export const updateTrainer = 
 createAsyncThunk<
     ApiResponse<number>, 
@@ -67,6 +69,7 @@ createAsyncThunk<
     }
 });
 
+// Thunk for creating new pokemon.
 export const createPokemon = 
 createAsyncThunk<
     ApiResponse<number>, 
@@ -77,6 +80,23 @@ createAsyncThunk<
         return response;
     } catch (error) {
         // Actions shouldn't take class instances, hence destructure errors to object.
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong.")});
+    }
+});
+
+// Thunk for updating existing pokemon.
+export const updatePokemon = 
+createAsyncThunk<
+    ApiResponse<number>, 
+    UpdatePokemonRequestType
+>('form/updatePokemon', async ({ pokemonData, id }: UpdatePokemonRequestType, { rejectWithValue }) => {
+    try {
+        const response: ApiResponse<number> = await apiClient.updatePokemon(pokemonData, id);
+        return response;
+    } catch (error) {
         if (isCustomDefinedError(error)) {
             return rejectWithValue({...error});
         }
