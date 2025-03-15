@@ -117,14 +117,14 @@ export default function PokemonForm({
                                         <div className="grid gap-2">
                                             <Label htmlFor="trainerName">Pokémon Name</Label>
                                             <Input 
-                                                type={"text"}
-                                                id={"pokemonName"} 
+                                                type={"text"} 
                                                 name={"pokemonName"} 
                                                 value={formData.pokemonName} 
                                                 onChange={(e) => setFormData({...formData, pokemonName: e.target.value})} 
                                                 placeholder="Pikachu"
                                                 required
                                             />
+                                            <span className="text-xs text-destructive hidden" id="pokemonName"></span>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
@@ -154,7 +154,7 @@ export default function PokemonForm({
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
                                             <Select name="pokemonTypes" value={formData.pokemonTypes[1]} onValueChange={typeTwoSelectHandler}>
-                                                <SelectTrigger className="w-full" id="pokemonTypes">
+                                                <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -172,6 +172,7 @@ export default function PokemonForm({
                                                     }
                                                 </SelectContent>
                                             </Select>
+                                            <span className="text-xs text-destructive hidden" id="pokemonTypes"></span>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="imageLink">
