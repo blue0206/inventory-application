@@ -42,7 +42,10 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     }
     // Throw an error if there are validation errors.
     if (errors.length > 0) {
-        throw new ValidationError("Validation Error", errors);
+        throw new ValidationError(
+          "Invalid or incomplete data provided.",
+          errors
+        );
     }
 
     // If pokemon image link not provided, get from api.
@@ -165,30 +168,33 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
     // Validate pokemon name.
     if (!pokemonName.trim()) {
         errors.push({
-            message: "Pokemon name is required.",
+            message: "Please provide a Pokémon name.",
             field: "pokemonName"
         });
     }
     // Validate the pokemon type array.
     if (pokemonTypes.length < 1) {
       errors.push({
-        message: "At least one type is required.",
+        message: "At least one Pokémon type is required.",
         field: "pokemonTypes",
       });
     } else if (pokemonTypes.length > 2) {
       errors.push({
-        message: "Maximum two types allowed.",
+        message: "Maximum two Pokémon types are allowed.",
         field: "pokemonTypes",
       });
     } else if (checkTypeDuplicate(pokemonTypes[0], pokemonTypes[1])) {
       errors.push({
-        message: "Two types cannot be same.",
+        message: "Please provide two different Pokémon types.",
         field: "pokemonTypes",
       });
     }
     // Throw an error if there are validation errors.
     if (errors.length > 0) {
-        throw new ValidationError("Validation Error", errors);
+        throw new ValidationError(
+          "Invalid or incomplete data provided.",
+          errors
+        );
     }
 
     // If pokemon image link not provided, get from api.
