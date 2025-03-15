@@ -75,3 +75,9 @@ export const isCreateOrUpdatePokemonAsyncThunkF = isAnyOf(
     createPokemon.fulfilled,
     updatePokemon.fulfilled
 );
+// Type Guard to identify if an action is a FULFILLED async thunk action
+// that makes pokemon create or update request.
+export const isCreateOrUpdatePokemonAsyncThunkR = isAnyOf(
+    createPokemon.rejected,
+    updatePokemon.rejected
+);
