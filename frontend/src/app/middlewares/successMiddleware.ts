@@ -1,5 +1,5 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { isNotDeleteAsyncThunkF, isTrainerDeleteAsyncThunkF } from "../reduxTypeGuard";
+import { isNotDeleteAsyncThunkF, isPokemonDeleteAsyncThunkF, isTrainerDeleteAsyncThunkF } from "../reduxTypeGuard";
 import { toast } from "sonner";
 
 // Middleware for showing customized notifications when an action is successful
@@ -20,6 +20,15 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
         // Since the api response does not return anything in this case,
         // we use a custom message.
         toast.success("Trainer has been deleted successfully.", {
+            duration: 2000
+        });
+    }
+    if (isPokemonDeleteAsyncThunkF(action)) {
+        // Show success notification for successful delete of
+        // a pokemon.
+        // Since the api response does not return anything in this case,
+        // we use a custom message.
+        toast.success("Pokemon has been deleted successfully.", {
             duration: 2000
         });
     }
