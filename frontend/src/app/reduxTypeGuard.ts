@@ -34,3 +34,16 @@ export const isAsyncThunkF = isAnyOf(
     deletePokemon.fulfilled,
     deleteTrainer.fulfilled
 );
+
+// Type Guard to identify if an action is a fulfilled async thunk action
+// that does not make DELETE requests.
+export const isNotDeleteAsyncThunkF = isAnyOf(
+    fetchPokemonList.fulfilled,
+    fetchPokemon.fulfilled,
+    fetchTrainersList.fulfilled,
+    fetchTrainer.fulfilled,
+    createTrainer.fulfilled,
+    updateTrainer.fulfilled,
+    createPokemon.fulfilled,
+    updatePokemon.fulfilled
+);
