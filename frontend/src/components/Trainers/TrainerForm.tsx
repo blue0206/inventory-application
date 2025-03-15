@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import MultiSelect, { MultiSelectProps } from "../MultiSelect";
 import { navigationService } from "../../utils/navigation";
-import { TrainerWithRelation } from "shared";
+import { TrainerRequestBody, TrainerWithRelation } from "shared";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
 
@@ -38,10 +38,10 @@ export default function TrainerForm({
 
     // Create form data state to keep track of form data.
     // The type is supposed to be the same as provided by api, except the id.
-    const [formData, setFormData] = useState<Omit<TrainerWithRelation, "id">>({
-        name: trainer.name || "",
-        imageLink: trainer.imageLink || null,
-        pokemon: trainer.pokemon || []
+    const [formData, setFormData] = useState<TrainerRequestBody>({
+        trainerName: trainer.name || "",
+        trainerImage: trainer.imageLink || "",
+        pokemonList: trainer.pokemon?.map(poke => poke.name) || []
     });
 
     // Fetch pokemon list from redux state.
@@ -64,12 +64,14 @@ export default function TrainerForm({
 
     // onChange handler for multi select component.
     const handleMultiSelectChange: MultiSelectProps['onChange'] = (value: MultiSelectProps['value']) => {
+        // Loop through all the pokemon in store and filter out those which have a match with the 
+        // current selection and then map through the filtered ones to extract names.
         const selectedPokemon = pokemon.filter(poke => {
             if (value.find(item => item.value === poke.name)) {
-                return poke;
+                return true;
             }
-        });
-        setFormData(prevData => ({...prevData, pokemon: selectedPokemon}));
+        }).map(poke => poke.name);
+        setFormData(prevData => ({...prevData, pokemonList: selectedPokemon}));
     }
 
     // Submit handler for form.
@@ -113,8 +115,8 @@ export default function TrainerForm({
                                                 type={"text"}
                                                 id={"trainerName"} 
                                                 name="trainerName" 
-                                                value={formData.name} 
-                                                onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                                                value={formData.trainerName} 
+                                                onChange={(e) => setFormData({...formData, trainerName: e.target.value})} 
                                                 placeholder="Red" 
                                                 required
                                             />
@@ -127,13 +129,13 @@ export default function TrainerForm({
                                                         value: poke.name,
                                                         label: poke.name
                                                 }))} 
-                                                defaultValue={formData.pokemon.map(poke => ({
-                                                    value: poke.name,
-                                                    label: poke.name
+                                                defaultValue={formData.pokemonList.map(poke => ({
+                                                    value: poke,
+                                                    label: poke
                                                 }))} 
-                                                value={formData.pokemon.map(poke => ({
-                                                    value: poke.name,
-                                                    label: poke.name
+                                                value={formData.pokemonList.map(poke => ({
+                                                    value: poke,
+                                                    label: poke
                                                 }))}
                                                 onChange={handleMultiSelectChange}
                                             />
@@ -148,8 +150,8 @@ export default function TrainerForm({
                                                 type={'url'} 
                                                 id={"trainerImage"} 
                                                 name="trainerImage"  
-                                                value={formData.imageLink || ""} 
-                                                onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
+                                                value={formData.trainerImage || ""} 
+                                                onChange={(e) => setFormData({...formData, trainerImage: e.target.value})} 
                                                 placeholder="URL" 
                                             />
                                         </div>
