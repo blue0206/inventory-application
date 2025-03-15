@@ -114,3 +114,18 @@ export const isNotGetAsyncThunkP = isAnyOf(
     deletePokemon.pending,
     deleteTrainer.pending
 )
+// FULFILLED or REJECTED
+export const isNotGetAsyncThunkFR = isAnyOf(
+    createTrainer.fulfilled,
+    updateTrainer.fulfilled,
+    createPokemon.fulfilled,
+    updatePokemon.fulfilled,
+    deletePokemon.fulfilled,
+    deleteTrainer.fulfilled,
+    createTrainer.rejected,
+    updateTrainer.rejected,
+    createPokemon.rejected,
+    updatePokemon.rejected,
+    deletePokemon.rejected,
+    deleteTrainer.rejected
+);
