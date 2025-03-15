@@ -20,9 +20,10 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if trainer name is provided.
     if (!trainerName.trim()) {
-        throw new ValidationError("Validation Error", [
-            { message: "Trainer name is required.", field: "trainerName" }
-        ]);
+        throw new ValidationError(
+            "Invalid or incomplete data provided.", 
+            [{ message: "Please provide a Trainer name.", field: "trainerName" }]
+        );
     }
 
     // Create trainer in database.
@@ -137,9 +138,10 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if trainer name is provided.
     if (!trainerName.trim()) {
-        throw new ValidationError("Validation Error", [
-            { message: "Trainer name is required.", field: "trainerName" }
-        ]);
+        throw new ValidationError(
+            "Invalid or incomplete data provided.", 
+            [{ message: "Please provide a Trainer name.", field: "trainerName" }]
+        );
     }
 
     // Disconnect all pokemon in trainer model.
