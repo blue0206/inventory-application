@@ -1,4 +1,4 @@
-import { TrainerRequestBody } from "shared";
+import { PokemonRequestBody, TrainerRequestBody } from "shared";
 
 // Type for delete request.
 export type DeleteParamsType = {
@@ -10,4 +10,10 @@ export type DeleteParamsType = {
 export type UpdateTrainerRequestType = {
     id: number;
     trainerData: TrainerRequestBody;
+};
+
+// Type for Pokemon update request.
+export type UpdatePokemonRequestType = {
+    id: number;
+    pokemonData: PokemonRequestBody;
 };
