@@ -51,18 +51,10 @@ export const isNotDeleteAsyncThunkF = isAnyOf(
 // Type Guard to identify if an action is a fulfilled async thunk action
 // that makes pokemon DELETE request.
 export const isPokemonDeleteAsyncThunkF = isAnyOf(deletePokemon.fulfilled);
-// PENDING
-export const isPokemonDeleteAsyncThunkP = isAnyOf(deletePokemon.pending);
-// REJECTED or FULFILLED
-export const isPokemonDeleteAsyncThunkFR = isAnyOf(deletePokemon.rejected, isPokemonDeleteAsyncThunkF);
 
 // Type Guard to identify if an action is a fulfilled async thunk action
 // that makes trainer DELETE request.
 export const isTrainerDeleteAsyncThunkF = isAnyOf(deleteTrainer.fulfilled);
-// PENDING
-export const isTrainerDeleteAsyncThunkP = isAnyOf(deleteTrainer.pending);
-// REJECTED or FULFILLED
-export const isTrainerDeleteAsyncThunkFR = isAnyOf(deleteTrainer.rejected, isTrainerDeleteAsyncThunkF);
 
 // Type Guard to identify if an action is a FULFILLED async thunk action
 // that makes trainer create or update request.
@@ -76,11 +68,6 @@ export const isCreateOrUpdateTrainerAsyncThunkR = isAnyOf(
     createTrainer.rejected,
     updateTrainer.rejected
 );
-// PENDING
-export const isCreateOrUpdateTrainerAsyncThunkP = isAnyOf(
-    createTrainer.pending,
-    updateTrainer.pending
-)
 
 // Type Guard to identify if an action is a FULFILLED async thunk action
 // that makes pokemon create or update request.
@@ -88,16 +75,11 @@ export const isCreateOrUpdatePokemonAsyncThunkF = isAnyOf(
     createPokemon.fulfilled,
     updatePokemon.fulfilled
 );
-// Type Guard to identify if an action is a FULFILLED async thunk action
+// Type Guard to identify if an action is a REJECTED async thunk action
 // that makes pokemon create or update request.
 export const isCreateOrUpdatePokemonAsyncThunkR = isAnyOf(
     createPokemon.rejected,
     updatePokemon.rejected
-);
-// PENDING
-export const isCreateOrUpdatePokemonAsyncThunkP = isAnyOf(
-    createPokemon.pending,
-    updatePokemon.pending
 );
 
 // Type Guard to identify if an action is a PENDING async thunk function
