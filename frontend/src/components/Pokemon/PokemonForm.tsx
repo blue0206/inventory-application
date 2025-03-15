@@ -25,7 +25,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
-import { checkTypeDuplicate, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
+import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getError } from "../../features/error/errorSlice";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -57,6 +59,10 @@ export default function PokemonForm({
         pokemonImage: pokemon.imageLink || "",
         pokemonTypes: PokemonType
     });
+
+    // Error state from redux store to display validation errors.
+    const errorState = useAppSelector(getError);
+    const dispatch = useAppDispatch();
 
     // Types available for selection.
     const typeOptions = Object.keys(PokemonTypeEnum);
@@ -124,7 +130,22 @@ export default function PokemonForm({
                                                 placeholder="Pikachu"
                                                 required
                                             />
-                                            <span className="text-xs text-destructive hidden" id="pokemonName"></span>
+                                            <span 
+                                                className={`
+                                                    text-xs text-destructive 
+                                                    ${
+                                                        isApiErrorList(errorState.error) && 
+                                                        errorState.error.length > 0 && 
+                                                        errorState.error.find(err => err.field === "pokemonName") ? "visible" : "hidden"
+                                                    }
+                                                `} 
+                                            >
+                                                {
+                                                    isApiErrorList(errorState.error) && 
+                                                    errorState.error.length > 0 && 
+                                                    errorState.error.find(err => err.field === "pokemonName")?.message
+                                                }
+                                            </span>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
@@ -172,6 +193,28 @@ export default function PokemonForm({
                                                     }
                                                 </SelectContent>
                                             </Select>
+                                            <ul 
+                                                className={`
+                                                    text-xs text-destructive 
+                                                    ${
+                                                        isApiErrorList(errorState.error) && 
+                                                        errorState.error.length > 0 && 
+                                                        errorState.error.find(err => err.field === "pokemonTypes") ? "visible" : "hidden"
+                                                    }
+                                                `}
+                                            >
+                                                {
+                                                    isApiErrorList(errorState.error) && 
+                                                    errorState.error.length > 0 && 
+                                                    errorState.error.map(err => {
+                                                        return (
+                                                            err.field === "pokemonTypes" && (
+                                                                <li key={err.message}>{err.message}</li>
+                                                            )
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
                                             <span className="text-xs text-destructive hidden" id="pokemonTypes"></span>
                                         </div>
                                         <div className="grid gap-2">
