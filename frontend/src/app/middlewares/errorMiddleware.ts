@@ -43,6 +43,9 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
             break;
             case 409:
                 // Conflict Error
+                // This error is not inherently a Custom API response. It is instead thrown by Prisma and hence
+                // has a different response format. Check out `error-lookup` markdown file for more details.
+                // We provide proper field and message here for proper display within error components.
                 if (isCreateOrUpdateTrainerAsyncThunkR(action)) {
                     const newMessage = "A trainer with this name already exists. Please choose a different name.";
                     store.dispatch(setError({...action.payload, error: [{ message: newMessage, field: "trainerName" }]}));
