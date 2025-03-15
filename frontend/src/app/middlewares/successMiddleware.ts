@@ -1,10 +1,16 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { isNotDeleteAsyncThunkF, isPokemonDeleteAsyncThunkF, isTrainerDeleteAsyncThunkF } from "../reduxTypeGuard";
+import { 
+    isNotDeleteAsyncThunkF, 
+    isPokemonDeleteAsyncThunkF, 
+    isTrainerDeleteAsyncThunkF 
+} from "../reduxTypeGuard";
 import { toast } from "sonner";
+import { navigationService } from "@/utils/navigation";
+import { resetStatus } from "@/features/trainer/trainerSlice";
 
 // Middleware for showing customized notifications when an action is successful
 // and to handle any other side effects.
-export const successMiddleware: Middleware = () => (next) => (action) => {
+export const successMiddleware: Middleware = (store) => (next) => (action) => {
     if (isNotDeleteAsyncThunkF(action)) {
         // Show success notification on successful actions.
         // The message are returned from the server and are
@@ -22,6 +28,11 @@ export const successMiddleware: Middleware = () => (next) => (action) => {
         toast.success("Trainer has been deleted successfully.", {
             duration: 2000
         });
+        // Since a trainer has been deleted, we need to reset 
+        // the status so that a new api call and state is refreshed.
+        store.dispatch(resetStatus());
+        // On delete, the user is redirected to the trainers page.
+        navigationService.navigate("/trainers");
     }
     if (isPokemonDeleteAsyncThunkF(action)) {
         // Show success notification for successful delete of
