@@ -19,24 +19,24 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     // Validate the pokemon name.
     if (!pokemonName.trim()) {
         errors.push({
-            message: "Pokemon name is required.",
+            message: "Please provide a Pokémon name.",
             field: "pokemonName"
         });
     }
     // Validate the pokemon type array.
     if (pokemonTypes.length < 1) {
         errors.push({
-            message: "At least one type is required.",
+            message: "At least one Pokémon type is required.",
             field: "pokemonTypes"
         });
     } else if (pokemonTypes.length > 2) {
         errors.push({
-            message: "Maximum two types allowed.",
+            message: "Maximum two Pokémon types are allowed.",
             field: "pokemonTypes"
         });
     } else if (checkTypeDuplicate(pokemonTypes[0], pokemonTypes[1])) {
         errors.push({
-            message: "Two types cannot be same.",
+            message: "Please provide two different Pokémon types.",
             field: "pokemonTypes"
         });
     }
@@ -65,7 +65,7 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<number>(
             201, 
             pokemon.id, 
-            `Successfully created pokemon ${pokemon.name}`, 
+            `Pokémon ${pokemon.name} has been created successfully!`, 
             true
         )
     );
@@ -85,7 +85,7 @@ const getPokemon = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<Pokemon[]>(
             200,
             pokemon,
-            `Successfully retrieved all pokemon.`,
+            `All Pokémon retrieved successfully.`,
             true
         )
     );
@@ -97,12 +97,18 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if pokemon id exists.
     if (!pokemonId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "We couldn't find the Pokémon you're looking for. Please try again." }]
+        );
     }
 
     // Check if pokemon id is a number.
     if (isNaN(Number(pokemonId))) {
-        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "The resource you're trying to access does not exist!" }]
+        );
     }
 
     // Get pokemon from database.
@@ -114,7 +120,7 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if pokemon was found.
     if (!pokemon) {
-        throw new NotFoundError("Not Found", [{ message: "Pokemon not found." }]);
+        throw new NotFoundError("Not Found", [{ message: "Oops! The pokémon you're looking for does not exist." }]);
     }
 
     // Return pokemon.
@@ -135,11 +141,17 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if pokemon id exists.
     if (!pokemonId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "We couldn't find the Pokémon you're looking for. Please try again." }]
+        );
     }
     // Check if pokemon id is a number.
     if (isNaN(Number(pokemonId))) {
-        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to access does not exist!" }]
+        );
     }
 
     // Initialize error message fields.
@@ -208,11 +220,17 @@ const deletePokemon = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if pokemon id exists.
     if (!pokemonId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: pokemonId" }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to delete does not exist!" }]
+        );
     }
     // Check if pokemon id is a number.
     if (isNaN(Number(pokemonId))) {
-        throw new BadRequestError("Bad Request", [{ message: "pokemonId must be a number." }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to delete does not exist!" }]
+        );
     }
 
     // Delete pokemon.
