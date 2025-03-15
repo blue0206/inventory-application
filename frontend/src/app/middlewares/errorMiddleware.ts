@@ -45,7 +45,11 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                 }
                 break;
             case 404:
-            break;
+                // Not Found
+                // Update error state and redirect to error route.
+                store.dispatch(setError(action.payload));
+                navigationService.navigate("/error");
+                break;
             case 409:
                 // Conflict Error
                 // This error is not inherently a Custom API response. It is instead thrown by Prisma and hence
