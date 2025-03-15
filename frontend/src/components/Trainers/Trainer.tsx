@@ -98,7 +98,12 @@ export default function Trainer(): ReactElement {
             </div>
             <div className="grow flex flex-col">
                 <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
-                    <img src={data.imageLink ? data.imageLink : RedAvatar} className="mx-auto" />
+                    <img 
+                        src={data.imageLink ? data.imageLink : ""} 
+                        onError={(e) => e.currentTarget.src = RedAvatar} 
+                        alt="Trainer Image" 
+                        className="mx-auto" 
+                    />
                 </AspectRatio>
                 <h1 className="scroll-m-20 text-4xl text-center mb-8 font-extrabold tracking-tight lg:text-5xl">{data.name}</h1>
                 <div className="flex justify-center gap-5 mb-4">
