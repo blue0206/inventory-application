@@ -1,5 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { 
+    isCreateOrUpdateTrainerAsyncThunkF,
     isNotDeleteAsyncThunkF, 
     isPokemonDeleteAsyncThunkF, 
     isTrainerDeleteAsyncThunkF 
@@ -12,6 +13,7 @@ import { resetStatus as resetPokemonListStatus } from "@/features/pokemon/pokemo
 // Middleware for showing customized notifications when an action is successful
 // and to handle any other side effects.
 export const successMiddleware: Middleware = (store) => (next) => (action) => {
+    
     if (isNotDeleteAsyncThunkF(action)) {
         // Show success notification on successful actions.
         // The message are returned from the server and are
@@ -48,6 +50,11 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         store.dispatch(resetPokemonListStatus());
         // On delete, the user is redirected to the trainers page.
         navigationService.navigate("/pokemon");
+    }
+    if (isCreateOrUpdateTrainerAsyncThunkF(action)) {
+        // Since a trainer has been created or updated, we need to 
+        // redirect user that trainer's detail page.
+        navigationService.navigate(`/trainers/${action.payload.data}`);
     }
     
     return next(action);
