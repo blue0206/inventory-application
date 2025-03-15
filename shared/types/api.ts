@@ -26,7 +26,7 @@ export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
 export type TrainerRequestBody = {
 	trainerName: string;
     trainerImage?: string;
-    pokemonList?: Array<Pokemon['name']>;
+    pokemonList: Array<Pokemon['name']>;
 }
 export type PokemonRequestBody = {
     pokemonName: string;
