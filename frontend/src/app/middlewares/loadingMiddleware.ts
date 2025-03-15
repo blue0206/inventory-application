@@ -4,6 +4,7 @@ import {
     isGetDetailsAsyncThunkP,
     isListGetAsyncThunkFR,
     isListGetAsyncThunkP,
+    isNotGetAsyncThunkFR,
     isNotGetAsyncThunkP,
 } from "../reduxTypeGuard";
 import { toast } from "sonner";
@@ -59,6 +60,10 @@ export const loadingMiddleware: Middleware = () => (next) => (action) => {
         toast.loading("Please wait...", {
             id: "loadingCUD"
         });
+    }
+    // Remove loading toast on success/reject.
+    if (isNotGetAsyncThunkFR(action)) {
+        toast.dismiss("loadingCUD");
     }
 
     return next(action);
