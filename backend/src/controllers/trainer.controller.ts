@@ -56,7 +56,9 @@ const getTrainers = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if array is empty. If so, return a not found error.
     if (trainers.length === 0) {
-        throw new NotFoundError("Not Found", [{ message: "No trainers found." }])
+        throw new NotFoundError("The requested resource could not be found.", [
+          { message: "Oops! It seems there are no Trainers." }
+        ]);
     }
     // Return the list of trainers.
     res.status(200).json(
@@ -97,7 +99,10 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
     });
     // Check if trainer was found.
     if (!trainer) {
-        throw new NotFoundError("Not Found", [{ message: "Trainer not found." }]);
+        throw new NotFoundError(
+            "The requested resource could not be found.", 
+            [{ message: "Oops! The trainer you're looking for does not exist." }]
+        );
     }
     // Return trainer.
     res.status(200).json(
