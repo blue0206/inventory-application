@@ -69,7 +69,11 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                 store.dispatch(setError(action.payload));
                 break;
             case 500:
-            break;
+                // Internal Server Error
+                // Update error state and redirect to error route.
+                store.dispatch(setError(action.payload));
+                navigationService.navigate("/error");
+                break;
             default: // For Fetch errors encountered on failed API calls.
         }
     }
