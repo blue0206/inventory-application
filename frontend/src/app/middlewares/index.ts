@@ -1,3 +1,3 @@
-export { pendingMiddleware } from "./pendingMiddleware";
+export { loadingMiddleware } from "./loadingMiddleware";
 export { errorHandlingMiddleware } from "./errorMiddleware";
 export { successMiddleware } from "./successMiddleware";

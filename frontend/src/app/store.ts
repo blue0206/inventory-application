@@ -4,7 +4,7 @@ import pokemonSlice from "../features/pokemon/pokemonSlice";
 import dataSlice from "../features/data/dataSlice";
 import formSlice from "../features/form/formSlice";
 import errorSlice from "../features/error/errorSlice";
-import { pendingMiddleware, errorHandlingMiddleware, successMiddleware } from "./middlewares";
+import { loadingMiddleware, errorHandlingMiddleware, successMiddleware } from "./middlewares";
 
 export const store = configureStore({
     reducer: {
@@ -15,7 +15,7 @@ export const store = configureStore({
         error: errorSlice
     },
     middleware: (getDefaultMiddleware) =>  getDefaultMiddleware().concat(
-                pendingMiddleware,
+                loadingMiddleware,
                 errorHandlingMiddleware,
                 successMiddleware
             )

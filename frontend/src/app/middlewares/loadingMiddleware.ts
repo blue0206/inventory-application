@@ -1,6 +1,6 @@
 import { isPending, Middleware } from "@reduxjs/toolkit";
 
-export const pendingMiddleware: Middleware = () => (next) => (action) => {
+export const loadingMiddleware: Middleware = () => (next) => (action) => {
     if (isPending(action)) {
         // TODO: Show customized loading toast based on action type.
     }
