@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "../../app/hooks";
 import type { Pokemon } from 'shared';
+import { ApiResponse } from "shared";
 import { apiClient } from "../../utils/api-client";
 import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 
@@ -28,9 +29,9 @@ const pokemonSlice = createSlice({
         .addCase(fetchPokemonList.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(fetchPokemonList.fulfilled, (state, action: PayloadAction<Array<Pokemon>>) => {
+        .addCase(fetchPokemonList.fulfilled, (state, action: PayloadAction<ApiResponse<Array<Pokemon>>>) => {
             state.status = 'succeeded';
-            state.pokemonList = action.payload;
+            state.pokemonList = action.payload.data;
         })
         .addCase(fetchPokemonList.rejected, (state) => {
             state.status = 'failed';
@@ -43,9 +44,9 @@ const pokemonSlice = createSlice({
 });
 
 export const fetchPokemonList = 
-createAppAsyncThunk<Array<Pokemon>>('pokemon/fetchPokemonList', async (_, { rejectWithValue }) => {
+createAppAsyncThunk<ApiResponse<Array<Pokemon>>>('pokemon/fetchPokemonList', async (_, { rejectWithValue }) => {
     try {
-        const response: Array<Pokemon> = await apiClient.getPokemonList();
+        const response: ApiResponse<Array<Pokemon>> = await apiClient.getPokemonList();
         return response;     
     } catch (error) {
         // Actions shouldn't take class instances, hence destructure errors to object.
