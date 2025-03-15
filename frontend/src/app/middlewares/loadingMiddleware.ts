@@ -1,5 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import {
+    isGetDetailsAsyncThunkFR,
     isGetDetailsAsyncThunkP,
     isListGetAsyncThunkFR,
     isListGetAsyncThunkP,
@@ -40,6 +41,15 @@ export const loadingMiddleware: Middleware = () => (next) => (action) => {
             toast.loading("Fetching trainer details, please wait...", {
                 id: "trainerLoading"
             });
+        }
+    }
+    // Remove loading toast if pokemon or trainer details has been successfully fetched
+    // or resulted in error.
+    if (isGetDetailsAsyncThunkFR(action)) {
+        if (action.type.includes("Pokemon")) {
+            toast.dismiss("pokemonLoading");
+        } else {
+            toast.dismiss("trainerLoading");
         }
     }
 
