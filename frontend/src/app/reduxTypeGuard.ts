@@ -103,3 +103,14 @@ export const isGetDetailsAsyncThunkFR = isAnyOf(
     fetchPokemon.rejected,
     fetchTrainer.rejected
 );
+
+// Type Guard to identify if an action is a PENDING async thunk function
+// that gets individual pokemon/trainer details.
+export const isNotGetAsyncThunkP = isAnyOf(
+    createTrainer.pending,
+    updateTrainer.pending,
+    createPokemon.pending,
+    updatePokemon.pending,
+    deletePokemon.pending,
+    deleteTrainer.pending
+)
