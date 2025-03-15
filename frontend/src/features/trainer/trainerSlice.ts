@@ -2,6 +2,7 @@ import { apiClient } from "../../utils/api-client";
 import { createAppAsyncThunk } from "../../app/hooks";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Trainer } from 'shared';
+import { ApiResponse } from "shared";
 import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 
 type TrainerState = {
@@ -28,9 +29,9 @@ const trainerSlice = createSlice({
         .addCase(fetchTrainersList.pending, (state) => {
             state.status = "loading";
         })
-        .addCase(fetchTrainersList.fulfilled, (state, action: PayloadAction<Array<Trainer>>) => {
+        .addCase(fetchTrainersList.fulfilled, (state, action: PayloadAction<ApiResponse<Array<Trainer>>>) => {
             state.status = "succeeded";
-            state.trainersList = action.payload;
+            state.trainersList = action.payload.data;
         })
         .addCase(fetchTrainersList.rejected, (state) => {
             state.status = "failed";
@@ -43,9 +44,9 @@ const trainerSlice = createSlice({
 });
 
 export const fetchTrainersList = 
-createAppAsyncThunk<Array<Trainer>>('trainer/fetchTrainers', async (_, { rejectWithValue }) => {
+createAppAsyncThunk<ApiResponse<Array<Trainer>>>('trainer/fetchTrainers', async (_, { rejectWithValue }) => {
     try {
-        const response: Array<Trainer> = await apiClient.getTrainersList();
+        const response: ApiResponse<Array<Trainer>> = await apiClient.getTrainersList();
         return response;
     } catch (error) {
         // Actions shouldn't take class instances, hence destructure errors to object.
