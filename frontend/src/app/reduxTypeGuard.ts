@@ -51,3 +51,7 @@ export const isNotDeleteAsyncThunkF = isAnyOf(
 // Type Guard to identify if an action is a fulfilled async thunk action
 // that makes pokemon DELETE request.
 export const isPokemonDeleteAsyncThunkF = isAnyOf(deletePokemon.fulfilled);
+
+// Type Guard to identify if an action is a fulfilled async thunk action
+// that makes trainer DELETE request.
+export const isTrainerDeleteAsyncThunkF = isAnyOf(deleteTrainer.fulfilled);
