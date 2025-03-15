@@ -74,11 +74,17 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
     const { trainerId } = req.params;
     // Check if trainerId exists.
     if (!trainerId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: trainerId" }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "We couldn't find the Trainer you're looking for. Please try again." }]
+        );
     }
     // Check if trainerId is a number.
     if (isNaN(Number(trainerId))) {
-        throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to access does not exist!" }]
+        );
     }
     // Get trainer with trainerId from database.
     const trainer: TrainerWithRelation | null = await prisma.trainer.findUnique({
@@ -111,11 +117,17 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if trainerId exists.
     if (!trainerId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: trainerId" }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "We couldn't find the Trainer you're looking for. Please try again." }]
+        );
     }
     // Check if trainerId is a number.
     if (isNaN(Number(trainerId))) {
-        throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to access does not exist!" }]
+        );
     }
 
     // Check if trainer name is provided.
@@ -182,11 +194,17 @@ const deleteTrainer = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if trainerId exists.
     if (!trainerId.trim()) {
-        throw new BadRequestError("Bad Request", [{ message: "Missing required parameter: trainerId" }]);
+        throw new BadRequestError(
+            "The request was invalid or cannot be otherwise processed.", 
+            [{ message: "The resource you're trying to delete does not exist!" }]
+        );
     }
     // Check if trainerId is a number.
     if (isNaN(Number(trainerId))) {
-        throw new BadRequestError("Bad Request", [{ message: "trainerId must be a number" }]);
+        throw new BadRequestError(
+          "The request was invalid or cannot be otherwise processed.",
+          [{ message: "The resource you're trying to delete does not exist!" }]
+        );
     }
 
     // Delete trainer.
