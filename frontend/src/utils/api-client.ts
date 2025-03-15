@@ -22,7 +22,7 @@ class ApiClient {
     private async fetch<DataType>(
         endpoint: string,
         options: FetchOptions
-    ): Promise<DataType> {
+    ): Promise<ApiResponse<DataType>> {
         // Destructure options into individual variables and default init method.
         const { method = "GET", body, headers }: FetchOptions = options;
 
@@ -56,7 +56,7 @@ class ApiClient {
             }
             // If everything went well, parse and return the response.
             const data: ApiResponse<DataType> = await response.json();
-            return data.data;
+            return data;
         } catch (error) {
             // If any unknown errors are encountered, throw a custom fetch error.
             console.error(error);
@@ -65,21 +65,21 @@ class ApiClient {
     }
 
     // Method to fetch list of trainers.
-    async getTrainersList(): Promise<Trainer[]> {
+    async getTrainersList(): Promise<ApiResponse<Trainer[]>> {
         return this.fetch<Trainer[]>("trainers/", {
             method: "GET"
         });
     }
 
     // Method to fetch a single trainer by ID.
-    async getTrainerById(id: number): Promise<TrainerWithRelation> {
+    async getTrainerById(id: number): Promise<ApiResponse<TrainerWithRelation>> {
         return this.fetch<TrainerWithRelation>(`trainers/${id}/`, {
             method: "GET"
         });
     }
 
     // Method to create a new trainer via a POST request.
-    async createTrainer(trainerData: TrainerRequestBody): Promise<number> {
+    async createTrainer(trainerData: TrainerRequestBody): Promise<ApiResponse<number>> {
         return this.fetch<number>("trainers/", {
             method: "POST",
             body: trainerData
@@ -87,7 +87,7 @@ class ApiClient {
     }
 
     // Method to update an existing trainer via a PUT request.
-    async updateTrainer(trainerData: TrainerRequestBody, id: number): Promise<number> {
+    async updateTrainer(trainerData: TrainerRequestBody, id: number): Promise<ApiResponse<number>> {
         return this.fetch<number>(`trainers/${id}`, {
             method: "PUT",
             body: trainerData
@@ -102,21 +102,21 @@ class ApiClient {
     }
 
     // Methods to fetch a list of pokemon.
-    async getPokemonList(): Promise<Pokemon[]> {
+    async getPokemonList(): Promise<ApiResponse<Pokemon[]>> {
         return this.fetch<Pokemon[]>("pokemon/", {
             method: "GET"
         });
     }
 
     // Method to fetch a single pokemon by ID.
-    async getPokemonById(id: number): Promise<Pokemon> {
+    async getPokemonById(id: number): Promise<ApiResponse<Pokemon>> {
         return this.fetch<Pokemon>(`pokemon/${id}/`, {
             method: "GET"
         });
     }
 
     // Method to create a new pokemon via a POST request.
-    async createPokemon(pokemonData: PokemonRequestBody): Promise<number> {
+    async createPokemon(pokemonData: PokemonRequestBody): Promise<ApiResponse<number>> {
         return this.fetch<number>("pokemon/", {
             method: "POST",
             body: pokemonData
@@ -124,7 +124,7 @@ class ApiClient {
     }
 
     // Method to update an existing pokemon via a PUT request.
-    async updatePokemon(pokemonData: PokemonRequestBody, id: number): Promise<number> {
+    async updatePokemon(pokemonData: PokemonRequestBody, id: number): Promise<ApiResponse<number>> {
         return this.fetch<number>(`pokemon/${id}/`, {
             method: "PUT",
             body: pokemonData
