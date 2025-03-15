@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
-import { checkTypeDuplicate, Pokemon, PokemonTypeEnum, PokeType } from "shared";
+import { checkTypeDuplicate, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -40,12 +40,22 @@ export default function PokemonForm({
     ...pokemon
 }: PokemonFormProps): ReactElement {
 
+    // Create a variable with same type as pokemonTypes in PokemonRequestBody.
+    // This is to prevent type clash with Pokemon type passed in as prop.
+    let PokemonType: [PokeType, PokeType?];
+    if (pokemon?.types?.length === 1) {
+        PokemonType = [pokemon.types[0]];
+    } else if (pokemon?.types?.length === 2) {
+        PokemonType = [pokemon.types[0], pokemon.types[1]];
+    } else {
+        PokemonType = ["NORMAL"];
+    }
     // Create form data state to keep track of form data.
     // The type is supposed to be the same as provided by api, except the id.
-    const [formData, setFormData] = useState<Omit<Pokemon, "id">>({
-        name: pokemon.name || "",
-        imageLink: pokemon.imageLink || null,
-        types: pokemon.types || ["NORMAL"]
+    const [formData, setFormData] = useState<PokemonRequestBody>({
+        pokemonName: pokemon.name || "",
+        pokemonImage: pokemon.imageLink || "",
+        pokemonTypes: PokemonType
     });
 
     // Types available for selection.
@@ -53,23 +63,23 @@ export default function PokemonForm({
 
     // Type 1 Select Handler.
     const typeOneSelectHandler = (value: PokeType) => {
-        const newData: Omit<Pokemon, "id"> = {
-            name: formData.name,
-            imageLink: formData.imageLink,
-            types: [value, formData.types[1]]
+        const newData: PokemonRequestBody = {
+            pokemonName: formData.pokemonName,
+            pokemonImage: formData.pokemonImage,
+            pokemonTypes: [value, formData.pokemonTypes[1]]
         }
-        if (!checkTypeDuplicate(newData.types[0], newData.types[1])) {
+        if (!checkTypeDuplicate(newData.pokemonTypes[0], newData.pokemonTypes[1])) {
             setFormData(newData);
         }
     }
     // Type 2 Select Handler.
     const typeTwoSelectHandler = (value: PokeType) => {
-        const newData: Omit<Pokemon, "id"> = {
-            name: formData.name,
-            imageLink: formData.imageLink,
-            types: [formData.types[0], value]
+        const newData: PokemonRequestBody = {
+            pokemonName: formData.pokemonName,
+            pokemonImage: formData.pokemonImage,
+            pokemonTypes: [formData.pokemonTypes[0], value]
         }
-        if (!checkTypeDuplicate(newData.types[0], newData.types[1])) {
+        if (!checkTypeDuplicate(newData.pokemonTypes[0], newData.pokemonTypes[1])) {
             setFormData(newData);
         }
     }
@@ -110,22 +120,22 @@ export default function PokemonForm({
                                                 type={"text"}
                                                 id={"pokemonName"} 
                                                 name={"pokemonName"} 
-                                                value={formData.name} 
-                                                onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                                                value={formData.pokemonName} 
+                                                onChange={(e) => setFormData({...formData, pokemonName: e.target.value})} 
                                                 placeholder="Pikachu"
                                                 required
                                             />
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
-                                            <Select value={formData.types[0]} onValueChange={typeOneSelectHandler}>
+                                            <Select value={formData.pokemonTypes[0]} onValueChange={typeOneSelectHandler}>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {
                                                         typeOptions.map(option => (
-                                                            option != formData.types[1] && (
+                                                            option != formData.pokemonTypes[1] && (
                                                                 <SelectItem
                                                                     key={option} 
                                                                     value={option} 
@@ -143,14 +153,14 @@ export default function PokemonForm({
                                                 <span>Type 2</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
-                                            <Select name="pokemonTypes" value={formData.types[1]} onValueChange={typeTwoSelectHandler}>
+                                            <Select name="pokemonTypes" value={formData.pokemonTypes[1]} onValueChange={typeTwoSelectHandler}>
                                                 <SelectTrigger className="w-full" id="pokemonTypes">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {
                                                         typeOptions.map(option => (
-                                                            option != formData.types[0] && (
+                                                            option != formData.pokemonTypes[0] && (
                                                                 <SelectItem 
                                                                     key={option} 
                                                                     value={option} 
@@ -172,8 +182,8 @@ export default function PokemonForm({
                                                 type={'url'} 
                                                 id={"pokemonImage"} 
                                                 name="pokemonImage"
-                                                value={formData.imageLink || ""} 
-                                                onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
+                                                value={formData.pokemonImage || ""} 
+                                                onChange={(e) => setFormData({...formData, pokemonImage: e.target.value})} 
                                                 placeholder="URL" 
                                             />
                                         </div>
