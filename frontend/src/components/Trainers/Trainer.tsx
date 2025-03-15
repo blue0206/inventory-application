@@ -99,7 +99,7 @@ export default function Trainer(): ReactElement {
             <div className="grow flex flex-col">
                 <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
                     <img 
-                        src={data.imageLink ? data.imageLink : ""} 
+                        src={data.imageLink ? data.imageLink : RedAvatar} 
                         onError={(e) => e.currentTarget.src = RedAvatar} 
                         alt="Trainer Image" 
                         className="mx-auto" 

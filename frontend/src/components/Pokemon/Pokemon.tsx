@@ -170,7 +170,7 @@ export default function Pokemon(): ReactElement {
                 </div>
                 <AspectRatio ratio={2/1} className="flex justify-center py-4 px-5 mb-4">
                     <img 
-                        src={data.imageLink ? data.imageLink : ""} 
+                        src={data.imageLink ? data.imageLink : MissingnoAvatar} 
                         onError={(e) => e.currentTarget.src = MissingnoAvatar} 
                         alt="Pokémon Image" 
                         className="mx-auto" 
