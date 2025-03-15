@@ -1,5 +1,7 @@
 import { isRejected, Middleware } from "@reduxjs/toolkit"
 import { isCustomDefinedError } from "@/utils/custom-error";
+import { isApiErrorList } from "shared";
+import { toast } from "sonner";
 
 // Middleware for centralized and standardized error handling across the application.
 export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
@@ -24,7 +26,16 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
             case 400:
             break;
             case 401:
-            break;
+                if (isApiErrorList(action.payload.error)) {
+                    toast.error(action.payload.error[0].message, {
+                        duration: 11000,
+                        cancel: {
+                            label: "Dismiss",
+                            onClick: () => {}
+                        }
+                    });
+                }
+                break;
             case 404:
             break;
             case 409:
@@ -36,5 +47,6 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
             default: // For Fetch errors encountered on failed API calls.
         }
     }
+
     return next(action);
 }
