@@ -102,13 +102,14 @@ export default function PokemonForm({
                                 <CardTitle className="text-center text-xl font-bold">{update ? ('Update Pokémon') : ('Create Pokémon')}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <form>
+                                <form onSubmit={submitHandler}>
                                     <div className="grid gap-8">
                                         <div className="grid gap-2">
                                             <Label htmlFor="trainerName">Pokémon Name</Label>
                                             <Input 
                                                 type={"text"}
                                                 id={"pokemonName"} 
+                                                name={"pokemonName"} 
                                                 value={formData.name} 
                                                 onChange={(e) => setFormData({...formData, name: e.target.value})} 
                                                 placeholder="Pikachu"
@@ -118,7 +119,7 @@ export default function PokemonForm({
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Type 1</Label>
                                             <Select value={formData.types[0]} onValueChange={typeOneSelectHandler}>
-                                                <SelectTrigger className="w-full" id="pokemon">
+                                                <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -142,8 +143,8 @@ export default function PokemonForm({
                                                 <span>Type 2</span>
                                                 <span className="block text-[13px] text-muted-foreground leading-none opacity-75">(Optional)</span>
                                             </Label>
-                                            <Select value={formData.types[1]} onValueChange={typeTwoSelectHandler}>
-                                                <SelectTrigger className="w-full">
+                                            <Select name="pokemonTypes" value={formData.types[1]} onValueChange={typeTwoSelectHandler}>
+                                                <SelectTrigger className="w-full" id="pokemonTypes">
                                                     <SelectValue placeholder="Select Type..." />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -169,7 +170,8 @@ export default function PokemonForm({
                                             </Label>
                                             <Input 
                                                 type={'url'} 
-                                                id={"imageLink"} 
+                                                id={"pokemonImage"} 
+                                                name="pokemonImage"
                                                 value={formData.imageLink || ""} 
                                                 onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
                                                 placeholder="URL" 
