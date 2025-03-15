@@ -81,3 +81,7 @@ export const isCreateOrUpdatePokemonAsyncThunkR = isAnyOf(
     createPokemon.rejected,
     updatePokemon.rejected
 );
+
+// Type Guard to identify if an action is a PENDING async thunk function
+// that makes get request for list.
+export const isListGetAsyncThunkP = isAnyOf(fetchPokemonList.pending, fetchTrainersList.pending);
