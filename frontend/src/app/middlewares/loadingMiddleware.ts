@@ -4,6 +4,7 @@ import {
     isGetDetailsAsyncThunkP,
     isListGetAsyncThunkFR,
     isListGetAsyncThunkP,
+    isNotGetAsyncThunkP,
 } from "../reduxTypeGuard";
 import { toast } from "sonner";
 
@@ -51,6 +52,13 @@ export const loadingMiddleware: Middleware = () => (next) => (action) => {
         } else {
             toast.dismiss("trainerLoading");
         }
+    }
+
+    // Show loading toast if pokemon/trainer is created/updated/deleted.
+    if (isNotGetAsyncThunkP(action)) {
+        toast.loading("Please wait...", {
+            id: "loadingCUD"
+        });
     }
 
     return next(action);
