@@ -50,9 +50,12 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                     const newMessage = "This Pokémon already exists.";
                     store.dispatch(setError({...action.payload, error: [{ message: newMessage, field: "pokemonName" }]}));
                 }
-            break;
+                break;
             case 422:
-            break;
+                // Validation Error
+                // Update error state to display validation errors.
+                store.dispatch(setError(action.payload));
+                break;
             case 500:
             break;
             default: // For Fetch errors encountered on failed API calls.
