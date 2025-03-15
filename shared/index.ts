@@ -2,5 +2,5 @@ export type { Trainer, Pokemon, PokeType, TrainerWithRelation, TrainerPokemon, T
 export { PokemonTypeEnum, checkTypeDuplicate } from "./types/api.js";
 export { prisma, Prisma } from "./prisma-client/prisma.js";
 export { ApiResponse, ApiErrorResponse } from "./utils/ApiResponse.js";
-export { ApiError, BadRequestError, NotFoundError, ValidationError, isCustomError } from "./utils/ApiError.js";
+export { ApiError, BadRequestError, NotFoundError, ValidationError, isApiErrorList, isCustomError } from "./utils/ApiError.js";
 export type { ApiErrorList, ApiErrorTypes } from "./utils/ApiError.ts"

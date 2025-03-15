@@ -147,6 +147,13 @@ export type ApiErrorList = Array<{
     message: string;
     field?: string;
 }>;
+// Type Guard for ApiErrorList Type
+export function isApiErrorList(errors: any): errors is ApiErrorList {
+    if (Array.isArray(errors) && 'message' in errors[0]) {
+        return true;
+    }
+    return false;
+}
 
 export type ApiErrorTypes = 
     | ApiError 
