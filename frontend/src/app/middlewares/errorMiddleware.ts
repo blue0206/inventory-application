@@ -3,9 +3,10 @@ import { isCustomDefinedError } from "@/utils/custom-error";
 import { isApiErrorList } from "shared";
 import { toast } from "sonner";
 import { isCreateOrUpdatePokemonAsyncThunkR, isCreateOrUpdateTrainerAsyncThunkR } from "../reduxTypeGuard";
+import { setError } from "../../features/error/errorSlice";
 
 // Middleware for centralized and standardized error handling across the application.
-export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
+export const errorHandlingMiddleware: Middleware = (store) => (next) => (action) => {
     // Check if action is rejected, and payload is a custom defined error using type guard.
     if (isRejected(action) && isCustomDefinedError(action.payload)) {
         /**
@@ -43,21 +44,11 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
             case 409:
                 // Conflict Error
                 if (isCreateOrUpdateTrainerAsyncThunkR(action)) {
-                    toast.error("A trainer with this name already exists. Please choose a different name.", {
-                        duration: 11000,
-                        cancel: {
-                            label: "Dismiss",
-                            onClick: () => {}
-                        }
-                    });
+                    const newMessage = "A trainer with this name already exists. Please choose a different name.";
+                    store.dispatch(setError({...action.payload, error: [{ message: newMessage, field: "trainerName" }]}));
                 } else if (isCreateOrUpdatePokemonAsyncThunkR(action)) {
-                    toast.error("This Pokémon already exists.", {
-                        duration: 11000,
-                        cancel: {
-                            label: "Dismiss",
-                            onClick: () => {}
-                        }
-                    });
+                    const newMessage = "This Pokémon already exists.";
+                    store.dispatch(setError({...action.payload, error: [{ message: newMessage, field: "pokemonName" }]}));
                 }
             break;
             case 422:
