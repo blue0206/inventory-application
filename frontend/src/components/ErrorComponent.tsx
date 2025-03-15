@@ -36,7 +36,17 @@ export default function ErrorComponent(): ReactElement {
                 <Header />
                 <div className='flex flex-col items-center justify-center h-full px-4 gap-11 sm:gap-16'>
                     <h1 className='max-w-full text-5xl'>
-                        {errorState.code}: {errorName}
+                        {
+                            errorState.code ? (
+                                <>
+                                    {errorState.code}: {errorName}
+                                </>
+                            ) : (
+                                <>
+                                    Oops!
+                                </>
+                            )
+                        }
                     </h1>
                     <div className='text-2xl font-extralight text-muted-foreground'>
                         {
