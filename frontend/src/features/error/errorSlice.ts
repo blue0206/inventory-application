@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ApiErrorList } from 'shared';
-import { CustomError } from '../../utils/custom-error';
+import { CustomDefinedErrorType, CustomError } from '../../utils/custom-error';
 
 type ErrorState = {
     hasError: boolean;
@@ -20,11 +20,13 @@ const errorSlice = createSlice({
     name: 'error',
     initialState,
     reducers: {
-        setError: (state, action: PayloadAction<CustomError>) => {
+        setError: (state, action: PayloadAction<CustomDefinedErrorType>) => {
             state.hasError = true;
             state.message = action.payload.message;
-            state.error = action.payload.error;
-            state.code = action.payload.statusCode;
+            if (action.payload instanceof CustomError) {
+                state.error = action.payload?.error || null;
+                state.code = action.payload.statusCode;
+            }
             return state;
         },
         clearError: (state) => {
