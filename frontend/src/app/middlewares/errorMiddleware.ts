@@ -4,6 +4,7 @@ import { isApiErrorList } from "shared";
 import { toast } from "sonner";
 import { isCreateOrUpdatePokemonAsyncThunkR, isCreateOrUpdateTrainerAsyncThunkR } from "../reduxTypeGuard";
 import { setError } from "../../features/error/errorSlice";
+import { navigationService } from "../../utils/navigation";
 
 // Middleware for centralized and standardized error handling across the application.
 export const errorHandlingMiddleware: Middleware = (store) => (next) => (action) => {
@@ -26,7 +27,11 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
          **/
         switch (action.payload.statusCode) {
             case 400:
-            break;
+                // Bad Request
+                // Update error state and redirect to error route.
+                store.dispatch(setError(action.payload));
+                navigationService.navigate("/error");
+                break;
             case 401:
                 // Unauthorized Request
                 if (isApiErrorList(action.payload.error)) {
