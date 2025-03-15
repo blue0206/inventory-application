@@ -1,4 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { apiClient } from "@/utils/api-client";
+import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ApiResponse, TrainerRequestBody } from "shared";
 
 type FormState = {
     trainerFormLoading: boolean;
@@ -27,6 +30,20 @@ const formSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {}
+});
+
+export const createTrainer = 
+createAsyncThunk<ApiResponse<number>, TrainerRequestBody>('form/createTrainer', async (trainerData: TrainerRequestBody, { rejectWithValue }) => {
+    try {
+        const response: ApiResponse<number> = await apiClient.createTrainer(trainerData);
+        return response;
+    } catch (error) {
+        // Actions shouldn't take class instances, hence destructure errors to object.
+        if (isCustomDefinedError(error)) {
+            return rejectWithValue({...error});
+        }
+        return rejectWithValue({...new FetchError("Something went wrong.")});
+    }
 });
 
 export default formSlice.reducer;
