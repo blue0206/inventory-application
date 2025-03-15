@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
 import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
 import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError, checkTypeDuplicate } from "shared";
+import toTitleCase from "../utils/title-case.js";
 
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
@@ -58,7 +59,7 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     // Create a new pokemon in the database.
     const pokemon: Pokemon = await prisma.pokemon.create({
         data: {
-            name: pokemonName,
+            name: toTitleCase(pokemonName),
             types: pokemonTypes,
             imageLink: fetchedImage ? fetchedImage.trim() : fetchedImage,
         }
@@ -210,7 +211,7 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
             id: Number(pokemonId),
         },
         data: {
-            name: pokemonName,
+            name: toTitleCase(pokemonName),
             types: pokemonTypes,
             imageLink: fetchedImage ? fetchedImage.trim() : null,
         },
