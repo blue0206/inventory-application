@@ -2,6 +2,7 @@ import { isRejected, Middleware } from "@reduxjs/toolkit"
 import { isCustomDefinedError } from "@/utils/custom-error";
 import { isApiErrorList } from "shared";
 import { toast } from "sonner";
+import { isCreateOrUpdatePokemonAsyncThunkR, isCreateOrUpdateTrainerAsyncThunkR } from "../reduxTypeGuard";
 
 // Middleware for centralized and standardized error handling across the application.
 export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
@@ -26,6 +27,7 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
             case 400:
             break;
             case 401:
+                // Unauthorized Request
                 if (isApiErrorList(action.payload.error)) {
                     toast.error(action.payload.error[0].message, {
                         duration: 11000,
@@ -39,6 +41,24 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action) => {
             case 404:
             break;
             case 409:
+                // Conflict Error
+                if (isCreateOrUpdateTrainerAsyncThunkR(action)) {
+                    toast.error("A trainer with this name already exists. Please choose a different name.", {
+                        duration: 11000,
+                        cancel: {
+                            label: "Dismiss",
+                            onClick: () => {}
+                        }
+                    });
+                } else if (isCreateOrUpdatePokemonAsyncThunkR(action)) {
+                    toast.error("This Pokémon already exists.", {
+                        duration: 11000,
+                        cancel: {
+                            label: "Dismiss",
+                            onClick: () => {}
+                        }
+                    });
+                }
             break;
             case 422:
             break;
