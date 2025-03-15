@@ -112,16 +112,17 @@ export default function TrainerForm({
                                             <Input 
                                                 type={"text"}
                                                 id={"trainerName"} 
+                                                name="trainerName" 
                                                 value={formData.name} 
                                                 onChange={(e) => setFormData({...formData, name: e.target.value})} 
-                                                placeholder="Red"
+                                                placeholder="Red" 
                                                 required
                                             />
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Pokémon</Label>
                                             <MultiSelect 
-                                                id="pokemon" 
+                                                id="pokemonList"  
                                                 options={pokemon.map(poke => ({
                                                         value: poke.name,
                                                         label: poke.name
@@ -145,7 +146,8 @@ export default function TrainerForm({
                                             </Label>
                                             <Input 
                                                 type={'url'} 
-                                                id={"imageLink"} 
+                                                id={"trainerImage"} 
+                                                name="trainerImage"  
                                                 value={formData.imageLink || ""} 
                                                 onChange={(e) => setFormData({...formData, imageLink: e.target.value})} 
                                                 placeholder="URL" 
