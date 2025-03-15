@@ -47,7 +47,7 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<number>(
             201, 
             trainer.id, 
-            `Successfully created trainer ${trainer.name}`, 
+            `Trainer ${trainer.name} has been created successfully!`, 
             true
         )
     );
@@ -67,7 +67,7 @@ const getTrainers = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<Trainer[]>(
             200, 
             trainers, 
-            "Successfully retrieved all trainers.",
+            "All trainers retrieved successfully.",
             true
         )
     );
@@ -111,7 +111,7 @@ const getTrainerById = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<TrainerWithRelation>(
             200,
             trainer,
-            `Successfully retrieved trainer ${trainer.name}.`,
+            `${trainer.name} details retrieved successfully.`,
             true
         )
     );
@@ -190,7 +190,7 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
         new ApiResponse<number>(
             200,
             trainer.id,
-            `Successfully updated trainer ${trainer.name}`,
+            `The trainer details have been updated successfully!`,
             true
         )
     );
