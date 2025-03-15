@@ -77,7 +77,10 @@ const getPokemon = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if the array is empty. If so, return a not found error.
     if (pokemon.length === 0) {
-        throw new NotFoundError("Not Found", [{ message: "No pokemon found." }]);
+        throw new NotFoundError(
+            "The requested resource could not be found.", 
+            [{ message: "Oops! It seems there are no Pokémon." }]
+        );
     }
 
     // Return the list of pokemon.
@@ -120,7 +123,10 @@ const getPokemonById = asyncHandler(async (req: Request, res: Response) => {
 
     // Check if pokemon was found.
     if (!pokemon) {
-        throw new NotFoundError("Not Found", [{ message: "Oops! The pokémon you're looking for does not exist." }]);
+        throw new NotFoundError(
+            "The requested resource could not be found.", 
+            [{ message: "Oops! The pokémon you're looking for does not exist." }]
+        );
     }
 
     // Return pokemon.
