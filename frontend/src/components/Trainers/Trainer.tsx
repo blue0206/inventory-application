@@ -50,6 +50,10 @@ export default function Trainer(): ReactElement {
     // dialog for delete modal on desktop and drawer on mobile.
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
+    const handleDelete = () => {
+        
+    }
+
     /**
      * Fetches trainer data when component mounts and whenever the trainer ID changes.
      * The data is stored in local component state instead of Redux state since it
@@ -67,7 +71,7 @@ export default function Trainer(): ReactElement {
         ;(async function fetchData() {
             const action = await dispatch(fetchTrainer(Number(trainerId)));
             if (fetchTrainer.fulfilled.match(action)) {
-                setData(action.payload);
+                setData(action.payload.data);
             }
         }());
     }, [dispatch, trainerId]);
@@ -119,7 +123,7 @@ export default function Trainer(): ReactElement {
                                         <div className='text-xs'>(Hint: Kazuma's sword)</div>
                                     </div>
                                     <DialogFooter>
-                                        <Button variant={'destructive'} className='cursor-pointer'>Delete</Button>
+                                        <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
@@ -143,7 +147,7 @@ export default function Trainer(): ReactElement {
                                             <div className='text-xs'>(Hint: Kazuma's sword)</div>
                                         </div>
                                         <DialogFooter>
-                                            <Button variant={'destructive'} className='cursor-pointer'>Delete</Button>
+                                            <Button variant={'destructive'} onClick={handleDelete} className='cursor-pointer'>Delete</Button>
                                         </DialogFooter>
                                     </div>
                                 </DrawerContent>
