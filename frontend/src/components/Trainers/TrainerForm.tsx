@@ -19,9 +19,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import MultiSelect, { MultiSelectProps } from "../MultiSelect";
 import { navigationService } from "../../utils/navigation";
-import { TrainerRequestBody, TrainerWithRelation } from "shared";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { isApiErrorList, TrainerRequestBody, TrainerWithRelation } from "shared";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
+import { getError } from "../../features/error/errorSlice";
 
 // If trainer is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -48,6 +49,9 @@ export default function TrainerForm({
     const pokemon = useAppSelector(getPokemonList);
     const status = useAppSelector(getStatus);
     const dispatch = useAppDispatch();
+
+    // Error state from redux store to display validation errors.
+    const errorState = useAppSelector(getError);
 
     useEffect(() => {
         // If pokemon list has not been fetched yet, fetch it.
@@ -119,7 +123,22 @@ export default function TrainerForm({
                                                 placeholder="Red" 
                                                 required
                                             />
-                                            <span className="text-xs text-destructive hidden" id="trainerName"></span>
+                                            <span 
+                                                className={`
+                                                    text-xs text-destructive 
+                                                    ${
+                                                        isApiErrorList(errorState.error) && 
+                                                        errorState.error.length > 0 && 
+                                                        errorState.error.find(err => err.field === "trainerName") ? "visible" : "hidden"
+                                                    }
+                                                `} 
+                                            >
+                                                {
+                                                    isApiErrorList(errorState.error) && 
+                                                    errorState.error.length > 0 && 
+                                                    errorState.error.find(err => err.field === "trainerName")?.message
+                                                }
+                                            </span>
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="pokemon" className="flex items-center gap-2 relative">Pokémon</Label>
