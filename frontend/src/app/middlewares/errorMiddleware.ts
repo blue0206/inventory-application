@@ -74,7 +74,10 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                 store.dispatch(setError(action.payload));
                 navigationService.navigate("/error");
                 break;
-            default: // For Fetch errors encountered on failed API calls.
+            default: 
+                // For Fetch errors encountered on failed API calls.
+                store.dispatch(setError(action.payload));
+                navigationService.navigate("/error");
         }
     }
 
