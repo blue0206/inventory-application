@@ -6,7 +6,8 @@ import {
 } from "../reduxTypeGuard";
 import { toast } from "sonner";
 import { navigationService } from "@/utils/navigation";
-import { resetStatus } from "@/features/trainer/trainerSlice";
+import { resetStatus as resetTrainerListStatus } from "@/features/trainer/trainerSlice";
+import { resetStatus as resetPokemonListStatus } from "@/features/pokemon/pokemonSlice";
 
 // Middleware for showing customized notifications when an action is successful
 // and to handle any other side effects.
@@ -30,7 +31,7 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         });
         // Since a trainer has been deleted, we need to reset 
         // the status so that a new api call and state is refreshed.
-        store.dispatch(resetStatus());
+        store.dispatch(resetTrainerListStatus());
         // On delete, the user is redirected to the trainers page.
         navigationService.navigate("/trainers");
     }
@@ -42,6 +43,11 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         toast.success("Pokemon has been deleted successfully.", {
             duration: 2000
         });
+        // Since a pokemon has been deleted, we need to reset 
+        // the status so that a new api call and state is refreshed.
+        store.dispatch(resetPokemonListStatus());
+        // On delete, the user is redirected to the trainers page.
+        navigationService.navigate("/pokemon");
     }
     
     return next(action);
