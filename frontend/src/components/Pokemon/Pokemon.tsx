@@ -69,7 +69,7 @@ export default function Pokemon(): ReactElement {
         ;(async function fetchData() {
             const action = await dispatch(fetchPokemon(Number(pokemonId)));
             if (fetchPokemon.fulfilled.match(action)) {
-                setData(action.payload);
+                setData(action.payload.data);
             }
         }());
     }, [dispatch, pokemonId]);
