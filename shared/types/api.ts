@@ -1,9 +1,6 @@
 import { Trainer as TrainerType, Pokemon as PokemonType, PokeType as Types } from '@prisma/client';
 import { Prisma as PrismaNamespace } from '../prisma-client/prisma.js';
 
-// Prisma Client Type
-// type Prisma = typeof prisma;
-
 // Model Types
 export type Trainer = TrainerType;
 export type Pokemon = PokemonType;
@@ -29,7 +26,7 @@ export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
 export type TrainerRequestBody = {
 	trainerName: string;
     trainerImage?: string;
-    pokemonList?: string[];
+    pokemonList?: Array<Pokemon['name']>;
 }
 export type PokemonRequestBody = {
     pokemonName: string;
