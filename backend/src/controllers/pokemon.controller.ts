@@ -6,8 +6,9 @@ import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError, c
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
     const data = await response.json();
-    
-    return data.sprites?.front_default;
+    // Get high quality image from new image url using id from fetched pokemon data.
+    const imageURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
+    return imageURL;
 }
 
 const createPokemon = asyncHandler(async (req: Request, res: Response) => {
