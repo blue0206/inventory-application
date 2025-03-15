@@ -26,12 +26,6 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
          * Inside each switch case, the error handling will further be based on the action type.
          **/
         switch (action.payload.statusCode) {
-            case 400:
-                // Bad Request
-                // Update error state and redirect to error route.
-                store.dispatch(setError(action.payload));
-                navigationService.navigate("/error");
-                break;
             case 401:
                 // Unauthorized Request
                 if (isApiErrorList(action.payload.error)) {
@@ -43,12 +37,6 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                         }
                     });
                 }
-                break;
-            case 404:
-                // Not Found
-                // Update error state and redirect to error route.
-                store.dispatch(setError(action.payload));
-                navigationService.navigate("/error");
                 break;
             case 409:
                 // Conflict Error
@@ -68,14 +56,9 @@ export const errorHandlingMiddleware: Middleware = (store) => (next) => (action)
                 // Update error state to display validation errors.
                 store.dispatch(setError(action.payload));
                 break;
-            case 500:
-                // Internal Server Error
-                // Update error state and redirect to error route.
-                store.dispatch(setError(action.payload));
-                navigationService.navigate("/error");
-                break;
+            // For 400 (Bad Request), 404 (Not Found), 500 (Internal Server Error), and Fetch Errors,
+            // update error state in redux store and navigate to ErrorComponent to display error.
             default: 
-                // For Fetch errors encountered on failed API calls.
                 store.dispatch(setError(action.payload));
                 navigationService.navigate("/error");
         }
