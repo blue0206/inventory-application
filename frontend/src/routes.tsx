@@ -14,10 +14,13 @@ import { Toaster } from 'sonner';
 import { useEffect } from 'react';
 import { navigationService } from './utils/navigation';
 import { useMediaQuery } from '@custom-react-hooks/use-media-query';
+import { useAppSelector } from './app/hooks';
+import { getResolvedTheme } from './features/darkMode/darkModeSlice';
 
 export default function AppRoutes() {
     const navigate = useNavigate();
     const isDesktop = useMediaQuery('(min-width: 768px)');
+    const resolvedTheme = useAppSelector(getResolvedTheme);
 
     // Setup navigation service to be used in redux middlewares.
     useEffect(() => {
@@ -43,9 +46,9 @@ export default function AppRoutes() {
             </Routes>
             {
                 isDesktop ? (
-                    <Toaster richColors theme={'system'} />
+                    <Toaster richColors theme={resolvedTheme} />
                 ) : (
-                    <Toaster richColors theme={'system'} position={'top-center'} />
+                    <Toaster richColors theme={resolvedTheme} position={'top-center'} />
                 )
             }
         </>
