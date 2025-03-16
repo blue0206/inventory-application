@@ -38,7 +38,7 @@ const darkModeSlice = createSlice({
         }
     },
     selectors: {
-        getTheme: (state) => state.theme
+        getTheme: (state) => state.resolvedTheme
     }
 });
 
