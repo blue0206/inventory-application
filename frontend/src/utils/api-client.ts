@@ -55,6 +55,14 @@ class ApiClient {
                   data.success
                 );
             }
+
+            // Send empty object for DELETE (No Content-204) responses.
+            // This is so because the response.json() after this will throw an error
+            // upon receiving nothing.
+            if (response.status === 204) {
+                return {} as ApiResponse<DataType>;
+            }
+            
             // If everything went well, parse and return the response.
             const data: ApiResponse<DataType> = await response.json();
             return data;
