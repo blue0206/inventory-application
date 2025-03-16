@@ -22,21 +22,32 @@ import { navigationService } from "../../utils/navigation";
 import { isApiErrorList, TrainerRequestBody, TrainerWithRelation } from "shared";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
-import { getError } from "../../features/error/errorSlice";
+import { clearError, getError } from "../../features/error/errorSlice";
+import { useLocation } from "react-router";
 
-// If trainer is to be created, no need for other props.
-// Else, other props are required for making api call and to populate form.
-type TrainerFormProps = {
-    update: false;
-} & Partial<TrainerWithRelation> | {
-    update: true;
-} & Required<TrainerWithRelation>;
-
-export default function TrainerForm({
-    update = false,
-    ...trainer
-}: TrainerFormProps): ReactElement {
-
+export default function TrainerForm(): ReactElement {
+    // Get state from useLocation hook.
+    const state = useLocation()?.state;
+    // Initialize update flag and trainer object.
+    // Default is false for update since in default case
+    // the form is in create mode.
+    // The trainer object is initialized with undefined values
+    // for the same reason.
+    let update = false;
+    let trainer: Partial<TrainerWithRelation> = {
+        id: undefined,
+        name: "",
+        imageLink: "",
+        pokemon: []
+    };
+    // Check if there is any state passed via react router.
+    if (state) {
+        // Set update flag to true and initialize trainer object with 
+        // provided state.
+        const { ...tempTrainer }: TrainerWithRelation = state;
+        trainer = tempTrainer;
+        update = true;
+    }
     // Create form data state to keep track of form data.
     // The type is supposed to be the same as provided by api, except the id.
     const [formData, setFormData] = useState<TrainerRequestBody>({
@@ -78,10 +89,11 @@ export default function TrainerForm({
         setFormData(prevData => ({...prevData, pokemonList: selectedPokemon}));
     }
 
-    // Reset error state when component unmounts.
+    // Reset error state and location history state when component unmounts.
     useEffect(() => {
         return () => {
-            dispatch(resetStatus());
+            dispatch(clearError());
+            window.history.replaceState(null, "");
         }
     }, [dispatch]);
 
