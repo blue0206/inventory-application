@@ -28,22 +28,33 @@ import { navigationService } from "../../utils/navigation";
 import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { clearError, getError } from "../../features/error/errorSlice";
+import { useLocation } from "react-router";
 
-// If pokemon is to be created, no need for other props.
-// Else, other props are required for making api call and to populate form.
-type PokemonFormProps = { 
-    update: false;
-} & Partial<Pokemon> | { 
-    update: true 
-} & Required<Pokemon>;
-
-export default function PokemonForm({
-    update = false,
-    ...pokemon
-}: PokemonFormProps): ReactElement {
-
+export default function PokemonForm(): ReactElement {
+    // Get state from useLocation hook.
+    const state = useLocation()?.state;
+    // Initialize update flag and trainer object.
+    // Default is false for update since in default case
+    // the form is in create mode.
+    // The trainer object is initialized with undefined values
+    // for the same reason.
+    let update = false;
+    let pokemon: Partial<Pokemon> = {
+        id: undefined,
+        name: "",
+        imageLink: "",
+        types: []
+    };
+    // Check if there is any state passed via react router.
+    if (state) {
+        // Set update flag to true and initialize trainer object with 
+        // provided state.
+        const { ...tempPokemon }: Pokemon = state;
+        pokemon = tempPokemon;
+        update = true;
+    }
     // Create a variable with same type as pokemonTypes in PokemonRequestBody.
-    // This is to prevent type clash with Pokemon type passed in as prop.
+    // This is to prevent type clash with Pokemon type passed in as location state.
     let PokemonType: [PokeType, PokeType?];
     if (pokemon?.types?.length === 1) {
         PokemonType = [pokemon.types[0]];
@@ -90,10 +101,11 @@ export default function PokemonForm({
         }
     }
 
-    // Clear redux error state when component unmounts.
+    // Reset error state and location history state when component unmounts.
     useEffect(() => {
         return () => {
             dispatch(clearError());
+            window.history.replaceState(null, "");
         }
     })
 
