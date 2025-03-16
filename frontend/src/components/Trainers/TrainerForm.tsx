@@ -64,6 +64,12 @@ export default function TrainerForm(): ReactElement {
 
     // Error state from redux store to display validation errors.
     const errorState = useAppSelector(getError);
+    // Empty field if validation error.
+    useEffect(() => {
+        if (errorState.hasError) {
+            setFormData((prevData) => ({...prevData, trainerName: ""}));
+        }
+    }, [errorState]);
 
     useEffect(() => {
         // If pokemon list has not been fetched yet, fetch it.
