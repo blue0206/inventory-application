@@ -26,7 +26,7 @@ export default function TrainersList(): ReactElement {
     }, [dispatch, status]);
 
     return (
-        <div className="flex flex-col gap-5 h-full w-full">
+        <div className="flex flex-col gap-5 h-full w-full mb-11">
             <Header />
             <div className="grid grid-cols-1 px-5 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {
