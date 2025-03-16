@@ -67,8 +67,10 @@ class ApiClient {
             const data: ApiResponse<DataType> = await response.json();
             return data;
         } catch (error) {
+            if (error instanceof ApiError) {
+                throw error;
+            }
             // If any unknown errors are encountered, throw a custom fetch error.
-            console.error(error);
             throw new FetchError("Something went wrong while fetching data. Please try again later.");
         }
     }
