@@ -37,6 +37,12 @@ const darkModeSlice = createSlice({
             } else {
                 state.resolvedTheme = action.payload;
             }
+        },
+        toggleTheme: (state) => {
+            const newTheme = state.theme === "dark" ? "light" : "dark";
+            state.theme = newTheme;
+            localStorage.setItem("theme", newTheme);
+            state.resolvedTheme = newTheme;
         }
     },
     selectors: {
@@ -47,7 +53,8 @@ const darkModeSlice = createSlice({
 
 export default darkModeSlice.reducer;
 export const {
-    setTheme
+    setTheme,
+    toggleTheme
 } = darkModeSlice.actions;
 export const {
     getResolvedTheme,
