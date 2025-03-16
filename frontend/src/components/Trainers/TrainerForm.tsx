@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
 import { clearError, getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
+import { createTrainer, updateTrainer } from "../../features/form/formSlice";
 
 export default function TrainerForm(): ReactElement {
     // Get state from useLocation hook.
@@ -98,8 +99,20 @@ export default function TrainerForm(): ReactElement {
     }, [dispatch]);
 
     // Submit handler for form.
-    const submitHandler = () => {
-        
+    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (update) {
+            dispatch(updateTrainer({
+                trainerData: {
+                    ...formData
+                },
+                id: (trainer as TrainerWithRelation).id
+            }));
+        } else {
+            dispatch(createTrainer({
+                ...formData
+            }));
+        }
     }
 
     return (
