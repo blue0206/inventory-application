@@ -7,34 +7,6 @@ abstract class CustomError extends Error {
     }
 }
 
-export class ApiError extends CustomError {
-    statusCode: number;
-    success: boolean;
-    errors: ApiErrorList;
-    constructor(
-        statusCode: number, 
-        message: string="Something went wrong.", 
-        errors: ApiErrorList=[], 
-        success: boolean = false,
-        stack?: string
-    ) {
-        super(message);
-        this.statusCode = statusCode;
-        this.errors = errors;
-        this.success = success;
-
-        if (stack) {
-            this.stack = stack;
-        } else {
-            Error.captureStackTrace(this, this.constructor);
-        }
-    }
-
-    serializeErrors(): ApiErrorList {
-        return this.errors;
-    }
-}
-
 export class NotFoundError extends CustomError {
     statusCode: number = 404;
     errors: ApiErrorList;
@@ -155,8 +127,7 @@ export function isApiErrorList(errors: any): errors is ApiErrorList {
     return false;
 }
 
-export type ApiErrorTypes = 
-    | ApiError 
+export type ApiErrorTypes =  
     | ValidationError
     | NotFoundError
     | BadRequestError
@@ -165,7 +136,6 @@ export type ApiErrorTypes =
 // Type Guard for custom error types
 export function isCustomError(err: any): err is ApiErrorTypes {
     return (
-        err instanceof ApiError ||
         err instanceof ValidationError ||
         err instanceof NotFoundError ||
         err instanceof BadRequestError ||
