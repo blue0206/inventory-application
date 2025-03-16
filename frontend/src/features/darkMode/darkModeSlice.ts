@@ -1,24 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type Theme = "dark" | "light" | "system";
+export type Theme = "dark" | "light" | "system";
 
-type ThemeProviderProps = {
-    children: React.ReactNode;
-    defaultTheme?: Theme;
-    storageKey?: string;
-}
-
-type ThemeProviderState = {
+type ThemeState = {
     theme: Theme;
+    resolvedTheme?: "light" | "dark";
 }
 
-const initialState: ThemeProviderState = {
-    theme: "dark"
+const getInitialState = (): ThemeState => {
+    if (typeof localStorage !== 'undefined') {
+        const storedTheme = localStorage.getItem("theme");
+        if (storedTheme) {
+            return {
+                theme: storedTheme as Theme
+            }
+        }
+    }
+    return { theme: "system" };
 }
 
 const darkModeSlice = createSlice({
     name: "darkMode",
-    initialState,
+    initialState: getInitialState,
     reducers: {
         setTheme: (state, action: PayloadAction<Theme>) => {
             state.theme = action.payload
