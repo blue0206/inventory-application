@@ -91,14 +91,6 @@ export const isGetDetailsAsyncThunkFR = isAnyOf(
     fetchTrainer.rejected
 );
 
-// FULFILLED GET async thunk
-export const isGetAsyncThunkF = isAnyOf(
-    fetchPokemon.fulfilled, 
-    fetchTrainer.fulfilled,
-    fetchPokemonList.fulfilled,
-    fetchTrainersList.fulfilled
-);
-
 // Type Guard to identify if an action is a PENDING async thunk function
 // that gets individual pokemon/trainer details.
 export const isNotGetAsyncThunkP = isAnyOf(
