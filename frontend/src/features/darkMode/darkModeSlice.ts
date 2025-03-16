@@ -24,7 +24,17 @@ const darkModeSlice = createSlice({
     initialState: getInitialState,
     reducers: {
         setTheme: (state, action: PayloadAction<Theme>) => {
-            state.theme = action.payload
+            state.theme = action.payload;
+            localStorage.setItem("theme", action.payload);
+
+            // Update resolved theme.
+            if (action.payload === "system") {
+                state.resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches 
+                ? "dark" 
+                : "light";
+            } else {
+                state.resolvedTheme = action.payload;
+            }
         }
     },
     selectors: {
