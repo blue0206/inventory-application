@@ -50,6 +50,15 @@ export default function Trainer(): ReactElement {
     // dialog for delete modal on desktop and drawer on mobile.
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
+    // Update button handler method.
+    const handleUpdate = () => {
+        navigationService.navigate("/trainer-form", {
+            state: {
+                ...data
+            }
+        });
+    }
+
     const handleDelete = () => {
         
     }
@@ -107,7 +116,7 @@ export default function Trainer(): ReactElement {
                 </AspectRatio>
                 <h1 className="scroll-m-20 text-4xl text-center mb-8 font-extrabold tracking-tight lg:text-5xl">{data.name}</h1>
                 <div className="flex justify-center gap-5 mb-4">
-                    <Button variant={'link'} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
+                    <Button variant={'link'} onClick={handleUpdate} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
                     {
                         isDesktop ? (
                             <Dialog>
