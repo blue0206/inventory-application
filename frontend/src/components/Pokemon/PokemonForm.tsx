@@ -108,7 +108,7 @@ export default function PokemonForm(): ReactElement {
             dispatch(clearError());
             window.history.replaceState(null, "");
         }
-    })
+    }, [dispatch]);
 
     // Submit handler for form.
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
