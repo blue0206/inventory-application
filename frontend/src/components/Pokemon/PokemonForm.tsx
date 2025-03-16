@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Header } from "..";
 import {
     Breadcrumb,
@@ -29,6 +29,7 @@ import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, Pokemo
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { clearError, getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
+import { createPokemon, updatePokemon } from "@/features/form/formSlice";
 
 export default function PokemonForm(): ReactElement {
     // Get state from useLocation hook.
@@ -110,8 +111,20 @@ export default function PokemonForm(): ReactElement {
     })
 
     // Submit handler for form.
-    const submitHandler = () => {
-        // TODO: Reset error fields.
+    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (update) {
+            dispatch(updatePokemon({
+                pokemonData: {
+                    ...formData
+                },
+                id: (pokemon as Pokemon).id
+            }));
+        } else {
+            dispatch(createPokemon({
+                ...formData
+            }));
+        }
     }
 
     return (
