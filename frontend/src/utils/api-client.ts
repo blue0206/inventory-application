@@ -10,7 +10,7 @@ import {
     ApiErrorResponse,
     ApiResponse
 } from "shared";
-import { CustomError, FetchError } from "./custom-error";
+import { ApiError, FetchError } from "./custom-error";
 
 type FetchOptions = {
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -47,7 +47,7 @@ class ApiClient {
                     = await response.json();
 
                 // Throw a custom error with parsed API Error Response data.
-                throw new CustomError(
+                throw new ApiError(
                   data.statusCode,
                   data.message,
                   data.error,

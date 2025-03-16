@@ -1,7 +1,7 @@
 import type { ApiErrorList } from 'shared';
 
-export class CustomError extends Error {
-    readonly __type = 'CustomError';
+export class ApiError extends Error {
+    readonly __type = 'ApiError';
     statusCode: number;
     error: ApiErrorList | Record<string, unknown> | null;
     message: string;
@@ -36,12 +36,12 @@ export class FetchError extends Error {
     }
 }
 
-export type CustomDefinedErrorType = CustomError | FetchError;
+export type CustomDefinedErrorType = ApiError | FetchError;
 
 // Type Guard to check if an error is a custom-defined error, i.e. either CustomError or FetchError.
 // Required in async thunk.
 export function isCustomDefinedError(error: unknown): error is CustomDefinedErrorType {
-    if ((error as CustomError).__type === 'CustomError') {
+    if ((error as ApiError).__type === 'ApiError') {
         return true;
     } else if ((error as FetchError).__type === 'FetchError') {
         return true;
