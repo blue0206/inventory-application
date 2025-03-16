@@ -60,13 +60,17 @@ export default function Pokemon(): ReactElement {
     }
 
     // Delete button handler method.
-    const handleDelete = () => {
-        dispatch(deletePokemon({
+    const handleDelete = async () => {
+        const deleteAction = await dispatch(deletePokemon({
             id: data.id,
             data: {
                 secretKey
             }
         }));
+        // Reset secretKey if invalid.
+        if (deletePokemon.rejected.match(deleteAction)) {
+            setSecretKey("");
+        }
     }
 
     /**
