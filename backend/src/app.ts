@@ -26,6 +26,8 @@ app.use("/*", (req: Request, res: Response) => {
 
 // Error Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    // Log the error for details.
+    console.error('An error occurred was encountered:', err);
     if (isCustomError(err)) {
         res.status(err.statusCode).json(
             new ApiErrorResponse<ApiErrorList>(
@@ -38,28 +40,28 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     } else if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === "P2000") {
             res.status(422).json(
-                new ApiErrorResponse<Record<string, unknown>>(
+                new ApiErrorResponse<null>(
                     422,
-                    err.meta,
+                    null,
                     "The provided data exceeds the maximum allowed length.",
                     false
                 )
             );
         } else if (err.code === "P2002") {
             res.status(409).json(
-                new ApiErrorResponse<Record<string, unknown>>(
+                new ApiErrorResponse<null>(
                     409,
-                    err.meta,
+                    null,
                     "The data already exists.",
                     false
                 )
             );
         } else {
             res.status(500).json(
-                new ApiErrorResponse<Record<string, unknown>>(
+                new ApiErrorResponse<null>(
                     500,
-                    err.meta,
-                    err.message,
+                    null,
+                    "Something went wrong. Please try again later.",
                     false
                 )
             );
@@ -69,7 +71,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             new ApiErrorResponse<null>(
                 500,
                 null,
-                "Internal server error",
+                "Something went wrong. Please try again later.",
                 false
             )
         );
