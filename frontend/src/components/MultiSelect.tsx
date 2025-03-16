@@ -1,3 +1,5 @@
+import { useAppSelector } from '@/app/hooks';
+import { getResolvedTheme } from '@/features/darkMode/darkModeSlice';
 import { ReactElement } from 'react';
 import Select, { MultiValue, OnChangeValue } from 'react-select';
 
@@ -29,50 +31,142 @@ export default function MultiSelect({
     defaultValue,
     onChange
 }: MultiSelectProps): ReactElement {
+    const resolvedTheme = useAppSelector(getResolvedTheme);
+
     return (
         <>
-            <Select 
-                id={id}
-                isMulti 
-                options={options} 
-                defaultValue={defaultValue} 
-                onChange={onChange} 
-                styles={{
-                    control: (baseStyles, state) => ({
-                        ...baseStyles,
-                        borderColor: state.isFocused ? "oklch(0.655 0.016 285.938)" : "var(--input)",
-                        boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
-                        borderRadius: "var(--radius)",
-                        borderWidth: state.isFocused ? "1px" : "0.5px",
-                        borderStyle: "inherit",
-                        outlineColor: "oklch(0.21 0.006 285.885)",
-                        outline: state.isFocused ? "inherit" : "inherit",
-                        ":hover": {
-                            borderColor: state.isFocused ? "oklch(0.655 0.016 285.938)" : "var(--input)",
+            {
+                resolvedTheme === "dark" ? (
+                    <Select 
+                        id={id}
+                        isMulti 
+                        options={options} 
+                        defaultValue={defaultValue} 
+                        onChange={onChange} 
+                        styles={{
+                            control: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderColor: state.isFocused ? "var(--ring)" : "var(--input)",
+                                boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
+                                borderRadius: "var(--radius)",
+                                borderWidth: state.isFocused ? "1px" : "0.5px",
+                                borderStyle: "inherit",
+                                outlineColor: "oklch(0.21 0.006 285.885)",
+                                outline: state.isFocused ? "inherit" : "inherit",
+                                ":hover": {
+                                    borderColor: state.isFocused ? "var(--ring)" : "var(--input)",
+                                },
+                                backgroundColor: "var(--background)",
+                                color: "var(--foreground)",
+                                
+                            }),
+                            container: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderColor: state.isFocused ? "var(--border)" : "var(--input)",
+                                boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
+                                borderRadius: "calc(var(--radius) + 2.5px)",
+                                borderWidth: state.isFocused ? "3px" : "0.5px",
+                                borderStyle: "inherit",
+                                outlineColor: "oklch(0.21 0.006 285.885)",
+                                outline: state.isFocused ? "3px" : "inherit",
+                                ":hover": {
+                                    borderColor: state.isFocused ? "var(--border)" : "var(--input)"
+                                },
+                                backgroundColor: "var(--background)",
+                                color: "var(--foreground)",
+                            }),
+                            clearIndicator: (baseStyles) => ({
+                                ...baseStyles,
+                                color: "var(--foreground)"
+                            }),
+                            dropdownIndicator: (baseStyles) => ({
+                                ...baseStyles,
+                                color: "var(--foreground)"
+                            }),
+                            input: (baseStyles) => ({
+                                ...baseStyles,
+                                color: "var(--foreground)"
+                            }),
+                            menu: (baseStyles) => ({
+                                ...baseStyles,
+                                backgroundColor: "var(--background)",
+                            }),
+                            option: (baseStyles, state) => ({
+                                ...baseStyles,
+                                ":hover": {
+                                    color: "var(--foreground)",
+                                    backgroundColor: "var(--accent)"
+                                },
+                                backgroundColor: state.isSelected ? "var(--accent)" : "var(--background)",
+                            }),
+                            multiValue: (baseStyles) => ({
+                                ...baseStyles,
+                                color: "var(--background)"
+                            }),
+                            multiValueLabel: (baseStyles) => ({
+                                ...baseStyles,
+                                backgroundColor: "var(--foreground)",
+                            }),
+                            multiValueRemove: (baseStyles) => ({
+                                ...baseStyles,
+                                color: "var(--foreground)",
+                                backgroundColor: "var(--accent)",
+                            })
+                            
+                        }} 
+                        className={
+                            `placeholder:text-muted-foreground p-0 rounded-md border bg-transparent 
+                            shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring 
+                            focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 
+                            dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border-input`
                         }
-                    }),
-                    container: (baseStyles, state) => ({
-                        ...baseStyles,
-                        borderColor: state.isFocused ? "oklch(0.805 0.015 286.067)" : "var(--input)",
-                        boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
-                        borderRadius: "calc(var(--radius) + 2.5px)",
-                        borderWidth: state.isFocused ? "3px" : "0.5px",
-                        borderStyle: "inherit",
-                        outlineColor: "oklch(0.21 0.006 285.885)",
-                        outline: state.isFocused ? "3px" : "inherit",
-                        ":hover": {
-                            borderColor: state.isFocused ? "oklch(0.805 0.015 286.067)" : "var(--input)"
+                        required
+                    />
+                ) : (
+                    <Select 
+                        id={id}
+                        isMulti 
+                        options={options} 
+                        defaultValue={defaultValue} 
+                        onChange={onChange} 
+                        styles={{
+                            control: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderColor: state.isFocused ? "oklch(0.655 0.016 285.938)" : "var(--input)",
+                                boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
+                                borderRadius: "var(--radius)",
+                                borderWidth: state.isFocused ? "1px" : "0.5px",
+                                borderStyle: "inherit",
+                                outlineColor: "oklch(0.21 0.006 285.885)",
+                                outline: state.isFocused ? "inherit" : "inherit",
+                                ":hover": {
+                                    borderColor: state.isFocused ? "oklch(0.655 0.016 285.938)" : "var(--input)",
+                                }
+                            }),
+                            container: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderColor: state.isFocused ? "oklch(0.805 0.015 286.067)" : "var(--input)",
+                                boxShadow: state.isFocused ? "var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-inset), 0 0 0 calc(3px + var(--tw-ring-offset-width)) color-mix(in oklab, var(--ring) 50%, transparent, currentColor), var(--tw-shadow)" : "inherit",
+                                borderRadius: "calc(var(--radius) + 2.5px)",
+                                borderWidth: state.isFocused ? "3px" : "0.5px",
+                                borderStyle: "inherit",
+                                outlineColor: "oklch(0.21 0.006 285.885)",
+                                outline: state.isFocused ? "3px" : "inherit",
+                                ":hover": {
+                                    borderColor: state.isFocused ? "oklch(0.805 0.015 286.067)" : "var(--input)"
+                                }
+                            }),
+                        }} 
+                        className={
+                            `placeholder:text-muted-foreground p-0 rounded-md border bg-transparent 
+                            shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring 
+                            focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 
+                            dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border-input`
                         }
-                    }),
-                }} 
-                className={
-                    `placeholder:text-muted-foreground p-0 rounded-md border bg-transparent 
-                    shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring 
-                    focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 
-                    dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border-input`
-                }
-                required
-            />
+                        required
+                    />
+                )
+            }
         </>
     );
 }
