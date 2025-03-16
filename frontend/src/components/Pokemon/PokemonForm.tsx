@@ -31,6 +31,14 @@ import { clearError, getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
 import { createPokemon, updatePokemon } from "@/features/form/formSlice";
 
+function sanitizeTypeField(types: [PokeType, PokeType?]): [PokeType, PokeType?] {
+    const [type1, type2] = types;
+    if (type1 && type2) return types;
+    if (!type1 && type2) return [type2];
+    // Type 1 is always present. It can never be undefined.
+    return [type1];
+}
+
 export default function PokemonForm(): ReactElement {
     // Get state from useLocation hook.
     const state = useLocation()?.state;
@@ -113,16 +121,19 @@ export default function PokemonForm(): ReactElement {
     // Submit handler for form.
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         if (update) {
             dispatch(updatePokemon({
                 pokemonData: {
-                    ...formData
+                    ...formData,
+                    pokemonTypes: sanitizeTypeField(formData.pokemonTypes)
                 },
                 id: (pokemon as Pokemon).id
             }));
         } else {
             dispatch(createPokemon({
-                ...formData
+                ...formData,
+                pokemonTypes: sanitizeTypeField(formData.pokemonTypes)
             }));
         }
     }
