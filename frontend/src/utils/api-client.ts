@@ -43,7 +43,7 @@ class ApiClient {
             if (!response.ok) {
                 // Parse the ApiErrorResponse object.
                 const data:
-                    ApiErrorResponse<ApiErrorList | Record<string, unknown> | null> 
+                    ApiErrorResponse<ApiErrorList | null> 
                     = await response.json();
 
                 // Throw a custom error with parsed API Error Response data.

@@ -3,14 +3,14 @@ import type { ApiErrorList } from 'shared';
 export class ApiError extends Error {
     readonly __type = 'ApiError';
     statusCode: number;
-    error: ApiErrorList | Record<string, unknown> | null;
+    error: ApiErrorList | null;
     message: string;
     success: boolean;
 
     constructor(
         statusCode: number,
         message: string,
-        error: ApiErrorList | Record<string, unknown> | null = null,
+        error: ApiErrorList | null,
         success: boolean = false
     ) {
         super(message);

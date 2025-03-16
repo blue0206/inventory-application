@@ -4,7 +4,7 @@ import { CustomDefinedErrorType, isApiError } from '../../utils/custom-error';
 
 type ErrorState = {
     hasError: boolean;
-    error: ApiErrorList | Record<string, unknown> | null;
+    error: ApiErrorList | null;
     message: string;
     code: number;
 }
