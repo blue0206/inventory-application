@@ -29,7 +29,7 @@ import {
 import { useMediaQuery } from "@custom-react-hooks/use-media-query";
 import { Input } from "@/components/ui/input";
 import RedAvatar from "../../assets/red-avatar.png";
-import { deleteTrainer } from '../../features/data/dataSlice';
+import { deleteTrainer } from '../../features/data/dataThunks';
 import { useAppDispatch } from '../../app/hooks';
 
 type TrainerCardProps = {

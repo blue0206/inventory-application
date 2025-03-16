@@ -3,7 +3,7 @@ import {
   fetchTrainer,
   deletePokemon,
   deleteTrainer,
-} from "../features/data/dataSlice";
+} from "../features/data/dataThunks";
 import { fetchPokemonList } from "../features/pokemon/pokemonSlice";
 import { fetchTrainersList } from "../features/trainer/trainerSlice";
 import {
