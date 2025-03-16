@@ -35,7 +35,7 @@ export default function Header(): ReactElement {
                                     <NavigationMenuLink onClick={() => handleNavigation("/trainers")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Trainers</NavigationMenuLink>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <NavigationMenuLink onClick={() => handleNavigation("/pokemon")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Pokemon</NavigationMenuLink>
+                                    <NavigationMenuLink onClick={() => handleNavigation("/pokemon")} className={`${navigationMenuTriggerStyle()} text-md cursor-pointer`}>Pokémon</NavigationMenuLink>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
