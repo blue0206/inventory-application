@@ -78,6 +78,13 @@ export default function TrainerForm({
         setFormData(prevData => ({...prevData, pokemonList: selectedPokemon}));
     }
 
+    // Reset error state when component unmounts.
+    useEffect(() => {
+        return () => {
+            dispatch(resetStatus());
+        }
+    }, [dispatch]);
+
     // Submit handler for form.
     const submitHandler = () => {
         
