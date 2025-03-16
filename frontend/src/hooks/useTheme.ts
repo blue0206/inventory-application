@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { getResolvedTheme, getTheme, setTheme, toggleTheme, Theme } from "@/features/darkMode/darkModeSlice";
+import { getResolvedTheme, getTheme, setTheme, Theme } from "@/features/darkMode/darkModeSlice";
 
 export const useTheme = () => {
     const dispatch = useAppDispatch();
@@ -9,7 +9,6 @@ export const useTheme = () => {
     return {
         theme,
         resolvedTheme,
-        setTheme: (theme: Theme) => dispatch(setTheme(theme)),
-        toggleTheme: () => dispatch(toggleTheme())
+        setTheme: (theme: Theme) => dispatch(setTheme(theme))
     }
 }
