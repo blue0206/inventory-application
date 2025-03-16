@@ -28,13 +28,6 @@ const errorSlice = createSlice({
                 state.code = action.payload.statusCode;
             }
             return state;
-        },
-        clearError: (state) => {
-            state.hasError = false;
-            state.error = null;
-            state.message = '';
-            state.code = 200;
-            return state;
         }
     },
     selectors: {
@@ -44,8 +37,7 @@ const errorSlice = createSlice({
 
 export default errorSlice.reducer;
 export const {
-    setError,
-    clearError
+    setError
 } = errorSlice.actions;
 export const {
     getError
