@@ -2,7 +2,8 @@ import { Middleware } from "@reduxjs/toolkit";
 import { 
     isCreateOrUpdatePokemonAsyncThunkF,
     isCreateOrUpdateTrainerAsyncThunkF,
-    isGetAsyncThunkF,
+    isGetDetailsAsyncThunkF,
+    isListGetAsyncThunkF,
     isPokemonDeleteAsyncThunkF, 
     isTrainerDeleteAsyncThunkF
 } from "../reduxTypeGuard";
@@ -15,17 +16,26 @@ import { resetStatus as resetPokemonListStatus } from "@/features/pokemon/pokemo
 // and to handle any other side effects.
 export const successMiddleware: Middleware = (store) => (next) => (action) => {
 
-    if (isGetAsyncThunkF(action)) {
-        // Show success notification on successful GET actions.
-        // The message are returned from the server and are
-        // displayed as they are since they are already well crafted
-        // for end-user.
-        const toasts = toast.getToasts().map(tst => {
-            if (tst.id === "createOrUpdate" || tst.id === "deleteToast") {
-                return tst;
-            }
-        });
-        // Do not show these toasts if toasts from other actions are present.
+    if (isGetDetailsAsyncThunkF(action)) {
+        // When user successfully completes a create/update request, a corresponding
+        // toast is shown and the user is redirected to the page of the created/updated
+        // trainer/pokemon where another toast is shown. 
+        // Therefore, we conditionally show the toast on trainer/pokemon page only if
+        // there are no create/update toast present.
+        const toasts = toast.getToasts().filter(tst => tst.id === "createOrUpdate");
+        if (toasts.length === 0) {
+            toast.success(action.payload.message, {
+                duration: 4000
+            });
+        }
+    }
+    if (isListGetAsyncThunkF(action)) {
+        // When a delete request is completed successfully, a corresponding
+        // toast is shown and the user is redirected to the trainer/pokemon list page
+        // where another toast is shown. 
+        // Therefore, we conditionally show the toast on trainer/pokemon list page only if
+        // there are no delete request toast present.
+        const toasts = toast.getToasts().filter(tst => tst.id === "deleteToast");
         if (toasts.length === 0) {
             toast.success(action.payload.message, {
                 duration: 4000
@@ -61,7 +71,8 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         // Since the api response does not return anything in this case,
         // we use a custom message.
         toast.success("Trainer has been deleted successfully.", {
-            duration: 4000
+            duration: 4000,
+            id: "deleteToast"
         });
     }
     if (isPokemonDeleteAsyncThunkF(action)) {
@@ -75,7 +86,8 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         // Since the api response does not return anything in this case,
         // we use a custom message.
         toast.success("Pokemon has been deleted successfully.", {
-            duration: 4000
+            duration: 4000,
+            id: "deleteToast"
         });
     }
     
