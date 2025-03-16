@@ -9,15 +9,18 @@ type ThemeState = {
 
 // Gets initial theme based on data in local storage and sets initialState.
 const getInitialState = (): ThemeState => {
-    if (typeof localStorage !== 'undefined') {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme) {
-            return {
-                theme: storedTheme as Theme
-            }
-        }
+    const storedTheme = typeof localStorage !== "undefined" 
+        ? localStorage.getItem("theme") as Theme
+        : undefined;
+    
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+    return {
+        theme: storedTheme || "system",
+        resolvedTheme: storedTheme === "system" ? systemTheme : (storedTheme as "light" | "dark") || systemTheme
     }
-    return { theme: "system" };
 }
 
 const darkModeSlice = createSlice({
