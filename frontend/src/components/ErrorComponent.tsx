@@ -1,13 +1,12 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 import Header from './Header/Header';
 import NotFound from './NotFound';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { clearError, getError } from '../features/error/errorSlice';
+import { useAppSelector } from '../app/hooks';
+import { getError } from '../features/error/errorSlice';
 import { isApiErrorList } from 'shared';
 
 export default function ErrorComponent(): ReactElement {
     const errorState = useAppSelector(getError);
-    const dispatch = useAppDispatch();
     let errorName = "";
 
     // Set error name based on status code.
@@ -22,13 +21,6 @@ export default function ErrorComponent(): ReactElement {
         case 500:
             errorName = 'Internal Server Error';
     }
-
-    useEffect(() => {
-        // Clear errors on component dismount.
-        return () => {
-            dispatch(clearError());
-        }
-    }, [dispatch])
 
     if (errorState.hasError) {
         return (

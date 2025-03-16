@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
 import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { clearError, getError } from "../../features/error/errorSlice";
+import { getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
 import { createPokemon, updatePokemon } from "@/features/form/formSlice";
 
@@ -119,7 +119,6 @@ export default function PokemonForm(): ReactElement {
     // Reset error state and location history state when component unmounts.
     useEffect(() => {
         return () => {
-            dispatch(clearError());
             window.history.replaceState(null, "");
         }
     }, [dispatch]);

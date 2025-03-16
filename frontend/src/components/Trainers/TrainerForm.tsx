@@ -22,7 +22,7 @@ import { navigationService } from "../../utils/navigation";
 import { isApiErrorList, TrainerRequestBody, TrainerWithRelation } from "shared";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
-import { clearError, getError } from "../../features/error/errorSlice";
+import { getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
 import { createTrainer, updateTrainer } from "../../features/form/formSlice";
 
@@ -99,7 +99,6 @@ export default function TrainerForm(): ReactElement {
     // Reset error state and location history state when component unmounts.
     useEffect(() => {
         return () => {
-            dispatch(clearError());
             window.history.replaceState(null, "");
         }
     }, [dispatch]);
