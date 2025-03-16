@@ -82,6 +82,12 @@ export default function PokemonForm(): ReactElement {
 
     // Error state from redux store to display validation errors.
     const errorState = useAppSelector(getError);
+    // Empty field on validation error.
+    useEffect(() => {
+        if (errorState.hasError) {
+            setFormData((prevData) => ({...prevData, pokemonName: ""}));
+        }
+    }, [errorState]);
     const dispatch = useAppDispatch();
 
     // Types available for selection.
