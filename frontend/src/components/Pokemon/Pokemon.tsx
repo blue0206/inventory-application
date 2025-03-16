@@ -30,7 +30,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import MissingnoAvatar from "../../assets/missingno-avatar.png";
 import { navigationService } from "../../utils/navigation";
 import { useAppDispatch } from "../../app/hooks";
-import { fetchPokemon } from "@/features/data/dataSlice";
+import { deletePokemon, fetchPokemon } from "../../features/data/dataSlice";
 import { Pokemon as PokemonType } from "shared";
 import { useParams } from "react-router";
 import { useMediaQuery } from "@custom-react-hooks/use-media-query";
@@ -59,8 +59,12 @@ export default function Pokemon(): ReactElement {
         });
     }
 
+    // Delete button handler method.
     const handleDelete = () => {
-
+        dispatch(deletePokemon({
+            id: data.id,
+            secretKey
+        }));
     }
 
     /**
