@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getTheme } from "../features/darkMode/darkModeSlice";
+import { getTheme, setTheme } from "../features/darkMode/darkModeSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 type ThemeProviderProps = {
@@ -23,7 +23,24 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
         }
     }, [resolvedTheme]);
 
+    // Check for system theme changes and update theme state.
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const handleSystemChange = () => {
+            dispatch(setTheme("system"));
+        }
+
+        mediaQuery.addEventListener("change", handleSystemChange);
+
+        return () => {
+            mediaQuery.removeEventListener("change", handleSystemChange);
+        }
+    }, [dispatch]);
+
     return (
-        <></>
+        <>
+            {children}
+        </>
     );
 }
