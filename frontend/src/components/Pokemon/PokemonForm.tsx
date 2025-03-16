@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Header } from "..";
 import {
     Breadcrumb,
@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { navigationService } from "../../utils/navigation";
 import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, PokemonTypeEnum, PokeType } from "shared";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getError } from "../../features/error/errorSlice";
+import { clearError, getError } from "../../features/error/errorSlice";
 
 // If pokemon is to be created, no need for other props.
 // Else, other props are required for making api call and to populate form.
@@ -88,6 +88,18 @@ export default function PokemonForm({
         if (!checkTypeDuplicate(newData.pokemonTypes[0], newData.pokemonTypes[1])) {
             setFormData(newData);
         }
+    }
+
+    // Clear redux error state when component unmounts.
+    useEffect(() => {
+        return () => {
+            dispatch(clearError());
+        }
+    })
+
+    // Submit handler for form.
+    const submitHandler = () => {
+        // TODO: Reset error fields.
     }
 
     return (
