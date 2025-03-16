@@ -1,12 +1,13 @@
-// Custom navigation service to navigate from redux middlewares.
+import { NavigateOptions } from "react-router";
 
-let navigator: ((path: string) => void);
+// Custom navigation service to navigate from redux middlewares.
+let navigator: ((path: string, options?: NavigateOptions) => void);
 
 export const navigationService = {
-    setNavigator(nav: (path: string) => void) {
+    setNavigator(nav: (path: string, options?: NavigateOptions) => void) {
         navigator = nav;
     },
-    navigate(path: string) {
-        if (navigator) navigator(path);
+    navigate(path: string, options?: NavigateOptions) {
+        if (navigator) navigator(path, options);
     }
 }
