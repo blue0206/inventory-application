@@ -11,7 +11,7 @@ import {
   updateTrainer,
   createPokemon,
   updatePokemon,
-} from "../features/form/formSlice";
+} from "../features/form/formThunks";
 import { isAnyOf } from "@reduxjs/toolkit";
 
 /**

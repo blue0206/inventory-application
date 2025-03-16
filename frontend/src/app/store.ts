@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import trainerSlice from "../features/trainer/trainerSlice";
 import pokemonSlice from "../features/pokemon/pokemonSlice";
 import dataSlice from "../features/data/dataSlice";
-import formSlice from "../features/form/formSlice";
 import errorSlice from "../features/error/errorSlice";
 import { loadingMiddleware, errorHandlingMiddleware, successMiddleware } from "./middlewares";
 
@@ -11,7 +10,6 @@ export const store = configureStore({
         trainer: trainerSlice,
         pokemon: pokemonSlice,
         data: dataSlice,
-        form: formSlice,
         error: errorSlice
     },
     middleware: (getDefaultMiddleware) =>  getDefaultMiddleware().concat(

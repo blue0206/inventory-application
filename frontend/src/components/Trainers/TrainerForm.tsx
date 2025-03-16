@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPokemonList, getPokemonList, getStatus, resetStatus } from "../../features/pokemon/pokemonSlice";
 import { getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
-import { createTrainer, updateTrainer } from "../../features/form/formSlice";
+import { createTrainer, updateTrainer } from "../../features/form/formThunks";
 
 export default function TrainerForm(): ReactElement {
     // Get state from useLocation hook.

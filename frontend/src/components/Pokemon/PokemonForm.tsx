@@ -29,7 +29,7 @@ import { checkTypeDuplicate, isApiErrorList, Pokemon, PokemonRequestBody, Pokemo
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getError } from "../../features/error/errorSlice";
 import { useLocation } from "react-router";
-import { createPokemon, updatePokemon } from "@/features/form/formSlice";
+import { createPokemon, updatePokemon } from "@/features/form/formThunks";
 
 function sanitizeTypeField(types: [PokeType, PokeType?]): [PokeType, PokeType?] {
     const [type1, type2] = types;
