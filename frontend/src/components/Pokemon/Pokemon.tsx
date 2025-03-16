@@ -50,6 +50,15 @@ export default function Pokemon(): ReactElement {
     // dialog for delete modal on desktop and drawer on mobile.
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
+    // Update button handler method.
+    const handleUpdate = () => {
+        navigationService.navigate("/pokemon-form", {
+            state: {
+                ...data
+            }
+        });
+    }
+
     const handleDelete = () => {
 
     }
@@ -113,7 +122,7 @@ export default function Pokemon(): ReactElement {
                     </h2>
                 </div>
                 <div className="flex justify-center gap-5 mb-4">
-                    <Button variant={'link'} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
+                    <Button variant={'link'} onClick={handleUpdate} className="hover:bg-accent cursor-pointer border-2 border-accent">Update</Button>
                     {
                         isDesktop ? (
                             <Dialog>
