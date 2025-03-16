@@ -4,7 +4,8 @@ import type {
     ApiErrorList, 
     Trainer,
     Pokemon,
-    TrainerWithRelation
+    TrainerWithRelation,
+    DeleteRequestBody
 } from "shared";
 import {
     ApiErrorResponse,
@@ -14,7 +15,7 @@ import { ApiError, FetchError } from "./custom-error";
 
 type FetchOptions = {
     method: "GET" | "POST" | "PUT" | "DELETE";
-    body?:  TrainerRequestBody | PokemonRequestBody;
+    body?:  TrainerRequestBody | PokemonRequestBody | DeleteRequestBody;
     headers?: Record<string, string>;
 }
 
