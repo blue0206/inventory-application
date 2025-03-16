@@ -36,19 +36,6 @@ export const isAsyncThunkF = isAnyOf(
 );
 
 // Type Guard to identify if an action is a fulfilled async thunk action
-// that does not make DELETE requests.
-export const isNotDeleteAsyncThunkF = isAnyOf(
-    fetchPokemonList.fulfilled,
-    fetchPokemon.fulfilled,
-    fetchTrainersList.fulfilled,
-    fetchTrainer.fulfilled,
-    createTrainer.fulfilled,
-    updateTrainer.fulfilled,
-    createPokemon.fulfilled,
-    updatePokemon.fulfilled
-);
-
-// Type Guard to identify if an action is a fulfilled async thunk action
 // that makes pokemon DELETE request.
 export const isPokemonDeleteAsyncThunkF = isAnyOf(deletePokemon.fulfilled);
 
@@ -102,6 +89,14 @@ export const isGetDetailsAsyncThunkFR = isAnyOf(
     fetchTrainer.fulfilled,
     fetchPokemon.rejected,
     fetchTrainer.rejected
+);
+
+// FULFILLED GET async thunk
+export const isGetAsyncThunkF = isAnyOf(
+    fetchPokemon.fulfilled, 
+    fetchTrainer.fulfilled,
+    fetchPokemonList.fulfilled,
+    fetchTrainersList.fulfilled
 );
 
 // Type Guard to identify if an action is a PENDING async thunk function
