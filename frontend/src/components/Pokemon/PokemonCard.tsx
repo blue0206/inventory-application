@@ -50,7 +50,12 @@ export default function PokemonCard({
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     const handleDelete = async () => {
-        dispatch(deletePokemon({ id, secretKey }));
+        dispatch(deletePokemon({ 
+            id,
+            data: {
+                secretKey
+            }
+         }));
     }
     
     const handleOpen = () => {

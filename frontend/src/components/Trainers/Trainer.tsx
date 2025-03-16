@@ -63,7 +63,9 @@ export default function Trainer(): ReactElement {
     const handleDelete = () => {
         dispatch(deleteTrainer({
             id: data.id,
-            secretKey
+            data: {
+                secretKey
+            }
         }));
     }
 

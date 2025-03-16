@@ -63,7 +63,9 @@ export default function Pokemon(): ReactElement {
     const handleDelete = () => {
         dispatch(deletePokemon({
             id: data.id,
-            secretKey
+            data: {
+                secretKey
+            }
         }));
     }
 

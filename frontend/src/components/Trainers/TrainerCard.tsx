@@ -50,7 +50,12 @@ export default function TrainerCard({
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     const handleDelete = async () => {
-        dispatch(deleteTrainer({ id, secretKey}));
+        dispatch(deleteTrainer({ 
+            id,
+            data: {
+                secretKey
+            }
+        }));
     }
     
     const handleOpen = () => {
