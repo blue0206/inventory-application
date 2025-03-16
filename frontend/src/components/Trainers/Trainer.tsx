@@ -60,13 +60,17 @@ export default function Trainer(): ReactElement {
     }
 
     // Delete button handler method.
-    const handleDelete = () => {
-        dispatch(deleteTrainer({
+    const handleDelete = async () => {
+        const deleteAction = await dispatch(deleteTrainer({
             id: data.id,
             data: {
                 secretKey
             }
         }));
+        // Reset secretKey if invalid.
+        if (deleteTrainer.rejected.match(deleteAction)) {
+            setSecretKey("");
+        }
     }
 
     /**
