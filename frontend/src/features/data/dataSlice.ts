@@ -32,8 +32,7 @@ const initialState: DataState = {
 const dataSlice = createSlice({
     name: 'data',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {}
+    reducers: {}
 });
 
 export const fetchTrainer = 
@@ -53,9 +52,9 @@ createAppAsyncThunk<
 });
 
 export const deleteTrainer = 
-createAppAsyncThunk<void, DeleteParamsType>('data/deleteTrainer', async ({ id, secretKey }: DeleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<void, DeleteParamsType>('data/deleteTrainer', async ({ id, data }: DeleteParamsType, { rejectWithValue }) => {
     try {
-        await apiClient.deleteTrainer(id, secretKey);
+        await apiClient.deleteTrainer(data, id);
     } catch (error) {
         if (isCustomDefinedError(error)) {
             return rejectWithValue({...error});
@@ -81,9 +80,9 @@ createAppAsyncThunk<
 });
 
 export const deletePokemon = 
-createAppAsyncThunk<void, DeleteParamsType>('data/deletePokemon', async ({ id, secretKey }: DeleteParamsType, { rejectWithValue }) => {
+createAppAsyncThunk<void, DeleteParamsType>('data/deletePokemon', async ({ id, data }: DeleteParamsType, { rejectWithValue }) => {
     try {
-        await apiClient.deletePokemon(id, secretKey);
+        await apiClient.deletePokemon(data, id);
     } catch (error) {
         if (isCustomDefinedError(error)) {
             return rejectWithValue({...error});
