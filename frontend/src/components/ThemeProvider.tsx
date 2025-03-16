@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getTheme, setTheme } from "../features/darkMode/darkModeSlice";
+import { getResolvedTheme, setTheme } from "../features/darkMode/darkModeSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 type ThemeProviderProps = {
@@ -8,7 +8,7 @@ type ThemeProviderProps = {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
     const dispatch = useAppDispatch();
-    const resolvedTheme = useAppSelector(getTheme);
+    const resolvedTheme = useAppSelector(getResolvedTheme);
 
     // Set theme on the root element.
     useEffect(() => {
