@@ -14,6 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "../ui/dropdown-menu";
+import ThemeToggle from "../ThemeToggle";
 import { navigationService } from "../../utils/navigation";
 
 export default function Header(): ReactElement {
@@ -41,7 +42,7 @@ export default function Header(): ReactElement {
                         </NavigationMenu>
                     </nav>
                 </div>
-                <div className="pr-3.5">
+                <div className="pr-3.5 flex gap-1.5 sm:gap-8 justify-center items-center">
                     <DropdownMenu>
                         <DropdownMenuTrigger className="cursor-pointer">Create</DropdownMenuTrigger>
                         <DropdownMenuContent>
@@ -54,6 +55,7 @@ export default function Header(): ReactElement {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <ThemeToggle />
                 </div>
             </header>
         </>
