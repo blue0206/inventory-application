@@ -1,37 +1,20 @@
 import { apiClient } from "@/utils/api-client";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiResponse, PokemonRequestBody, TrainerRequestBody } from "shared";
 import { UpdatePokemonRequestType, UpdateTrainerRequestType } from "../../types/requestTypes";
-
-type FormState = {
-    trainerFormLoading: boolean;
-    pokemonFormLoading: boolean;
-}
-
-const initialState: FormState = {
-    trainerFormLoading: false,
-    pokemonFormLoading: false
-}
-
 /**
- * The purpose of this slice is to handle thunks regarding specific
+ * The purpose of this module is to store thunks regarding specific
  * tasks like creating/updating trainer/pokemon. The actual data
  * pertaining to trainer/pokemon is not required and hence there
- * is no state created to hold them.
+ * is no state/slice created to hold them.
  * 
- * The reason this slice has been created and the form data is not
- * being handled in local component is because the error handling
- * and notifications showcase has been standardized via redux 
- * middlewares and to trigger that, a request made via async thunk
+ * The reason these thunks have been created and the form data related 
+ * api calls are not being handled in local component is because the 
+ * error handling and notifications showcase has been standardized via 
+ * redux middlewares and to trigger that, a request made via async thunk
  * is imperative.
  */
-const formSlice = createSlice({
-    name: 'form',
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {}
-});
 
 // Thunk for creating new trainer.
 export const createTrainer = 
@@ -103,5 +86,3 @@ createAsyncThunk<
         return rejectWithValue({...new FetchError("Something went wrong.")});
     }
 });
-
-export default formSlice.reducer;
