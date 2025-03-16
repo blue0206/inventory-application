@@ -4,9 +4,10 @@ export type Theme = "dark" | "light" | "system";
 
 type ThemeState = {
     theme: Theme;
-    resolvedTheme?: "light" | "dark";
+    resolvedTheme?: "light" | "dark";   // Actual theme to be used.
 }
 
+// Gets initial theme based on data in local storage and sets initialState.
 const getInitialState = (): ThemeState => {
     if (typeof localStorage !== 'undefined') {
         const storedTheme = localStorage.getItem("theme");
@@ -25,9 +26,10 @@ const darkModeSlice = createSlice({
     reducers: {
         setTheme: (state, action: PayloadAction<Theme>) => {
             state.theme = action.payload;
+            // Update local storage with new theme.
             localStorage.setItem("theme", action.payload);
 
-            // Update resolved theme.
+            // Update resolved theme by ascertaining system theme.
             if (action.payload === "system") {
                 state.resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches 
                 ? "dark" 
