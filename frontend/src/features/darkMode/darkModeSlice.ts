@@ -40,7 +40,8 @@ const darkModeSlice = createSlice({
         }
     },
     selectors: {
-        getTheme: (state) => state.resolvedTheme
+        getResolvedTheme: (state) => state.resolvedTheme,
+        getTheme: (state) => state.theme
     }
 });
 
@@ -49,5 +50,6 @@ export const {
     setTheme
 } = darkModeSlice.actions;
 export const {
+    getResolvedTheme,
     getTheme
 } = darkModeSlice.selectors;
