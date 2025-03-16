@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import { DeleteRequestBody } from 'shared';
 import { UnauthorizedError } from 'shared/utils/ApiError.js';
 
 const verifySecretKey = (req: Request, res: Response, next: NextFunction) => {
     // Get the secret key from the request body.
-    const { secretKey } = req.query;
+    const { secretKey }: DeleteRequestBody = req.body;
     // Throw unauthorized request error if secret key is incorrect.
     if (secretKey.toString().trim().toLowerCase() !== process.env.SECRET_KEY) {
         throw new UnauthorizedError(
