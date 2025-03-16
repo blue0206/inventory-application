@@ -96,9 +96,10 @@ class ApiClient {
     }
 
     // Method to delete an existing trainer via a DELETE request.
-    async deleteTrainer(id: number, secretKey: string): Promise<void> {
-        this.fetch<void>(`trainers/${id}?secretKey=${secretKey}/`, {
+    async deleteTrainer(data: DeleteRequestBody, id: number): Promise<void> {
+        this.fetch<void>(`trainers/${id}/`, {
             method: "DELETE",
+            body: data
         });
     }
 
@@ -133,9 +134,10 @@ class ApiClient {
     }
 
     // Method to delete an existing pokemon via a DELETE request.
-    async deletePokemon(id: number, secretKey: string): Promise<void> {
-        this.fetch<void>(`pokemon/${id}?secretKey=${secretKey}/`, {
+    async deletePokemon(data: DeleteRequestBody, id: number): Promise<void> {
+        this.fetch<void>(`pokemon/${id}/`, {
             method: "DELETE",
+            body: data
         });
     }
 }
