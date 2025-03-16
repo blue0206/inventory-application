@@ -48,3 +48,8 @@ export function isCustomDefinedError(error: unknown): error is CustomDefinedErro
     }
     return false;
 }
+
+// Type Guard to check if the error is of type ApiError.
+export function isApiError(error: unknown): error is ApiError {
+    return (error as ApiError).__type === 'ApiError';
+}
