@@ -71,9 +71,9 @@ export default function TrainerCard({
             <CardHeader>
                 <AspectRatio ratio={1} className='bg-muted rounded-t-lg'>
                     <Avatar className='w-full h-full rounded-none'>
-                        <AvatarImage className='object-contain' alt='Trainer Image' src={image ? image : ""} />
+                        <AvatarImage className='object-contain' loading='eager' alt='Trainer Image' src={image ? image : ""} />
                         <AvatarFallback>
-                            <img src={RedAvatar} alt="Trainer Image" className='object-cover' />
+                            <img src={RedAvatar} alt="Trainer Image" loading='lazy' className='object-cover' />
                         </AvatarFallback>
                     </Avatar>
                 </AspectRatio>

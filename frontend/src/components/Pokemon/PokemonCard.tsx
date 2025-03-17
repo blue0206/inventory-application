@@ -71,9 +71,9 @@ export default function PokemonCard({
             <CardHeader>
                 <AspectRatio ratio={1} className='bg-muted rounded-t-lg'>
                     <Avatar className='w-full h-full rounded-none'>
-                        <AvatarImage className='object-contain' alt='Pokémon Image' src={image ? image : ""} />
+                        <AvatarImage className='object-contain' alt='Pokémon Image' loading='eager' src={image ? image : ""} />
                         <AvatarFallback>
-                            <img src={MissingnoAvatar} alt="Pokémon Image" className='object-cover' />
+                            <img src={MissingnoAvatar} alt="Pokémon Image" loading='lazy' className='object-cover' />
                         </AvatarFallback>
                     </Avatar>
                 </AspectRatio>

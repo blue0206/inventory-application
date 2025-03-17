@@ -213,9 +213,9 @@ export default function Pokemon(): ReactElement {
                             </div>
                             <AspectRatio ratio={16/9} className="bg-muted rounded-lg mb-6">
                                 <Avatar className="h-full w-full rounded-lg">
-                                    <AvatarImage src={data.imageLink ? data.imageLink : undefined} alt="Pokémon Image" className="object-contain" />
+                                    <AvatarImage src={data.imageLink ? data.imageLink : MissingnoAvatar} loading="eager" alt="Pokémon Image" className="object-contain" />
                                     <AvatarFallback>
-                                        <img src={MissingnoAvatar} alt="Pokémon Image" className="object-contain brightness-105 contrast-110" />
+                                        <img src={MissingnoAvatar} loading="lazy" alt="Pokémon Image" className="object-contain brightness-105 contrast-110" />
                                     </AvatarFallback>
                                 </Avatar>
                             </AspectRatio>

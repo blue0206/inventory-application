@@ -140,9 +140,9 @@ export default function Trainer(): ReactElement {
                         <div className="grow flex flex-col max-w-4xl mx-auto">
                             <AspectRatio ratio={16/9} className="bg-muted rounded-lg mb-6">
                                 <Avatar className="h-full w-full rounded-lg">
-                                    <AvatarImage src={data.imageLink ? data.imageLink : RedAvatar} alt="Trainer Image" className="object-contain" />
+                                    <AvatarImage src={data.imageLink ? data.imageLink : RedAvatar} loading="eager" alt="Trainer Image" className="object-contain" />
                                     <AvatarFallback>
-                                        <img src={RedAvatar} alt="Trainer Image" className="object-contain brightness-105 contrast-110" />
+                                        <img src={RedAvatar} alt="Trainer Image" loading="lazy" className="object-contain brightness-105 contrast-110" />
                                     </AvatarFallback>
                                 </Avatar>
                             </AspectRatio>
