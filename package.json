@@ -7,9 +7,9 @@
     "shared"
   ],
   "scripts": {
-    "dev:s": "npm run dev-watch -w backend",
-    "dev:c": "npm run dev -w frontend",
     "build:s": "npm run build -w backend",
-    "build:c": "npm run build -w frontend"
+    "generate": "prisma generate --schema=backend/prisma/schema.prisma",
+    "build:t": "npm run build -w shared",
+    "start": "npm run start -w backend"
   }
 }
