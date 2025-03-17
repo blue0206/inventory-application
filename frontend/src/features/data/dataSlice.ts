@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "../../app/hooks";
 import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 import { apiClient } from "../../utils/api-client";
@@ -25,16 +25,7 @@ const initialState: DataState = {
 const dataSlice = createSlice({
     name: 'data',
     initialState,
-    reducers: {
-        setTrainerLoadingStatus(state, action: PayloadAction<boolean>) {
-            state.trainerLoading = action.payload;
-            return state;
-        },
-        setPokemonLoadingStatus(state, action: PayloadAction<boolean>) {
-            state.pokemonLoading = action.payload;
-            return state;
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
         .addCase(fetchTrainer.pending, (state) => {
