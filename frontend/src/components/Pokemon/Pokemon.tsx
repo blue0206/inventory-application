@@ -37,11 +37,13 @@ import MissingnoAvatar from "../../assets/missingno-avatar.png";
 import { navigationService } from "../../utils/navigation";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { deletePokemon, fetchPokemon, getPokemonLoadingStatus } from "../../features/data/dataSlice";
-import { Pokemon as PokemonType } from "shared";
+import { Pokemon as PokemonType, PokeType } from "shared";
 import { useParams } from "react-router";
 import { useMediaQuery } from "@custom-react-hooks/use-media-query";
 import { Skeleton } from "../ui/skeleton";
 import SkeletonPokemon from "../Skeleton/SkeletonPokemon";
+import { getTypeColor } from "../../utils/getPokemonTypeColor";
+
 
 export default function Pokemon(): ReactElement {
     const dispatch = useAppDispatch();
@@ -143,12 +145,27 @@ export default function Pokemon(): ReactElement {
                                     {
                                         data.types.length === 2 ? (
                                             <>
-                                                <Button variant={"secondary"} className="bg-accent mr-3.5">{data.types[0]}</Button>
-                                                <Button variant={"default"}>{data.types[1]}</Button>
+                                                <Button 
+                                                    variant={"pokeType"} 
+                                                    className={`${getTypeColor(data.types[0] as PokeType).bg} ${getTypeColor(data.types[0] as PokeType).fg} mr-3.5`}
+                                                >
+                                                    {data.types[0]}
+                                                </Button>
+                                                <Button 
+                                                    variant={"pokeType"} 
+                                                    className={`${getTypeColor(data.types[1] as PokeType).bg} ${getTypeColor(data.types[1] as PokeType).fg}`}
+                                                >
+                                                    {data.types[1]}
+                                                </Button>
                                             </>
                                         ) : (
                                             <>
-                                                <Button variant={"secondary"}>{data.types[0]}</Button>
+                                                <Button 
+                                                    variant={"pokeType"} 
+                                                    className={`${getTypeColor(data.types[0] as PokeType).bg} ${getTypeColor(data.types[0] as PokeType).fg}`}
+                                                >
+                                                    {data.types[0]}
+                                                </Button>
                                             </>
                                         )
                                     }
