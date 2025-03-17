@@ -13,7 +13,6 @@ import type {
     TrainerPokemon, 
     TrainerRequestBody
 } from 'shared';
-import toTitleCase from '../utils/title-case.js';
 
 const createTrainer = asyncHandler(async (req: Request, res: Response) => {
     // Get trainer details from request body.
@@ -30,7 +29,7 @@ const createTrainer = asyncHandler(async (req: Request, res: Response) => {
     // Create trainer in database.
     const trainer: Trainer = await prisma.trainer.create({
         data: {
-            name: toTitleCase(trainerName),
+            name: trainerName,
             imageLink: trainerImage ? trainerImage : null,
             pokemon: {
                 connect: pokemonList.map((pokeName: string) => (
@@ -175,7 +174,7 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
             id: Number(trainerId)
         },
         data: {
-            name: toTitleCase(trainerName),
+            name: trainerName,
             imageLink: trainerImage ? trainerImage : null,
             pokemon: {
                 connect: pokemonList.map((pokemon: string) => ({
