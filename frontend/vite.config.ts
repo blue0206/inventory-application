@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "shared": path.resolve(__dirname, "../shared")
     },
   },
   optimizeDeps: {
@@ -19,4 +18,9 @@ export default defineConfig({
       "@radix-ui_react-dialog.js",
     ],
   },
+  build: {
+    rollupOptions: {
+      external: "shared"
+    }
+  }
 });
