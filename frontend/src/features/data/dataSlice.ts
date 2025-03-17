@@ -31,8 +31,14 @@ const dataSlice = createSlice({
         .addCase(fetchTrainer.pending, (state) => {
             state.trainerLoading = true;
         })
+        .addCase(fetchPokemon.pending, (state) => {
+            state.pokemonLoading = true;
+        })
         .addMatcher(isAnyOf(fetchTrainer.fulfilled, fetchTrainer.rejected), (state) => {
             state.trainerLoading = false;
+        })
+        .addMatcher(isAnyOf(fetchPokemon.fulfilled, fetchPokemon.rejected), (state) => {
+            state.pokemonLoading = false;
         })
     }
 });
