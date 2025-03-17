@@ -9,8 +9,6 @@ export default function TrainersList(): ReactElement {
     const trainers = useAppSelector(getTrainersList);
     const status = useAppSelector(getStatus);
     
-    // TODO: Reset status to 'idle' when create/update route is
-    // implemented to re-fetch new and updated data.
     useEffect(() => {
         // Fetch trainers if status is 'idle'
         if (status === 'idle') {

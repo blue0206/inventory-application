@@ -8,9 +8,7 @@ export default function PokemonList(): ReactElement {
     const dispatch = useAppDispatch();
     const pokemon = useAppSelector(getPokemonList);
     const status = useAppSelector(getStatus);
-    
-    // TODO: Reset status to 'idle' when create/update route is
-    // implemented to re-fetch new and updated data.
+
     useEffect(() => {
         // Fetch pokemon if status is 'idle'
         if (status === 'idle') {
