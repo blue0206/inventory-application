@@ -46,6 +46,8 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         // Since a trainer has been created or updated, we need to 
         // redirect user to that trainer's detail page and show toast.
         navigationService.navigate(`/trainers/${action.payload.data}`);
+        // Update trainer list data by resetting its status to make new api call.
+        store.dispatch(resetTrainerListStatus());
         toast.success(action.payload.message, {
             duration: 4000,
             id: "createOrUpdate"
@@ -55,6 +57,8 @@ export const successMiddleware: Middleware = (store) => (next) => (action) => {
         // Since a pokemon has been created or updated, we need to 
         // redirect user to that pokemon's detail page and show toast.
         navigationService.navigate(`/pokemon/${action.payload.data}`);
+        // Update trainer list data by resetting its status to make new api call.
+        store.dispatch(resetPokemonListStatus());
         toast.success(action.payload.message, {
             duration: 4000,
             id: "createOrUpdate"
