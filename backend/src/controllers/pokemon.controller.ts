@@ -5,11 +5,16 @@ import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError, c
 import toTitleCase from "../utils/title-case.js";
 
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
-    const data = await response.json();
-    // Get high quality image from new image url using id from fetched pokemon data.
-    const imageURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
-    return imageURL;
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase().trim()}`);
+        const data = await response.json();
+        // Get high quality image from new image url using id from fetched pokemon data.
+        const imageURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
+        return imageURL;
+    } catch (error) {
+        console.error(error);
+    }
+    return "";
 }
 
 const createPokemon = asyncHandler(async (req: Request, res: Response) => {
