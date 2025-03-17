@@ -69,13 +69,11 @@ export default function TrainerCard({
     return (
         <Card className=' shadow-md hover:scale-105'>
             <CardHeader>
-                <AspectRatio ratio={1.25/1}>
-                    <Avatar className='w-full h-full'>
-                        <AvatarImage className='h-full w-full object-scale-down' src={image ? image : ""} />
+                <AspectRatio ratio={1} className='bg-muted rounded-t-lg'>
+                    <Avatar className='w-full h-full rounded-none'>
+                        <AvatarImage className='object-contain' alt='Trainer Image' src={image ? image : ""} />
                         <AvatarFallback>
-                            <Avatar className='w-full h-full'>
-                                <AvatarImage src={RedAvatar} className='h-full w-full object-contain bg-background'></AvatarImage>
-                            </Avatar>
+                            <img src={RedAvatar} alt="Trainer Image" className='object-cover' />
                         </AvatarFallback>
                     </Avatar>
                 </AspectRatio>
