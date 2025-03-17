@@ -10,7 +10,7 @@ function App(): ReactElement {
     <>
       <div className='h-screen w-full'>
         <Header />
-        <div className='flex flex-col items-center justify-center h-full px-4 gap-11 sm:gap-16'>
+        <div className='flex flex-col items-center justify-center animate-fade-in-up h-full px-4 gap-11 sm:gap-16'>
           <h1 className='text-7xl max-w-full sm:text-8xl'>This is Poké-Inventory.</h1>
           <div>
             <h4 className="text-md font-medium leading-none text-center">Explore</h4>
