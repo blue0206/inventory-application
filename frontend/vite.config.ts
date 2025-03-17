@@ -17,10 +17,5 @@ export default defineConfig({
       "radix-ui_react-navigation-menu.js",
       "@radix-ui_react-dialog.js",
     ],
-  },
-  build: {
-    rollupOptions: {
-      external: "shared"
-    }
   }
 });
