@@ -40,6 +40,10 @@ const dataSlice = createSlice({
         .addMatcher(isAnyOf(fetchPokemon.fulfilled, fetchPokemon.rejected), (state) => {
             state.pokemonLoading = false;
         })
+    },
+    selectors: {
+        getTrainerLoadingStatus: (state) => state.trainerLoading,
+        getPokemonLoadingStatus: (state) => state.pokemonLoading
     }
 });
 
@@ -100,3 +104,7 @@ createAppAsyncThunk<void, DeleteParamsType>('data/deletePokemon', async ({ id, d
 });
 
 export default dataSlice.reducer;
+export const {
+    getTrainerLoadingStatus,
+    getPokemonLoadingStatus
+} = dataSlice.selectors;
