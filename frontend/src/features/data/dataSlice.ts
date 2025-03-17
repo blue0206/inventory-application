@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createAppAsyncThunk } from "@/app/hooks";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAppAsyncThunk } from "../../app/hooks";
 import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
 import { apiClient } from "../../utils/api-client";
 import { Pokemon, TrainerWithRelation, ApiResponse } from "shared";
@@ -25,7 +25,12 @@ const initialState: DataState = {
 const dataSlice = createSlice({
     name: 'data',
     initialState,
-    reducers: {}
+    reducers: {
+        setTrainerLoading(state, action: PayloadAction<boolean>) {
+            state.trainerLoading = action.payload;
+            return state;
+        }
+    }
 });
 
 export const fetchTrainer = 
