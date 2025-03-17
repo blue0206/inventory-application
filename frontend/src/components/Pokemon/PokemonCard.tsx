@@ -30,7 +30,7 @@ import { useMediaQuery } from "@custom-react-hooks/use-media-query";
 import { Input } from "@/components/ui/input";
 import MissingnoAvatar from "../../assets/missingno-avatar.png";
 import { useAppDispatch } from '@/app/hooks';
-import { deletePokemon } from '@/features/data/dataThunks';
+import { deletePokemon } from '@/features/data/dataSlice';
 
 type PokemonCardProps = {
     id: number;

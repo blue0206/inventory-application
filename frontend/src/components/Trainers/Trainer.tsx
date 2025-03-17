@@ -35,7 +35,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import RedAvatar from "../../assets/red-avatar.png";
 import { navigationService } from "../../utils/navigation";
 import { useAppDispatch } from "../../app/hooks";
-import { deleteTrainer, fetchTrainer } from "../../features/data/dataThunks";
+import { deleteTrainer, fetchTrainer } from "../../features/data/dataSlice";
 import { TrainerWithRelation } from "shared";
 import { useParams } from "react-router";
 import { useMediaQuery } from "@custom-react-hooks/use-media-query";
