@@ -26,8 +26,12 @@ const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers: {
-        setTrainerLoading(state, action: PayloadAction<boolean>) {
+        setTrainerLoadingStatus(state, action: PayloadAction<boolean>) {
             state.trainerLoading = action.payload;
+            return state;
+        },
+        setPokemonLoadingStatus(state, action: PayloadAction<boolean>) {
+            state.pokemonLoading = action.payload;
             return state;
         }
     }
