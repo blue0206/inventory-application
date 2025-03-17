@@ -12,5 +12,9 @@
     "build:t": "npm run build -w shared",
     "build:c": "npm run build -w frontend",
     "start": "npm run start -w backend"
-  }
+  },
+  "devDependencies": {
+    "turbo": "^2.4.4"
+  },
+  "packageManager": "npm@8.5.0"
 }
