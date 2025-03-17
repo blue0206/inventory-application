@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "../../app/hooks";
-import { FetchError, isCustomDefinedError } from "@/utils/custom-error";
+import { FetchError, isCustomDefinedError } from "../../utils/custom-error";
 import { apiClient } from "../../utils/api-client";
 import { Pokemon, TrainerWithRelation, ApiResponse } from "shared";
 import { DeleteParamsType } from "../../types/requestTypes";
@@ -34,6 +34,15 @@ const dataSlice = createSlice({
             state.pokemonLoading = action.payload;
             return state;
         }
+    },
+    extraReducers: (builder) => {
+        builder
+        .addCase(fetchTrainer.pending, (state) => {
+            state.trainerLoading = true;
+        })
+        .addMatcher(isAnyOf(fetchTrainer.fulfilled, fetchTrainer.rejected), (state) => {
+            state.trainerLoading = false;
+        })
     }
 });
 
