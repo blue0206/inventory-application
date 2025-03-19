@@ -13,7 +13,8 @@ export { ApiResponse, ApiErrorResponse } from "./utils/ApiResponse.js";
 export { 
     BadRequestError, 
     NotFoundError, 
-    ValidationError, 
+    ValidationError,
+    UnauthorizedError, 
     isApiErrorList, 
     isCustomError 
 } from "./utils/ApiError.js";
