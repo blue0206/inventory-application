@@ -1,5 +1,5 @@
 import { Trainer as TrainerType, Pokemon as PokemonType } from '@prisma/client';
-import { Prisma as PrismaNamespace } from '../prisma-client/prisma.js';
+import { Prisma } from '@prisma/client';
 
 // Model Types
 export type Trainer = TrainerType;
@@ -25,12 +25,12 @@ export type PokeType =
     | 'FAIRY';
 
 // Query Types
-export type TrainerWithRelation = PrismaNamespace.TrainerGetPayload<{
+export type TrainerWithRelation = Prisma.TrainerGetPayload<{
     include: {
         pokemon: true;
     }
 }>;
-export type TrainerPokemon = PrismaNamespace.TrainerGetPayload<{
+export type TrainerPokemon = Prisma.TrainerGetPayload<{
     select: {
         pokemon: {
             select: {
