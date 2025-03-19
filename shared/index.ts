@@ -9,7 +9,6 @@ export type {
     DeleteRequestBody 
 } from "./types/api.ts";
 export { PokemonTypeEnum, checkTypeDuplicate } from "./types/api.js";
-export { prisma, Prisma } from "./prisma-client/prisma.js";
 export { ApiResponse, ApiErrorResponse } from "./utils/ApiResponse.js";
 export { 
     BadRequestError, 
