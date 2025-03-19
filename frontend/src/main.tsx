@@ -5,6 +5,7 @@ import { store } from "./app/store";
 import { BrowserRouter } from 'react-router';
 import ThemeProvider from './components/ThemeProvider';
 import AppRoutes from './routes';
+import { Analytics } from "@vercel/analytics/react"
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -16,5 +17,6 @@ createRoot(document.getElementById('root')!).render(
         </BrowserRouter>
       </ThemeProvider>
     </Provider>
+    <Analytics />
   </StrictMode>,
 )
