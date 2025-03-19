@@ -17,28 +17,7 @@ model Trainer {
 model Pokemon {
   id        Int       @id @default(autoincrement())
   name      String    @unique
-  types     PokeType[] 
+  types     String[] 
   imageLink String?
   trainers  Trainer[]
-}
-
-enum PokeType {
-  NORMAL
-  FIRE
-  WATER
-  GRASS
-  ELECTRIC
-  ICE
-  FIGHTING
-  POISON
-  GROUND
-  FLYING
-  PSYCHIC
-  BUG
-  ROCK
-  GHOST
-  DRAGON
-  DARK
-  STEEL
-  FAIRY
 }
