@@ -10,7 +10,6 @@
     "build:s": "npm run build -w backend",
     "generate": "prisma generate --schema=backend/prisma/schema.prisma",
     "build:t": "npm run build -w shared",
-    "build:c": "npm run build -w frontend",
     "start": "npm run start -w backend"
   },
   "devDependencies": {
