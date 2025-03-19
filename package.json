@@ -11,9 +11,5 @@
     "generate": "prisma generate --schema=backend/prisma/schema.prisma",
     "build:t": "npm run build -w shared",
     "start": "npm run start -w backend"
-  },
-  "devDependencies": {
-    "turbo": "^2.4.4"
-  },
-  "packageManager": "npm@11.0.0"
+  }
 }
