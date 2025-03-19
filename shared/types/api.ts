@@ -1,10 +1,28 @@
-import { Trainer as TrainerType, Pokemon as PokemonType, PokeType as Types } from '@prisma/client';
+import { Trainer as TrainerType, Pokemon as PokemonType } from '@prisma/client';
 import { Prisma as PrismaNamespace } from '../prisma-client/prisma.js';
 
 // Model Types
 export type Trainer = TrainerType;
 export type Pokemon = PokemonType;
-export type PokeType = Types;
+export type PokeType = 
+    | 'NORMAL'
+    | 'FIRE'
+    | 'WATER'
+    | 'GRASS'
+    | 'ELECTRIC'
+    | 'ICE'
+    | 'FIGHTING'
+    | 'POISON'
+    | 'GROUND'
+    | 'FLYING'
+    | 'PSYCHIC'
+    | 'BUG'
+    | 'ROCK'
+    | 'GHOST'
+    | 'DRAGON'
+    | 'DARK'
+    | 'STEEL'
+    | 'FAIRY';
 
 // Query Types
 export type TrainerWithRelation = PrismaNamespace.TrainerGetPayload<{
@@ -38,7 +56,26 @@ export type DeleteRequestBody = {
 }
 
 // Export Pokemon Type Enum
-export const PokemonTypeEnum = Types;
+export enum PokemonTypeEnum {
+    NORMAL = 'NORMAL',
+    FIRE = 'FIRE',
+    WATER = 'WATER',
+    GRASS = 'GRASS',
+    ELECTRIC = 'ELECTRIC',
+    ICE = 'ICE',
+    FIGHTING = 'FIGHTING',
+    POISON = 'POISON',
+    GROUND = 'GROUND',
+    FLYING = 'FLYING',
+    PSYCHIC = 'PSYCHIC',
+    BUG = 'BUG',
+    ROCK = 'ROCK',
+    GHOST = 'GHOST',
+    DRAGON = 'DRAGON',
+    DARK = 'DARK',
+    STEEL = 'STEEL',
+    FAIRY = 'FAIRY'
+}
 
 // Export Pokemon type duplication check utility function.
 export function checkTypeDuplicate(firstType: PokeType | undefined, secondType: PokeType | undefined): boolean {
