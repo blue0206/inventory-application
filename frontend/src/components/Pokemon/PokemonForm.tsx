@@ -66,9 +66,9 @@ export default function PokemonForm(): ReactElement {
     // This is to prevent type clash with Pokemon type passed in as location state.
     let PokemonType: [PokeType, PokeType?];
     if (pokemon?.types?.length === 1) {
-        PokemonType = [pokemon.types[0]];
+        PokemonType = [pokemon.types[0] as PokeType];
     } else if (pokemon?.types?.length === 2) {
-        PokemonType = [pokemon.types[0], pokemon.types[1]];
+        PokemonType = [pokemon.types[0] as PokeType, pokemon.types[1] as PokeType];
     } else {
         PokemonType = ["NORMAL"];
     }

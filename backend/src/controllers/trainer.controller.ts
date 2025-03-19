@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
+import { prisma } from "shared/prisma-instance.js";
 import {
-    prisma,
     ApiResponse,
     NotFoundError,
     BadRequestError,
