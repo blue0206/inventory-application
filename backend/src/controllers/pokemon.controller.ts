@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
+import { prisma } from "shared/prisma-instance.js";
 import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
-import { prisma, ApiResponse, BadRequestError, NotFoundError, ValidationError, checkTypeDuplicate } from "shared";
+import { ApiResponse, BadRequestError, NotFoundError, ValidationError, checkTypeDuplicate } from "shared";
 import toTitleCase from "../utils/title-case.js";
 
 const fetchPokemonImage = async (name: string): Promise<string | undefined> => {
