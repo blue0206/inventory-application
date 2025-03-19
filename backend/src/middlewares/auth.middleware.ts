@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { DeleteRequestBody } from 'shared';
-import { UnauthorizedError } from 'shared/utils/ApiError.js';
+import { DeleteRequestBody, UnauthorizedError } from 'shared';
 
 const verifySecretKey = (req: Request, res: Response, next: NextFunction) => {
     // Get the secret key from the request body.
