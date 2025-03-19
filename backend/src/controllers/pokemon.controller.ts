@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from 'express-async-handler';
-import { prisma } from "shared/prisma-instance.js";
+import { prisma } from "../db/prisma-client.js";
 import type { ApiErrorList, Pokemon, PokemonRequestBody } from "shared";
 import { ApiResponse, BadRequestError, NotFoundError, ValidationError, checkTypeDuplicate } from "shared";
 import toTitleCase from "../utils/title-case.js";
