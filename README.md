@@ -39,9 +39,9 @@ This was my first full-stack project and I learned a whole lot from it. I made a
 to ui components library and TailwindCSS from vanilla CSS. I feel that at some point we all have to move
 on from vanilla CSS and explore what the dev community has to offer and explore tools actually used in production.
 
-I will divide my reflections into phases as follows:
+I will share the problems I faced and how I tackled them one by one:
 
-### Phase 1: Initial Setup
+### Issue 1: Initial Setup
 
 The first and foremost issue here was how to going about making a full-stack web app. I explored and found
 two major ways to go about this:
@@ -64,4 +64,16 @@ In the end I narrowed my options down to either of the following approaches:
 
 I was excited about both of them, but decided to go with the monorepo approach this time and leave multi-repo for a future project.
 I quickly set up the monorepo structure and created three packages: `frontend`, `backend`, and `shared`.
+
+### Issue 2: TypeScript Configuration
+
+This was probably the most challenging phase. Took me a while to figure out how to configure TS compiler correctly.
+The way I had set things up initially kept throwing errors related to imports. 
+
+I had to delve into TS docs and learn more about module resolution and module options and how they affect compile and
+imports. The difference between the different options like `node16`, `nodenext`, `node`, `es2022`, `commonjs`, etc.
+
+The cause of the issue? When I checked the compiled code in shared package, it was all in CommonJS format instead of ESM and hence the imports weren't getting resolved properly in backend which was set up in ESM.
+
+Ultimately, the solution was to sync the `compilerOptions` for backend and shared packages which seemed to fix everything. The pre-configured settings for frontend worked fine without any changes.
 
