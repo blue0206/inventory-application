@@ -33,6 +33,61 @@ To read about my reflections from working on this project, please head to the se
 - react-select for multi-select component
 - Responsive design
 - Skeleton loading
+  
+## Installation (Development)
+
+1. Clone the repository and move into the cloned folder:
+    ```bash
+    git clone https://github.com/blue0206/inventory-application.git
+    cd inventory-application
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Generate prisma client:
+    ```bash
+    npm run generate
+    ```
+4. Build the shared and backend packages to compile types:
+    ```bash
+    npm run build:t && npm run build:s
+    ```
+5. Start the development servers:
+   - Frontend: 
+        ```bash
+        npm run dev -w frontend
+        ```
+   - Backend:
+        ```bash
+        npm run dev -w backend
+        ```
+
+## Installation (Production)
+
+1. Generate prisma client:
+    ```bash
+    npm run generate
+    ```
+2. Build the packages to compile types:
+    ```bash
+    npm run build:t
+    ```
+3. To Start the production server:
+    1. Backend:
+        - Build the backend package to compile types and start the server with single command:
+            ```bash
+            npm run start
+            ```
+    2. Frontend:
+        - Build the frontend package with Vite bundler:
+            ```bash
+            npm run build:c
+            ```
+        - Preview the production build locally:
+            ```bash
+            npm run preview -w frontend
+            ```
 
 ## Reflections
 
