@@ -89,6 +89,46 @@ To read about my reflections from working on this project, please head to the se
             npm run preview -w frontend
             ```
 
+## Project Structure
+
+```
+inventory-application/
+├── backend/        
+│   ├── src/
+│   │   ├── controllers/   # Controllers for trainer and pokemon containing business logic
+│   │   ├── db/            # Prisma client instance setup
+│   │   ├── middlewares/   # Middleware for request verification
+│   │   ├── routes/        # Routes for trainer and pokemon endpoints
+│   │   ├── utils/         # Utility methods
+│   │   ├── app.ts         # Express application
+│   │   └── index.ts       # Entry point
+│   └── prisma/            # Prisma schema and migrations
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/           # Redux Store, Typed Hooks, Middlewares, and Type Guards
+│   │   ├── assets/        # Fallback images
+│   │   ├── components/    # React components
+│   │   ├── features/      # Redux features and their slices, standalone thunks
+│   │   ├── hooks/         # Custom hooks
+│   │   ├── types/         # TypeScript type definitions
+│   │   ├── utils/         # Api Client, Navigation wrapper and other utility modules
+│   │   ├── lib/           # shadcn config
+│   │   ├── index.css      # CSS styles
+│   │   ├── App.tsx        # Main application component
+│   │   └── main.tsx       # Application entry point
+│   │   └── routes.ts      # Routes configuration
+│   └── index.html         # HTML template
+│
+├── shared/        
+│   └── src/
+│       ├── types/         # API types
+│       ├── utils/         # API Error and API Response classes
+│       └── index.ts       # Types exported from shared package
+│
+└── package.json           # npm workspaces configuration
+```
+
 ## Reflections
 
 This was my first full-stack project and I learned a whole lot from it. I made a major decision of shifting
