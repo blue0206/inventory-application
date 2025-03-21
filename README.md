@@ -77,3 +77,9 @@ The cause of the issue? When I checked the compiled code in shared package, it w
 
 Ultimately, the solution was to sync the `compilerOptions` for backend and shared packages which seemed to fix everything. The pre-configured settings for frontend worked fine without any changes.
 
+### Issue 3: Creating query types from Prisma namespace
+
+This took a while to wrap my head around. I found out that Prisma only generates types for models and not queries. It 
+exports a namespace called `Prisma` which can be used to generate types for queries by simply somewhat mimic-ing the
+syntax of the query itself. This project didn't require any complex queries so I didn't face much issues once I found
+out about the namespace.
