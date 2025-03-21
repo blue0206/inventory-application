@@ -85,7 +85,7 @@ exports a namespace called `Prisma` which can be used to generate types for quer
 syntax of the query itself. This project didn't require any complex queries so I didn't face much issues once I found
 out about the namespace.
 
-### Issue 4: Centralizing error handling in frontend akin to backend.
+### Issue 4: Centralizing error handling in frontend akin to backend
 
 In my previous project, Shopping Cart, I used Redux Toolkit for the first time, but only for state management. I didn't
 use any custom middlewares or async thunks, and I didn't initially intend to use them in this project.
@@ -109,7 +109,7 @@ Here's a brief summary of what I learned about async thunk actions and how middl
 ![Async Thunk Action Life Cycle](./blobs/async-thunk-action-lifecycle.png)
 Note: This excalidraw doodle was from when I was learning things. By the end of this project, a lot of my understanding was cleared about it. Now, I believe I have a perfect mental model of how the entire thing works. Some things in the image might be a bit wrong or unclear or incomplete, that's because of the gaps in my knowledge I had back then.
 
-### Issue 6: Strongly type Redux middlewares.
+### Issue 6: Strongly type Redux middlewares
 
 The next task was to define middlewares and strongly type them. Unfortunately, this wasn't covered explicitly in the
 docs. I had to research a lot and even StackOverflow didn't have much to go on this topic. I tried AI, but it gave false
@@ -127,9 +127,36 @@ const errorHandlingMiddleware: Middleware = (store) => (next) => (action) => {
 }
 ```
 
-### Issue 7: Programmatically navigate a user from redux middlewares.
+### Issue 7: Programmatically navigate a user from redux middlewares
 
 In order to redirect users from middlewares while error handling, I needed something like `useNavigate()` hook from react-router. I looked up and there was a solution involving `createBrowserHistory`, but this was deprecated back in v5 or v6, and I was using v7. So I had to look for something else.
 Ultimately, the solution I came across was to create a wrapper function around `useNavigate()`'s instance and use it in the entire application for routing.
 
-[You can check the implementation here.](./frontend//src/utils/navigation.ts)
+[You can check the implementation here.](./frontend/src/utils/navigation.ts)
+
+### Issue 8: Deployment
+
+This was the scariest part of the bunch. My app saw over 90 failed/faulty deployments and I was worried that my half-a-month of effort would go to waste.
+I spent the last few days trying to figure out why it was failing.
+
+I was doubting myself whether I had setup npm workspaces correctly. As a result, I ended up trying out alternative like
+Turborepo to handle my monorepo but even that didn't fix the issue.
+
+In some cases, the build was successful but when previewed, the screen was blank and the console showed errors about resolving prisma from shared package. 
+Based on this error, I found out on Prisma GitHub issues that this was probably because of the use of enums.
+As a result, I removed the Pokemon Type enum from my schema and exported a custom defined enum from shared package instead.
+Not very elegant approach but the situation was dire. I even had to migrate my db because of this but the issue was still
+not fixed.
+
+After a lot of trials, I finally figured out that the issue was because I was exporting prisma client and namespace from
+my shared package, and because of this, Vite was trying to bundle the prisma package as well which is not meant for browser and hence the errors.
+Once I removed the prisma from the export, the deployment went through smoothly.
+
+The prisma client was being exported from shared package to be used in backend for queries. This was intended in the beginning because I thought I'd need prisma client in shared package to generate types. However, this was not the case and I completely forgot about removing it from exports.
+In the end, I only ever used Prisma namespace in shared package to generate the types only and didn't export it.
+And I instantiated the prisma client in backend instead since that was the only place where it was used.
+The cause of the issue was very simple, but this is how many real world scenarios are, where devs can work on debugging for hours or days, only to find out the root cause being something trivial.
+
+## Conclusion
+
+This project was a very valuable experience. I learned a whole lot of new things: RTK thunks, RTK middlewares, npm workspaces, monorepos, tailwindcss, component libraries, and prisma. I also learned a lot about how to debug and troubleshoot issues. If you're still here, thanks for reading, it means a lot! ❤️
