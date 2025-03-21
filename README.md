@@ -95,3 +95,15 @@ Therefore, I researched for ways to handle this and couldn't find much. There we
 handled UI errors, not API errors.  
 Then I wondered if I could use Redux for error handling. After reading a lot of StackOverflow answers, I realized I
 could use async thunks and middlewares for this purpose and for MUCH more. As a result, I decided to learn them for this project.
+
+### Issue 5: Understanding Redux custom middlewares and thunks
+
+I learned the whole thing from RTK docs, they cover everything and in a friendly, easy-to-understand manner. I would recommend anyone who wants to learn Redux to start with RTK docs.
+I took some help from AI to understand some concepts I couldn't wrap my head around.
+
+As I tried to understand the whole thing, I was confident more and more that this is exactly what I was looking for.
+I even made an excalidraw doodle when I was learning (shared below).
+
+Here's a brief summary of what I learned about async thunk actions and how middlewares are involved:
+![Async Thunk Action Life Cycle](./blobs/async-thunk-action-lifecycle.png)
+Note: This excalidraw doodle was from when I was learning things. By the end of this project, a lot of my understanding was cleared about it. Now, I believe I have a perfect mental model of how the entire thing works. Some things in the image might be a bit wrong or unclear or incomplete, that's because of the gaps in my knowledge I had back then.
