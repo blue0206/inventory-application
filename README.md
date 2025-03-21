@@ -83,3 +83,15 @@ This took a while to wrap my head around. I found out that Prisma only generates
 exports a namespace called `Prisma` which can be used to generate types for queries by simply somewhat mimic-ing the
 syntax of the query itself. This project didn't require any complex queries so I didn't face much issues once I found
 out about the namespace.
+
+### Issue 4: Centralizing error handling in frontend akin to backend.
+
+In my previous project, Shopping Cart, I used Redux Toolkit for the first time, but only the state management. I didn't
+use any custom middlewares or async thunks, and I didn't initially intend to use them in this project.
+
+I am, however, a big fan of how we can handle errors in express in one single place after throwing it anywhere in the entire application. Therefore, when I started with frontend, this was one of the things I really wanted to implement.
+
+Therefore, I researched for ways to handle this and couldn't find much. There were Error boundaries but they only
+handled UI errors, not API errors.  
+Then I wondered if I could use Redux for error handling. After reading a lot of StackOverflow answers, I realized I
+could use async thunks and middlewares for this purpose and for MUCH more. As a result, I decided to learn them for this project.
