@@ -1,6 +1,7 @@
 # Poké-Inventory: A Pokémon Inventory Application
 
-This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.
+This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.  
+To read about my reflections from working on this project, please head to the section on [Reflections](#reflections).
 
 [Live Preview](shopping-cart-two-ruddy.vercel.app)  
 **If you want to perform a delete operation,**  
@@ -86,7 +87,7 @@ out about the namespace.
 
 ### Issue 4: Centralizing error handling in frontend akin to backend.
 
-In my previous project, Shopping Cart, I used Redux Toolkit for the first time, but only the state management. I didn't
+In my previous project, Shopping Cart, I used Redux Toolkit for the first time, but only for state management. I didn't
 use any custom middlewares or async thunks, and I didn't initially intend to use them in this project.
 
 I am, however, a big fan of how we can handle errors in express in one single place after throwing it anywhere in the entire application. Therefore, when I started with frontend, this was one of the things I really wanted to implement.
@@ -120,8 +121,15 @@ I got introduced to matching utilities (a very important tool which came in hand
 logic for middlewares) and the `Middleware` type export by RTK.
 
 I didn't perfectly type the middleware but typed them enough to keep it within acceptable limits. It was something like this:
-```ts
+```typescript
 const errorHandlingMiddleware: Middleware = (store) => (next) => (action) => {
     // Error handling logic
 }
 ```
+
+### Issue 7: Programmatically navigate a user from redux middlewares.
+
+In order to redirect users from middlewares while error handling, I needed something like `useNavigate()` hook from react-router. I looked up and there was a solution involving `createBrowserHistory`, but this was deprecated back in v5 or v6, and I was using v7. So I had to look for something else.
+Ultimately, the solution I came across was to create a wrapper function around `useNavigate()`'s instance and use it in the entire application for routing.
+
+[You can check the implementation here.](./frontend//src/utils/navigation.ts)
