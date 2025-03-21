@@ -107,3 +107,21 @@ I even made an excalidraw doodle when I was learning (shared below).
 Here's a brief summary of what I learned about async thunk actions and how middlewares are involved:
 ![Async Thunk Action Life Cycle](./blobs/async-thunk-action-lifecycle.png)
 Note: This excalidraw doodle was from when I was learning things. By the end of this project, a lot of my understanding was cleared about it. Now, I believe I have a perfect mental model of how the entire thing works. Some things in the image might be a bit wrong or unclear or incomplete, that's because of the gaps in my knowledge I had back then.
+
+### Issue 6: Strongly type Redux middlewares.
+
+The next task was to define middlewares and strongly type them. Unfortunately, this wasn't covered explicitly in the
+docs. I had to research a lot and even StackOverflow didn't have much to go on this topic. I tried AI, but it gave false
+positive results.
+Ultimately, I decided to muster up the courage to ask in Redux community discord and got a great answer from the folks there. I'm usually scared of doing these things, I always worry if my question is too stupid. But those folks nicely
+pointed me in the right direction, and even solved issues with my code which I didn't even notice.
+
+I got introduced to matching utilities (a very important tool which came in handy when I was actually designing the
+logic for middlewares) and the `Middleware` type export by RTK.
+
+I didn't perfectly type the middleware but typed them enough to keep it within acceptable limits. It was something like this:
+```ts
+const errorHandlingMiddleware: Middleware = (store) => (next) => (action) => {
+    // Error handling logic
+}
+```
