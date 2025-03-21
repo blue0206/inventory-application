@@ -3,7 +3,7 @@
 This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.  
 To read about my reflections from working on this project, please head to the section on [Reflections](#reflections).
 
-[Live Preview](shopping-cart-two-ruddy.vercel.app)  
+[Live Preview](https://inventory-application-delta.vercel.app/)
 **If you want to perform a delete operation,**  
 **please do so by creating a new trainer/pokémon and deleting that.**
 
