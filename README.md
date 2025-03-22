@@ -1,11 +1,23 @@
 # Poké-Inventory: A Pokémon Inventory Application
 
-This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.  
-To read about my reflections from working on this project, please head to the section on [Reflections](#reflections).
+## Table of Contents
 
-[Live Preview](https://inventory-application-delta.vercel.app/)
-**If you want to perform a delete operation,**  
-**please do so by creating a new trainer/pokémon and deleting that.**
+- [Introduction](#introduction)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Installation (Development)](#installation-development)
+- [Installation (Production)](#installation-production)
+- [Project Structure](#project-structure)
+- [Reflections](#reflections)
+- [Conclusion](#conclusion)
+
+## Introduction
+
+This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.  
+To read about my experience from working on this project, please head to the section on [Reflections](#reflections).
+
+[Live Preview](https://inventory-application-delta.vercel.app/)  
+**If you want to perform a delete operation, please do so by creating a new trainer/pokémon and deleting that.**
 
 ## Tech Stack
  - React
@@ -65,15 +77,24 @@ To read about my reflections from working on this project, please head to the se
 
 ## Installation (Production)
 
-1. Generate prisma client:
+1. Clone the repository and move into the cloned folder:
+    ```bash
+    git clone https://github.com/blue0206/inventory-application.git
+    cd inventory-application
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Generate prisma client:
     ```bash
     npm run generate
     ```
-2. Build the packages to compile types:
+4. Build the packages to compile types:
     ```bash
     npm run build:t
     ```
-3. To Start the production server:
+5. To Start the production server:
     1. Backend:
         - Build the backend package to compile types and start the server with single command:
             ```bash
