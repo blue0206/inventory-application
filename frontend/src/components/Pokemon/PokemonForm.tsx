@@ -105,11 +105,11 @@ export default function PokemonForm(): ReactElement {
         }
     }
     // Type 2 Select Handler.
-    const typeTwoSelectHandler = (value: PokeType) => {
+    const typeTwoSelectHandler = (value: PokeType | "NONE") => {
         const newData: PokemonRequestBody = {
             pokemonName: formData.pokemonName,
             pokemonImage: formData.pokemonImage,
-            pokemonTypes: [formData.pokemonTypes[0], value]
+            pokemonTypes: [formData.pokemonTypes[0], value === "NONE" ? undefined : value]
         }
         if (!checkTypeDuplicate(newData.pokemonTypes[0], newData.pokemonTypes[1])) {
             setFormData(newData);
@@ -244,6 +244,9 @@ export default function PokemonForm(): ReactElement {
                                                             )
                                                         ))
                                                     }
+                                                    <SelectItem value="NONE">
+                                                        NONE
+                                                    </SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <ul 
