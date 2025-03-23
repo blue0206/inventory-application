@@ -8,7 +8,7 @@ import { ApiErrorList, ApiErrorResponse, isCustomError, NotFoundError } from 'sh
 const app = express();
 // Middlewares
 app.use(cors({
-    origin: "*"
+    origin: process.env.CORS_ORIGIN?.split(',')
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
