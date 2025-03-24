@@ -5,6 +5,7 @@
 - [Introduction](#introduction)
 - [Tech Stack](#tech-stack)
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Installation (Development)](#installation-development)
 - [Installation (Production)](#installation-production)
 - [Project Structure](#project-structure)
@@ -46,6 +47,13 @@ To read about my experience from working on this project, please head to the sec
 - Responsive design
 - Skeleton loading
   
+## Screenshots
+
+![Homepage Dark](./blobs/home-dark.png)
+![Homepage Light](./blobs/home-light.png)
+![Pokemon Create/Update Form](./blobs/pokemon-form.png)
+![Trainer Create/Update Form](./blobs/trainer-form.png)
+
 ## Installation (Development)
 
 1. Clone the repository and move into the cloned folder:
