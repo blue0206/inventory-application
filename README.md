@@ -13,7 +13,7 @@
 
 ## Introduction
 
-This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers.  
+This is a mock inventory application where you can perform CRUD (Create, Read, Update, Delete) operations on pokémon and trainers, featuring a REST API built with NodeJS and Express.js, and a PostgreSQL database with Prisma ORM. The frontend is built with React and Redux Toolkit, utilizing shadcn/ui components for styling.
 To read about my experience from working on this project, please head to the section on [Reflections](#reflections).
 
 [Live Preview](https://inventory-application-delta.vercel.app/)  
@@ -160,7 +160,7 @@ I will share the problems I faced and how I tackled them one by one:
 
 ### Issue 1: Initial Setup
 
-The first and foremost issue here was how to going about making a full-stack web app. I explored and found
+The first and foremost issue here was how to go about making a full-stack web app. I explored and found
 two major ways to go about this:
 
 1. Create two separate repositories, one for frontend and another for backend.
