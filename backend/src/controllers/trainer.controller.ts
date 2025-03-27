@@ -145,7 +145,7 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
     }
 
     // Disconnect all pokemon in trainer model.
-    const connectedPokemonIds: TrainerPokemon = await prisma.trainer.findUnique({
+    const connectedPokemonIds: TrainerPokemon | null = await prisma.trainer.findUnique({
         where: {
             id: Number(trainerId),
         },
@@ -164,7 +164,7 @@ const updateTrainer = asyncHandler(async (req: Request, res: Response) => {
         },
         data: {
             pokemon: {
-                disconnect: connectedPokemonIds.pokemon.map(poke => ({ id: poke.id }))
+                disconnect: connectedPokemonIds?.pokemon.map(poke => ({ id: poke.id }))
             }
         }
     });

@@ -66,7 +66,7 @@ const createPokemon = asyncHandler(async (req: Request, res: Response) => {
     const pokemon: Pokemon = await prisma.pokemon.create({
         data: {
             name: toTitleCase(pokemonName),
-            types: pokemonTypes,
+            types: pokemonTypes as string[],
             imageLink: fetchedImage ? fetchedImage.trim() : fetchedImage,
         }
     });
@@ -218,7 +218,7 @@ const updatePokemon = asyncHandler(async (req: Request, res: Response) => {
         },
         data: {
             name: toTitleCase(pokemonName),
-            types: pokemonTypes,
+            types: pokemonTypes as string[],
             imageLink: fetchedImage ? fetchedImage.trim() : null,
         },
     });
