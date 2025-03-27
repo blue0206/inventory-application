@@ -4,7 +4,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
-    "module": "Node16"
+    "module": "Node16",
+    "noImplicitAny": true,
+    "strict": true
   },
   "include": ["src/**/*"],
   "strict": true
